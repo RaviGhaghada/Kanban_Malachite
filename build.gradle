@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'application'
+sourceCompatibility= 1.11
+targetCompatibility= 1.11
+mainClassName = 'app.App'
+dependencies {
+	compile 'junit:junit:4.13-rc-1'
+}
+repositories(){
+	mavenCentral();
+}
