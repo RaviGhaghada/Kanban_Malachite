@@ -12,24 +12,29 @@ public class BoardManager{
     }
 
     public void addBoard(String[] boarddetails) throws DuplicateNameException{
-        Board board = new BoardDetails(boarddetails);
-        
+        Board board = new Board(boarddetails);
         for (int i=0; i<this.boards.size(); i++)
-            if (this.boards[i].getName().equals(board.getName()))
-                throw new DuplicateNameException();
+            if (this.boards.get(i).getName().equals(board.getName()))
+                throw new DuplicateNameException("Board of same name already exists.");
+        boards.add(board);
     }
 
     public void removeBoard(){
         if (current != null)
-            this.boards.remove(current)
+            this.boards.remove(current);
         current = null;
     }
 
-    public void setCurrentBoard(String id){
+    public void setCurrentBoard(String boardid) throws UnknownBoardException{
         for (int i=0; i<this.boards.size(); i++)
-            if (boards[i].getId().equals(id)){
-                this.current = boards[i];
+            if (this.boards.get(i).getId().equals(boardid)){
+                this.current = this.boards.get(i);
                 break;
             }
+        throw new UnknownBoardException("Attempt to set current to inexistent board.");
+    }
+
+    public Board getCurrentBoard(){
+        return this.current;
     }
 }

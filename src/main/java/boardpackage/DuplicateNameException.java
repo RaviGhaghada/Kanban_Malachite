@@ -1,4 +1,6 @@
-class DuplicateNameException extends Exception{
+package boardpackage;
+
+public class DuplicateNameException extends Exception{
     public DuplicateNameException(String message){
         super(message);
     }
