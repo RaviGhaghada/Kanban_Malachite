@@ -10,7 +10,7 @@ public class Board{
 	public Board(String id, String name){
 		this.id = id;
 		this.name = name;
-		this,columns = new LinkedList<Column>();
+		this.columns = new LinkedList<Column>();
 	}
 
 	/**
