@@ -7,13 +7,11 @@ public class BoardManager{
     private ArrayList<Board> boards;
     private Board current;
 
-    private BoardManager bm;
 
     public BoardManager(){
         this.boards = new ArrayList<>();
         this.current = null;
 
-        this.bm = new BoardManager();
     }
 
     public void addBoard(String id, String name) throws DuplicateNameException{
@@ -36,7 +34,7 @@ public class BoardManager{
                 this.current = this.boards.get(i);
                 break;
             }
-        throw new UnknownBoardException("Attempt to set current to inexistent board.");
+        throw new UnknownBoardException("Attempt to set current to inexistent board."); //<-<-
     }
 
     public Board getCurrentBoard() {
