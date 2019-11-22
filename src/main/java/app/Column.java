@@ -38,7 +38,10 @@ public class Column {
     public String getID(){
         return ID;
     }
-
+	//gets List of cards
+	public LinkedList<Card> getCards(){
+		return cards;
+	}
     //changes the ID of a column
     public void setID(String IDIn){
         ID=IDIn;

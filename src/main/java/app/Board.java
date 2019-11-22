@@ -17,8 +17,10 @@ public class Board{
      *moves card with from one column to another
      */
     public void moveCardBetweenColumns(Card card, Column columnFrom, Column columnTo){
-        columnFrom.removeCard(card);
-        columnTo.addCard(card);
+	if(columnTo != null && columnFrom != null && card != null){
+        	columnFrom.removeCard(card);
+        	columnTo.addCard(card);
+	}
 
     }
 
@@ -29,8 +31,10 @@ public class Board{
         columns.remove(column);
     }
     public void moveColumn(Column column, int index){
-        columns.remove(column);
-        columns.add(index,column);
+	if(index < columns.size() && index >= 0&&column != null){
+		if(columns.remove(column))
+			columns.add(index,column);
+	}
     }
 
     //getters
