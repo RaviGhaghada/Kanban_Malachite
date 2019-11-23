@@ -27,6 +27,17 @@ public class WelcomeController {
 
     // board data
 
-    public boolean canSubmit = false; // restrict changing pane
+
+    public void forwardClick(ActionEvent actionEvent) throws Exception{
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxmlFiles/boardmanager.fxml"));
+        // Create a controller instance
+        BoardManagerController controller = new BoardManagerController();
+        // Set it in the FXMLLoader
+        loader.setController(controller);
+        Parent root = (Parent) loader.load();
+        forwardButton.getScene().setRoot(root);
+
+    }
 
 }
