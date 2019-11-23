@@ -1,4 +1,4 @@
-package app;
+package boardpackage;
 
 public class Card {
 

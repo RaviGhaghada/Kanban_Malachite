@@ -1,4 +1,4 @@
-package app;
+package boardpackage;
 
 public class DuplicateNameException extends Exception{
     public DuplicateNameException(String message){
