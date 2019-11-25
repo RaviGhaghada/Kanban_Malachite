@@ -3,5 +3,16 @@
 
 // But not these files
 !src/
+!src/*
+!src/*/
+!src/*/*
+!src/*/*/
+!src/*/*/*
+!src/*/*/*/
+!src/*/*/*/*
+!src/*/*/*/*/
+!src/*/*/*/*/*
+!src/*/*/*/*/*/
+!src/*/*/*/*/*/*
 !.gitignore
 !build.gradle
