@@ -34,7 +34,8 @@ public class BoardManager{
                 this.current = this.boards.get(i);
                 break;
             }
-        throw new UnknownBoardException("Attempt to set current to inexistent board."); //<-<-
+	if(current == null)
+        	throw new UnknownBoardException("Attempt to set current to inexistent board."); //<-<-
     }
 
     public Board getCurrentBoard() {
