@@ -19,7 +19,8 @@ public class Column {
 
     //To add cards to the column
     public void addCard(Card card){
-        cards.add(card);
+		if(card != null)
+        	cards.add(card);
     }
 
     //To remove cards from a column
@@ -29,9 +30,10 @@ public class Column {
 
     //To move cards within a column from one position to another
     public void moveCard(Card card, int finalIndex){
-        cards.remove(card);
+		if(finalIndex > 0 && finalIndex < cards.size())	
+        	if(cards.remove(card))
         //add the element to that index of hte linkedlist and moving the remaining elements up by 1
-        cards.add(finalIndex,card);
+        		cards.add(finalIndex,card);
     }
 
     //gets the ID of a column
