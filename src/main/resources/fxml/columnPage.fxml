@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ebf4ff#ebf4ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ColumnPageController">
+   <children>
+      <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #87CEFA;">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="333.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fitHeight="133.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="../images/Mello_Logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="addButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addColumnAction" style="-fx-min-width: 200; -fx-min-height: 50; -fx-background-color: transparent;" text="add column">
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="../images/plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Italic" size="22.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </GridPane>
+      <ScrollPane layoutY="50.0" prefHeight="550.0" prefWidth="1000.0" style="-fx-background-color: #D5F3FE;">
+         <content>
+            <HBox fx:id="columnHbox" fillHeight="false" spacing="30.0">
+               <padding>
+                  <Insets left="15.0" right="15.0" top="30.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

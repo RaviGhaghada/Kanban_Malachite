@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CardController">
+   <children>
+      <VBox layoutX="4.0" layoutY="3.0" prefHeight="392.0" prefWidth="593.0">
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="24.0">
+               <children>
+                  <TextField fx:id="cardTitle" prefHeight="27.0" prefWidth="232.0" promptText="type the card title...">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="252.0">
+               <children>
+                  <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxWidth="524.0" minWidth="524.0" prefHeight="204.0" prefWidth="524.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <TextArea fx:id="cardText" maxWidth="505.0" minWidth="505.0" opacity="0.7" prefHeight="217.0" prefWidth="505.0" promptText="add more detailed description about the task..." wrapText="true" />
+                     </content>
+                  </ScrollPane>
+               </children>
+               <padding>
+                  <Insets left="30.0" right="30.0" top="30.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <VBox prefHeight="78.0" prefWidth="584.0">
+               <children>
+                  <Button fx:id="saveAndClose" mnemonicParsing="false" onAction="#saveAndCloseAction" onMouseClicked="#saveAndCloseAction" prefHeight="37.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fx:id="save1" disable="true" fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="../images/saveIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="deleteCard1" mnemonicParsing="false" onAction="#deleteButtonAction" prefHeight="49.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="../images/bin.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>
