@@ -5,38 +5,39 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Locale;
+
+/**
+ * Controller for the Mello Welcome Page.
+ * Displays information about the application.
+ * Has a button that allows user to enter the application.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 
 public class WelcomeController {
-    // buttons on welcome fxml
+
+    // Buttons on Welcome Page
     public Button forwardButton;
+
+    // Stores all boards in the application
     ArrayList<Board> allBoards;
 
 
     /**
-     * On initialisaton, load all existing boards.
-     *
+     * On initialisation, load all existing boards.
      */
     @FXML
     protected void initialize() {
-        forwardButton.setOpacity(0.3);
-        allBoards = dataLoader.load();
+        //allBoards = dataLoader.load();
     }
 
-
+    /**
+     * Enables the forwardButton to open the Board Manager when clicked.
+     */
     public void forwardClick(ActionEvent actionEvent) throws Exception{
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
         System.out.println("I was clicked!");
         BoardManagerController controller = new BoardManagerController(allBoards);

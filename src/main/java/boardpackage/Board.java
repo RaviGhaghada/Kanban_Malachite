@@ -6,15 +6,17 @@ public class Board{
     private LinkedList<Column> columns;
     private String id;
     private String name;
+    private String description;
 
-    public Board(String id, String name){
+    public Board(String id, String name, String description){
         this.id = id;
         this.name = name;
+        this.description = description;
         this.columns = new LinkedList<Column>();
     }
 
     /**
-     *moves card with from one column to another
+     * Moves card with from one column to another
      */
     public void moveCardBetweenColumns(Card card, Column columnFrom, Column columnTo){
 	if(columnTo != null && columnFrom != null && card != null){
@@ -41,14 +43,29 @@ public class Board{
     public String getId(){
         return id;
     }
+
     public String getName(){
         return name;
     }
+
+    public String getDescription(){
+        return description;
+    }
+
     public LinkedList<Column> getColumns(){
         return columns;
     }
+
     //setter
     public void setName(String name){
         this.name = name;
+    }
+    //setter
+    public void setID(String id){
+        this.id = id;
+    }
+    //setter
+    public void setDescription(String id){
+        this.description = description;
     }
 }
