@@ -14,7 +14,7 @@
    <children>
        <ImageView fitHeight="341.0" fitWidth="370.0" layoutX="329.0" layoutY="36.0">
            <image>
-               <Image url="@assets/Mello_Logo.png" />
+               <Image url="../images/Mello_Logo.png" />
            </image>
        </ImageView>
       <Button onAction="#forwardClick" layoutX="375.0" layoutY="395.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="259.0" text="Get Started" textAlignment="CENTER">
