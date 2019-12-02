@@ -18,7 +18,6 @@ public class BoardManagerController implements Initializable {
     private ArrayList<Board> allBoards;
     public ListView<Board> boardListView;
 
-
     public BoardManagerController(ArrayList<Board> boardList) {
         allBoards =  boardList;
     }
@@ -66,7 +65,6 @@ public class BoardManagerController implements Initializable {
     }
 
     public void removeAction (ActionEvent actionEvent) {
-\
     }
 
     /**
