@@ -1,6 +1,7 @@
 package controllers;
 
 import app.Main;
+import boardpackage.BoardManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
@@ -21,6 +22,7 @@ public class ColumnController {
 
     public ColumnController() {
         childrenList = new ArrayList<>();
+
     }
 
     @FXML

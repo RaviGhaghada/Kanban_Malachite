@@ -37,11 +37,10 @@ public class WelcomeController {
     /**
      * Enables the forwardButton to open the Board Manager when clicked.
      */
+    // TODO: set the board manager to current board manager
     public void forwardClick(ActionEvent actionEvent) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
         System.out.println("I was clicked!");
-        BoardManagerController controller = new BoardManagerController(allBoards);
-        loader.setController(controller);
         Parent root = (Parent) loader.load();
         forwardButton.getScene().setRoot(root);
 

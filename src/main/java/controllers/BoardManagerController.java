@@ -1,6 +1,7 @@
 package controllers;
 
 import boardpackage.Board;
+import boardpackage.BoardManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -56,12 +57,6 @@ public class BoardManagerController implements Initializable {
      */
     public void addAction (ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/newboard.fxml"));
-
-        // Create a controller instance
-        NewBoardController controller = new NewBoardController();
-        // Set it in the FXMLLoader
-        loader.setController(controller);
-
         try {
             Parent popup = (Parent) loader.load();
             Stage stage = new Stage();
@@ -83,13 +78,15 @@ public class BoardManagerController implements Initializable {
      * Opens board popup if there is a listed board selected & available.
      * @param mouseEvent the details on the mouseClick event
      */
+    // TODO: set current board to selected board
     public void selectAction (MouseEvent mouseEvent) {
 
         Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
         if (selectedBoard == null) return; // nothing to click on
-
+        BoardManager.get().setCurrentBoard(selectedBoard);
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
             if (mouseEvent.getClickCount() == 2) {
+                BoardManager.get().setCurrentBoard(selectedBoard);
                 System.out.println("Double clicked");
                 openBoard(selectedBoard);
             }
@@ -103,11 +100,6 @@ public class BoardManagerController implements Initializable {
      */
     public void openBoard (Board board){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/board.fxml"));
-
-        // Create a controller instance
-        BoardController controller = new BoardController();
-        // Set it in the FXMLLoader
-        loader.setController(controller);
 
         try {
             Parent popup = (Parent) loader.load();

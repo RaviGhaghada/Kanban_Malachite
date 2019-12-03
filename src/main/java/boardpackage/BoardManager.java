@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 
 public class BoardManager{
+
+    static private BoardManager bm = null;
+
     private ArrayList<Board> boards;
     private Board current;
 
 
-    public BoardManager(){
+    private BoardManager(){
         this.boards = new ArrayList<>();
         this.current = null;
 
@@ -37,7 +40,19 @@ public class BoardManager{
         throw new UnknownBoardException("Attempt to set current to inexistent board."); //<-<-
     }
 
+    public void setCurrentBoard(Board board){
+        this.current = board;
+    }
+
     public Board getCurrentBoard() {
         return this.current;
     }
+
+    static public BoardManager get(){
+        if (bm == null){
+            bm = new BoardManager();
+        }
+        return bm;
+    }
+
 }
