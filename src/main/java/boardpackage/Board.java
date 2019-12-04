@@ -3,6 +3,7 @@ package boardpackage;
 import java.util.*;
 
 public class Board{
+
     private LinkedList<Column> columns;
     private String id;
     private String name;
@@ -17,10 +18,10 @@ public class Board{
      *moves card with from one column to another
      */
     public void moveCardBetweenColumns(Card card, Column columnFrom, Column columnTo){
-	if(columnTo != null && columnFrom != null && card != null){
-        	columnFrom.removeCard(card);
-        	columnTo.addCard(card);
-	}
+        if(columnTo != null && columnFrom != null && card != null){
+                columnFrom.removeCard(card);
+                columnTo.addCard(card);
+        }
 
     }
 

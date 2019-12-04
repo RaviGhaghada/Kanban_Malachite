@@ -6,9 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardManagerController">
    <children>
-      <ListView fx:id="boardListView" layoutX="5.0" layoutY="45.0" onMouseClicked="#selectAction" prefHeight="289.0" prefWidth="670.0" />
+      <ListView fx:id="boardListView" layoutX="11.0" layoutY="225.0" onMouseClicked="#selectAction" prefHeight="355.0" prefWidth="977.0" />
    </children>
 </AnchorPane>

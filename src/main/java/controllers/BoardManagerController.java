@@ -1,6 +1,6 @@
 package controllers;
 
-import boardpackage.Board;
+import boardpackage.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,43 +14,50 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controller for the Mello Board Manager.
+ * Displays all of the existing boards. Allows user to add, remove, and view boards.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
+
 public class BoardManagerController implements Initializable {
-    private ArrayList<Board> allBoards;
     public ListView<Board> boardListView;
 
-    public BoardManagerController(ArrayList<Board> boardList) {
-        allBoards =  boardList;
+    /**
+     * Constructor for BoardManagerController.
+     */
+    public BoardManagerController() {
+ 
     }
 
     /**
-     * Initializes the window.
+     * Initializes the window and adds all boards to the list.
      * @param location
      * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // property list styling
+        // Board list styling
         boardListView.setStyle("-fx-font-family: 'monospaced';");
 
-        // adds all properties in borough to list of properties to be displayed
-        for(Board board : allBoards){
+        // adds all boards available to list of boards to be displayed
+        boardListView = new ListView<Board>();
+
+        ArrayList<Board> boards = BoardManager.get().getBoards();
+
+        for(Board board : boards){
             boardListView.getItems().add(board);
         }
     }
 
     /**
-     * Allows user to add Board.
-     * Opens "New Board" popup.
+     * Allows user to add Board. Opens "New Board" popup.
      */
     public void addAction (ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/newboard.fxml"));
-
-        // Create a controller instance
-        NewBoardController controller = new NewBoardController();
-        // Set it in the FXMLLoader
-        loader.setController(controller);
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newboard.fxml"));
         try {
             Parent popup = (Parent) loader.load();
             Stage stage = new Stage();
@@ -69,30 +76,33 @@ public class BoardManagerController implements Initializable {
 
     /**
      * Checks mouseClick event for double click.
-     * Opens board popup if there is a list item selected & available.
+     * Opens board popup if there is a listed board selected & available.
      * @param mouseEvent the details on the mouseClick event
      */
-    public void selectAction (MouseEvent mouseEvent){
+    public void selectAction (MouseEvent mouseEvent) {
 
-        Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
-        if(selectedBoard == null) return; // nothing to click on
-
-        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-            if(mouseEvent.getClickCount() == 2){
-                System.out.println("Double clicked");
-                openBoard(selectedBoard);
+        try {
+            Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
+            if (selectedBoard == null) return; // nothing to click on
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
+                    BoardManager.get().setCurrentBoard(selectedBoard);
+                    System.out.println("Double clicked");
+                    openBoard();
+                }
             }
+        } catch (UnknownBoardException e) {
+            e.printStackTrace();
         }
+
 
     }
 
-    public void openBoard (Board board){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/board.fxml"));
-
-        // Create a controller instance
-        BoardController controller = new BoardController(board);
-        // Set it in the FXMLLoader
-        loader.setController(controller);
+    /**
+     * Opens the window with selected board.
+     */
+    public void openBoard (){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
 
         try {
             Parent popup = (Parent) loader.load();
