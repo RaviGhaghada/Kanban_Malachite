@@ -24,10 +24,9 @@ public class BoardManager{
         return bm;
     }
 
-    public void addBoard(String id, String name) throws DuplicateNameException{
-        Board board = new Board(id,name);
+    public void addBoard(Board board) throws DuplicateNameException{
         for (int i=0; i<this.boards.size(); i++)
-            if (this.boards.get(i).getName().equals(name))
+            if (this.boards.get(i).getName().equals(board.getName()))
                 throw new DuplicateNameException("Board of same name already exists.");
         boards.add(board);
     }

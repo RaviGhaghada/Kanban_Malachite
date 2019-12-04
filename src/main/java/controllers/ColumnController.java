@@ -28,7 +28,7 @@ public class ColumnController {
     @FXML
     public void addCardAction() {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("cardHbox.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/cardHbox.fxml"));
         try {
             HBox cardInColumn = loader.load();
             smallCardController smallCard = loader.getController();

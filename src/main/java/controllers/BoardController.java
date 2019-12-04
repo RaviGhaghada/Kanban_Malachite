@@ -18,7 +18,7 @@ public class BoardController {
     @FXML
     public void addColumnAction(){
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("column.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/column.fxml"));
 
         try{
             VBox newCol = loader.load();

@@ -29,13 +29,12 @@ public class WelcomeController {
      */
     @FXML
     protected void initialize() {
-        BoardManager.get(); // to construct single instance within
+        BoardManager.get(); // to construct single instance enclosed within
     }
 
     /**
      * Enables the forwardButton to open the Board Manager when clicked.
      */
-    // TODO: set the board manager to current board manager
     public void forwardClick(ActionEvent actionEvent) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
         System.out.println("I was clicked!");

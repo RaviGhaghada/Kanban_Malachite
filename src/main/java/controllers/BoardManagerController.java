@@ -57,7 +57,7 @@ public class BoardManagerController implements Initializable {
      * Allows user to add Board. Opens "New Board" popup.
      */
     public void addAction (ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/newboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newboard.fxml"));
         try {
             Parent popup = (Parent) loader.load();
             Stage stage = new Stage();
@@ -102,7 +102,7 @@ public class BoardManagerController implements Initializable {
      * Opens the window with selected board.
      */
     public void openBoard (){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/board.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
 
         try {
             Parent popup = (Parent) loader.load();
@@ -116,5 +116,4 @@ public class BoardManagerController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }
