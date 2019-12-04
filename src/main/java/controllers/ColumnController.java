@@ -1,6 +1,7 @@
 package controllers;
 
 import app.Main;
+import boardpackage.BoardManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
@@ -21,12 +22,13 @@ public class ColumnController {
 
     public ColumnController() {
         childrenList = new ArrayList<>();
+
     }
 
     @FXML
     public void addCardAction() {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("cardHbox.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/cardHbox.fxml"));
         try {
             HBox cardInColumn = loader.load();
             smallCardController smallCard = loader.getController();

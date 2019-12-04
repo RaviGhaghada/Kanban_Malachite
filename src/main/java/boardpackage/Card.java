@@ -2,32 +2,37 @@ package boardpackage;
 
 public class Card {
 
-    private String ID;
-    private String Text = "";
 
-    public Card(String IDIn){
-        ID=IDIn;
+    private Column parentColumn = null;
+    private String id;
+    private String title = "";
+    private String text = "";
+    private String storypoints = "";
+
+    public Card(){
+        parentColumn = BoardManager.get().getCurrentColumn();
+        parentColumn.addCard(this);
     }
 
     //Changes the text of a card
     //initially the text is ""
-    public void editText(String TextIn){
-        Text = TextIn;
+    public void setText(String textIn){
+        text = textIn;
     }
 
     //gets the text of a card
     public String getText(){
-        return Text;
+        return text;
     }
 
     //gets the ID of a card
-    public String getID(){
-        return ID;
+    public String getId(){
+        return id;
     }
 
     //changes the ID of the card
     public void setID(String IDIn){
-        ID=IDIn;
+        id=IDIn;
     }
 
 
