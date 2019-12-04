@@ -3,49 +3,18 @@ package boardpackage;
 import java.util.ArrayList;
 
 
-public class BoardManager{
-
-    static private BoardManager bm = null;
+public class BoardManager{ 
+    private static BoardManager bm = null;
 
     private ArrayList<Board> boards;
-    private Board current;
-
+    private Board currentBoard = null;
+    private Column currentColumn = null;
+    private Card currentCard = null;
 
     private BoardManager(){
         this.boards = new ArrayList<>();
-        this.current = null;
+        this.currentBoard= null;
 
-    }
-
-    public void addBoard(String id, String name, String description) throws DuplicateNameException{
-        Board board = new Board(id,name,description);
-        for (int i=0; i<this.boards.size(); i++)
-            if (this.boards.get(i).getName().equals(name))
-                throw new DuplicateNameException("Board of same name already exists.");
-        boards.add(board);
-    }
-
-    public void removeBoard(){
-        if (current != null)
-            this.boards.remove(current);
-        current = null;
-    }
-
-    public void setCurrentBoard(String boardid) throws UnknownBoardException{
-        for (int i=0; i<this.boards.size(); i++)
-            if (this.boards.get(i).getId().equals(boardid)){
-                this.current = this.boards.get(i);
-                break;
-            }
-        throw new UnknownBoardException("Attempt to set current to inexistent board."); //<-<-
-    }
-
-    public void setCurrentBoard(Board board){
-        this.current = board;
-    }
-
-    public Board getCurrentBoard() {
-        return this.current;
     }
 
     static public BoardManager get(){
@@ -53,6 +22,51 @@ public class BoardManager{
             bm = new BoardManager();
         }
         return bm;
+    }
+
+    public void addBoard(String id, String name) throws DuplicateNameException{
+        Board board = new Board(id,name);
+        for (int i=0; i<this.boards.size(); i++)
+            if (this.boards.get(i).getName().equals(name))
+                throw new DuplicateNameException("Board of same name already exists.");
+        boards.add(board);
+    }
+
+    public void removeBoard(){
+        if (this.currentBoard!= null)
+            this.boards.remove(this.currentBoard);
+        this.currentBoard= null;
+    }
+
+    public void setCurrentBoard(Board board) throws UnknownBoardException{
+        if (!boards.contains(board)) {
+            throw new UnknownBoardException("Attempt to feed alien board to BoardManager");
+        }
+        this.currentBoard = board;
+    }
+
+    public Board getCurrentBoard() {
+        return this.currentBoard;
+    }
+
+    public Column getCurrentColumn() {
+        return currentColumn;
+    }
+
+    public void setCurrentColumn(Column currentColumn) {
+        this.currentColumn = currentColumn;
+    }
+
+    public Card getCurrentCard() {
+        return currentCard;
+    }
+
+    public void setCurrentCard(Card currentCard) {
+        this.currentCard = currentCard;
+    }
+
+    public ArrayList<Board> getBoards(){
+        return boards;
     }
 
 }

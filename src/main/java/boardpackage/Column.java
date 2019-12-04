@@ -6,15 +6,18 @@ import java.util.*;
 
 public class Column {
 
-    private String ID;
+    private Board parentBoard;
+    private String id;
     private String heading;
-    // private ArrayList<Card> cards;
+    private String role;
     private LinkedList<Card> cards;
 
-    public Column(String headingIn, String IDIn){
+    public Column(String headingIn){
         heading = headingIn;
-        ID = IDIn;
         cards = new LinkedList<>();
+
+        parentBoard = BoardManager.get().getCurrentBoard();
+        parentBoard.addColumn(this);
     }
 
     //To add cards to the column
@@ -36,15 +39,15 @@ public class Column {
 
     //gets the ID of a column
     public String getID(){
-        return ID;
+        return id;
     }
 	//gets List of cards
 	public LinkedList<Card> getCards(){
 		return cards;
 	}
     //changes the ID of a column
-    public void setID(String IDIn){
-        ID=IDIn;
+    public void setId(String IDIn){
+        id=IDIn;
     }
 
     //gets the heading of the column
