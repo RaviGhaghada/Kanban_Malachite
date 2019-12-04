@@ -30,6 +30,7 @@ public class WelcomeController {
     @FXML
     protected void initialize() {
         BoardManager.get(); // to construct single instance enclosed within
+
     }
 
     /**

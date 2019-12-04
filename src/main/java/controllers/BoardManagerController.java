@@ -2,6 +2,7 @@ package controllers;
 
 import boardpackage.*;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -24,6 +25,9 @@ import java.util.*;
 
 public class BoardManagerController implements Initializable {
     public ListView<Board> boardListView;
+
+    @FXML
+    public Button backButton;
 
     /**
      * Constructor for BoardManagerController.
@@ -75,30 +79,6 @@ public class BoardManagerController implements Initializable {
     }
 
     /**
-     * Checks mouseClick event for double click.
-     * Opens board popup if there is a listed board selected & available.
-     * @param mouseEvent the details on the mouseClick event
-     */
-    public void selectAction (MouseEvent mouseEvent) {
-
-        try {
-            Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
-            if (selectedBoard == null) return; // nothing to click on
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                if (mouseEvent.getClickCount() == 2) {
-                    BoardManager.get().setCurrentBoard(selectedBoard);
-                    System.out.println("Double clicked");
-                    openBoard();
-                }
-            }
-        } catch (UnknownBoardException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    /**
      * Opens the window with selected board.
      */
     public void openBoard (){
@@ -115,5 +95,61 @@ public class BoardManagerController implements Initializable {
             System.out.println("failed to launch popup");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Checks mouseClick event for double click.
+     * Opens board popup if there is a listed board selected & available.
+     * @param mouseEvent the details on the mouseClick event
+     */
+    public void selectAction (MouseEvent mouseEvent) {
+
+//        try {
+            Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
+            if (selectedBoard == null) return; // nothing to click on
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
+                    BoardManager.get().setCurrentBoard(selectedBoard);
+                    System.out.println("Double clicked");
+                    openBoard();
+                }
+            }
+//        } catch (UnknownBoardException e) {
+//            e.printStackTrace();
+//        }
+
+    }
+
+
+    /**
+     * Enables the forwardButton to open the Board Manager when clicked.
+     */
+    public void backClick(ActionEvent actionEvent) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/welcome.fxml"));
+        System.out.println("I was clicked!");
+        Parent root = (Parent) loader.load();
+        Scene s = backButton.getScene();
+        s.setRoot(root);
+
+    }
+
+    /**
+     * Checks mouseClick event for double click.
+     * Opens board if there is a board selected & available.
+     * @param mouseEvent the details on the mouseClick event
+     */
+    public void listViewClicked (MouseEvent mouseEvent) {
+
+        Board selectedItem = boardListView.getSelectionModel().getSelectedItem();
+
+        if(selectedItem == null) return; // nothing to click on
+
+        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+            if(mouseEvent.getClickCount() == 2){
+                System.out.println("Double clicked");
+                openBoard();
+            }
+        }
+
     }
 }

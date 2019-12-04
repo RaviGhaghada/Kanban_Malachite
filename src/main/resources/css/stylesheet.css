@@ -5,11 +5,11 @@
    -fx-background-color: add8e6;
 }
 
-.button {
+.backButton {
     -fx-background-color:transparent ;
     -fx-background-radius:0;
     -fx-border-color:grey;
-    -fx-border-width: 1 1 1 1;
+    -fx-background-image: url("..images/arrow_left.png");
 }
 
 .button:hover {
