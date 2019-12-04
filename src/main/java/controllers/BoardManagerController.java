@@ -81,18 +81,14 @@ public class BoardManagerController implements Initializable {
      */
     public void selectAction (MouseEvent mouseEvent) {
 
-        try {
-            Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
-            if (selectedBoard == null) return; // nothing to click on
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                if (mouseEvent.getClickCount() == 2) {
-                    BoardManager.get().setCurrentBoard(selectedBoard);
-                    System.out.println("Double clicked");
-                    openBoard();
-                }
+        Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
+        if (selectedBoard == null) return; // nothing to click on
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 2) {
+                BoardManager.get().setCurrentBoard(selectedBoard);
+                System.out.println("Double clicked");
+                openBoard();
             }
-        } catch (UnknownBoardException e) {
-            e.printStackTrace();
         }
 
 

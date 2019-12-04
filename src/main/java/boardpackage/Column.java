@@ -1,64 +1,162 @@
 package boardpackage;
-//Manvi Jain
-//12-11-2019
-
 import java.util.*;
 
+/**
+ * Represent a column of a Kanban board
+ */
 public class Column {
 
+    private Board parent;
     private Board parentBoard;
     private String id;
-    private String heading;
+    private String title;
     private String role;
     private LinkedList<Card> cards;
 
-    public Column(String headingIn){
-        heading = headingIn;
+    /**
+     * Special constructor for a column
+     * that is package private
+     * It must only be used to create a column from data loaded
+     * from a json file
+     */
+    Column (Board parent, String id, String title, String role){
+        this.parent = parent;
+        parent.addColumn(this);
+
+        this.id = id;
+        this.title = title;
+        this.role = role;
+
+        cards = new LinkedList<>();
+    }
+
+    /**
+     * Constructor for a column
+     * @param title heading of the column
+     */
+    public Column(String title){
+        this.title = title;
         cards = new LinkedList<>();
 
         parentBoard = BoardManager.get().getCurrentBoard();
         parentBoard.addColumn(this);
+
+        // TODO: request the logger to give us a new unique id for this column
     }
 
-    //To add cards to the column
-    public void addCard(Card card){
+    /**
+     * Change the position of a card within the column
+     * @param card
+     * @param finalIndex
+     */
+    public void moveCard(Card card, int finalIndex){
+        if (cards.contains(card)) {
+            cards.remove(card);
+            cards.add(finalIndex, card);
+        }
+        // TODO: low priority notification for the logger
+    }
+
+    /**
+     * Get the ID of a column
+     * @return unique id of the column
+     */
+    public String getId(){
+        return id;
+    }
+
+    /**
+     * Get the list of cards
+     * @return A list of cards
+     */
+    public LinkedList<Card> getCards(){
+        return cards;
+    }
+
+    /**
+     * Add a card to a column
+     * Set to package private.
+     * @param card card to be added
+     */
+    void addCard(Card card){
+        // TODO: notify logger
         cards.add(card);
     }
 
-    //To remove cards from a column
-    public void removeCard(Card card){
+    /**
+     * Remove a card from a column
+     * Set to package-private
+     * @param card
+     */
+    void removeCard(Card card){
         cards.remove(card);
     }
 
-    //To move cards within a column from one position to another
-    public void moveCard(Card card, int finalIndex){
-        cards.remove(card);
-        //add the element to that index of hte linkedlist and moving the remaining elements up by 1
-        cards.add(finalIndex,card);
+    /**
+     * Get the title of a column
+     * @return title
+     */
+    public String getTitle(){
+        return title;
     }
 
-    //gets the ID of a column
-    public String getID(){
-        return id;
-    }
-	//gets List of cards
-	public LinkedList<Card> getCards(){
-		return cards;
-	}
-    //changes the ID of a column
-    public void setId(String IDIn){
-        id=IDIn;
+
+    /**
+     * Set the title of a column
+     * @param title
+     */
+    public void setTitle(String title){
+        if (!this.title.equals(title)) {
+            this.title = title;
+            // TODO: notify the logger
+        }
     }
 
-    //gets the heading of the column
-    public String getHeading(){
-        return heading;
+    /**
+     * Set the id of the column
+     * Ideally should only be done while reading a column from a .json file
+     * This method is package-private.
+     * @param s
+     */
+    void setId(String s){
+        this.id = s;
     }
 
-    //changes the heading of our column
-    public void setHeading(String headingIn){
-        heading = headingIn;
+    /**
+     * Get the role of the card
+     * @return role
+     */
+    public String getRole() {
+        return role;
     }
 
+    /**
+     * Set the role of a card
+     * @param role
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    /**
+     * Set the id of the column
+     * Ideally should only be done while reading a column from a .json file
+     * This method is package-private.
+     * @param board parent
+     */
+    void setParentBoard(Board board){
+        this.parentBoard = board;
+    }
+
+
+    public void delete(){
+        this.parentBoard.removeColumn(this);
+        this.parentBoard = null;
+        if (this.equals(BoardManager.get().getCurrentColumn())){
+            BoardManager.get().setCurrentColumn(null);
+            BoardManager.get().setCurrentCard(null);
+        }
+        // TODO: notify the logger about deletion of this column
+    }
 
 }
