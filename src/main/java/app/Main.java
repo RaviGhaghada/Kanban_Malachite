@@ -10,8 +10,8 @@ import javafx.stage.Stage;
  * Main class for the Mello GUI. Extends the Application class
  * and launches the GUI when run.
  *
- * @Author Mariam Ahmed, Ravi, Manvi, Rojina, and Marek
- * @Version November 2019
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
 public class Main extends Application {
 

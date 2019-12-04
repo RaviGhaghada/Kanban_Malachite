@@ -1,21 +1,36 @@
-package controllers;
+package controllers;//add package later
 
-import javafx.event.ActionEvent;
+import app.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class BoardController {
+
+    @FXML
+    private HBox columnHbox ;   //the hbox containing al of the columns.
+
+    public BoardController(){}
+
+    //add functionality to the button "add column".
+    @FXML
+    public void addColumnAction(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/column.fxml"));
+
+        try{
+            VBox newCol = loader.load();
+            columnHbox.getChildren().add(newCol);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 }
