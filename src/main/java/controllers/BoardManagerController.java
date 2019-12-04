@@ -89,11 +89,6 @@ public class BoardManagerController implements Initializable {
     public void openBoard (Board board){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/board.fxml"));
 
-        // Create a controller instance
-        BoardController controller = new BoardController(board);
-        // Set it in the FXMLLoader
-        loader.setController(controller);
-
         try {
             Parent popup = (Parent) loader.load();
             Stage stage = new Stage();

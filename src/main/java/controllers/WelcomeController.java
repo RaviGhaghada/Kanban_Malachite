@@ -31,7 +31,6 @@ public class WelcomeController {
     @FXML
     protected void initialize() {
         forwardButton.setOpacity(0.3);
-        allBoards = dataLoader.load();
     }
 
 
@@ -39,8 +38,6 @@ public class WelcomeController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
         System.out.println("I was clicked!");
-        BoardManagerController controller = new BoardManagerController(allBoards);
-        loader.setController(controller);
         Parent root = (Parent) loader.load();
         forwardButton.getScene().setRoot(root);
 
