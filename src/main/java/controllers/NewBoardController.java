@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 public class NewBoardController{
 
     public TextField boardTitle = new TextField();
+    // TODO: remove the boardDescription TextField
     public TextField boardDescription = new TextField();
 
     @FXML
@@ -26,8 +27,8 @@ public class NewBoardController{
 //        if (boardTitle.getText() == null){
 //            // Error pop up
 //        } else {
-        new Board(boardTitle.getText());
-
+        Board b = new Board(boardTitle.getText());
+        BoardManager.get().setCurrentBoard(b);
 //        }
 
     }
