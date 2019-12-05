@@ -23,7 +23,7 @@ import java.util.*;
  * @Version December 2019
  */
 
-public class BoardManagerController implements Initializable {
+public class BoardManagerController {
     public ListView<Board> boardListView;
 
     @FXML
@@ -38,11 +38,9 @@ public class BoardManagerController implements Initializable {
 
     /**
      * Initializes the window and adds all boards to the list.
-     * @param location
-     * @param resources
      */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
 
         // Board list styling
         boardListView.setStyle("-fx-font-family: 'monospaced';");
@@ -60,6 +58,7 @@ public class BoardManagerController implements Initializable {
     /**
      * Allows user to add Board. Opens "New Board" popup.
      */
+    @FXML
     public void addAction (ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newboard.fxml"));
         try {
@@ -104,19 +103,15 @@ public class BoardManagerController implements Initializable {
      */
     public void selectAction (MouseEvent mouseEvent) {
 
-//        try {
-            Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
-            if (selectedBoard == null) return; // nothing to click on
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                if (mouseEvent.getClickCount() == 2) {
-                    BoardManager.get().setCurrentBoard(selectedBoard);
-                    System.out.println("Double clicked");
-                    openBoard();
-                }
+        Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
+        if (selectedBoard == null) return; // nothing to click on
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 2) {
+                BoardManager.get().setCurrentBoard(selectedBoard);
+                System.out.println("Double clicked");
+                openBoard();
             }
-//        } catch (UnknownBoardException e) {
-//            e.printStackTrace();
-//        }
+        }
 
     }
 
