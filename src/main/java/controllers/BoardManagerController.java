@@ -4,7 +4,6 @@ import boardpackage.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,6 +23,7 @@ import java.util.*;
  */
 
 public class BoardManagerController {
+    // The ListView to store all existing boards
     public ListView<Board> boardListView;
 
     @FXML
@@ -37,7 +37,7 @@ public class BoardManagerController {
     }
 
     /**
-     * Initializes the window and adds all boards to the list.
+     * Initializes the window and adds all existing boards to the ListView.
      */
     @FXML
     public void initialize() {
@@ -58,9 +58,15 @@ public class BoardManagerController {
     /**
      * Allows user to add Board. Opens "New Board" popup.
      */
+    // TODO: Functionality of creating new board and adding to boards
     @FXML
     public void addAction (ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newboard.fxml"));
+//        // Create a controller instance
+//        NewBoardController controller = new NewBoardController();
+//        // Set it in the FXMLLoader
+//        loader.setController(controller);
+
         try {
             Parent popup = (Parent) loader.load();
             Stage stage = new Stage();
@@ -80,7 +86,8 @@ public class BoardManagerController {
     /**
      * Opens the window with selected board.
      */
-    public void openBoard (){
+    // TODO: Functionality of opening correct board
+    public void openBoard (Board board){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
 
         try {
@@ -104,12 +111,14 @@ public class BoardManagerController {
     public void selectAction (MouseEvent mouseEvent) {
 
         Board selectedBoard = boardListView.getSelectionModel().getSelectedItem();
+
         if (selectedBoard == null) return; // nothing to click on
+
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
             if (mouseEvent.getClickCount() == 2) {
                 BoardManager.get().setCurrentBoard(selectedBoard);
                 System.out.println("Double clicked");
-                openBoard();
+                openBoard(selectedBoard);
             }
         }
 
@@ -117,7 +126,7 @@ public class BoardManagerController {
 
 
     /**
-     * Enables the forwardButton to open the Board Manager when clicked.
+     * Enables the backButton to open the Welcome page when clicked.
      */
     public void backClick(ActionEvent actionEvent) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/welcome.fxml"));
@@ -128,23 +137,4 @@ public class BoardManagerController {
 
     }
 
-    /**
-     * Checks mouseClick event for double click.
-     * Opens board if there is a board selected & available.
-     * @param mouseEvent the details on the mouseClick event
-     */
-    public void listViewClicked (MouseEvent mouseEvent) {
-
-        Board selectedItem = boardListView.getSelectionModel().getSelectedItem();
-
-        if(selectedItem == null) return; // nothing to click on
-
-        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-            if(mouseEvent.getClickCount() == 2){
-                System.out.println("Double clicked");
-                openBoard();
-            }
-        }
-
-    }
 }
