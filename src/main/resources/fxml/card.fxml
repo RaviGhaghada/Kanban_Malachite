@@ -45,7 +45,7 @@
                      <graphic>
                         <ImageView fx:id="save1" disable="true" fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="../images/saveIcon.png" />
+                              <Image url="@../images/saveIcon.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -56,9 +56,9 @@
                   <Button fx:id="deleteCard1" mnemonicParsing="false" onAction="#deleteButtonAction" prefHeight="49.0" prefWidth="50.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="../images/bin.png" />
-                           </image>
+                              <image>
+                                 <Image url="@../images/bin.png" />
+                              </image>
                         </ImageView>
                      </graphic>
                      <VBox.margin>

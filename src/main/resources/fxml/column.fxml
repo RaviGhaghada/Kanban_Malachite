@@ -29,7 +29,7 @@
                            <graphic>
                               <ImageView fitHeight="26.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="../images/plus.png" />
+                                    <Image url="@../images/plus.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -38,7 +38,7 @@
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="20.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="../images/unprotected.png" />
+                                    <Image url="@../images/unprotected.png" />
                                  </image>
                               </ImageView>
                            </graphic>

@@ -1,5 +1,4 @@
 package controllers;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +22,7 @@ public class smallCardController {
     public void smallCardBtnAction(){
         Parent root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("cardFXML.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cardFXML.fxml"));
             root = loader.load();
             CardController cardC = loader.getController();
             cardC.setFollow(cardDisplayText);
