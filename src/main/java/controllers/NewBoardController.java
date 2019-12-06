@@ -36,7 +36,7 @@ public class NewBoardController {
      */
     public void newBoardErrorPopup(String errorMessage){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/fxml/errorpopup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/errorpopup.fxml"));
             // Create a controller instance
             ErrorPopupController controller = new ErrorPopupController(errorMessage);
             // Set it in the FXMLLoader
@@ -63,12 +63,11 @@ public class NewBoardController {
     // TODO: create new board
     // TODO: error for duplicate names
     public void saveAndCloseAction(){
-        if (boardTitle.getText() == null){
+        if (boardTitle.getText().length() == 0){
             newBoardErrorPopup("Please give your board a name");
         } else {
             Board b = new Board(boardTitle.getText());
-//            BoardManager.get().setCurrentBoard(b);
-            Stage stage = (Stage) saveButton.getScene().getWindow();
+            BoardManager.get().setCurrentBoard(b);
             stage.close();
         }
 

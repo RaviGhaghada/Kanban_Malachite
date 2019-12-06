@@ -28,7 +28,7 @@
                <graphic>
                   <ImageView fitHeight="133.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="../images/Mello_Logo.png" />
+                        <Image url="@../images/Mello_Logo.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -37,7 +37,7 @@
                <graphic>
                   <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="../images/plus.png" />
+                        <Image url="@../images/plus.png" />
                      </image>
                   </ImageView>
                </graphic>
