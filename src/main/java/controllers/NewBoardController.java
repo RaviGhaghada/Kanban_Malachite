@@ -9,14 +9,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
+import javafx.event.ActionEvent;
 
 public class NewBoardController {
 
     public TextField boardTitle = new TextField();
 
     @FXML
-    public Button cancelButton; // button labeled as "Cancel" in popup
-    public Button saveButton; // button labeled as "Save" in popup
+    public Button cancelButton = new Button(); // button labeled as "Cancel" in popup
+    public Button saveButton = new Button(); // button labeled as "Save" in popup
+
+    public Stage stage;
 
     /**
      * Initializes the NewBoard popup window.
@@ -64,19 +67,25 @@ public class NewBoardController {
             newBoardErrorPopup("Please give your board a name");
         } else {
             Board b = new Board(boardTitle.getText());
-            BoardManager.get().setCurrentBoard(b);
+//            BoardManager.get().setCurrentBoard(b);
             Stage stage = (Stage) saveButton.getScene().getWindow();
             stage.close();
         }
 
     }
 
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+
     /**
      * Closes NewBoard popup when cancelButton is selected.
      */
     @FXML
-    public void cancelAction(){
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
+    public void cancelAction(ActionEvent event){
+        //Button cancelButton = new Button();
+//        cancelButton.getScene().getWindow();
+//        Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 }
