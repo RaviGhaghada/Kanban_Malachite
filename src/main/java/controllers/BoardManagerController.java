@@ -23,7 +23,8 @@ import java.util.*;
  */
 
 public class BoardManagerController {
-    // The ListView to store all existing boards
+
+    @FXML
     public ListView<Board> boardListView;
 
     @FXML
@@ -33,7 +34,7 @@ public class BoardManagerController {
      * Constructor for BoardManagerController.
      */
     public BoardManagerController() {
- 
+
     }
 
     /**
@@ -45,14 +46,24 @@ public class BoardManagerController {
         // Board list styling
         boardListView.setStyle("-fx-font-family: 'monospaced';");
 
-        // adds all boards available to list of boards to be displayed
-        boardListView = new ListView<Board>();
+        boardListView.getItems().add(new Board("Rojina"));
 
-        ArrayList<Board> boards = BoardManager.get().getBoards();
+        boardListView.setCellFactory(lv -> new ListCell<Board>() {
+            @Override
+            public void updateItem(Board item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    String text = item.getTitle();
+                    setText(text);
+                }
+            }
+        });
 
-        for(Board board : boards){
-            boardListView.getItems().add(board);
-        }
+
+
+
     }
 
     /**
@@ -76,7 +87,7 @@ public class BoardManagerController {
 
 
             ((NewBoardController)loader.getController()).setStage(stage);
-            // Create a controller instance
+            // Get a controller instance
             // Set it in the FXMLLoader
         }
         catch (Exception e){
@@ -91,6 +102,7 @@ public class BoardManagerController {
     // TODO: Functionality of opening correct board
     public void openBoard (Board board){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
+        BoardManager.get().setCurrentBoard(board);
 
         try {
             Parent popup = (Parent) loader.load();
@@ -98,7 +110,7 @@ public class BoardManagerController {
             stage.setScene(new Scene(popup));
             stage.setResizable(false);
             stage.show();
-//            boardList BoardManager.get().getCurrentBoard();
+
         }
         catch (Exception e){
             System.out.println("failed to launch popup");

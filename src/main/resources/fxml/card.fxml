@@ -15,7 +15,7 @@
    <children>
       <VBox layoutX="4.0" layoutY="3.0" prefHeight="392.0" prefWidth="593.0">
          <children>
-            <HBox alignment="TOP_CENTER" prefHeight="24.0">
+            <HBox alignment="TOP_CENTER" prefHeight="24.0" prefWidth="593.0">
                <children>
                   <TextField fx:id="cardTitle" prefHeight="27.0" prefWidth="232.0" promptText="type the card title...">
                      <HBox.margin>
@@ -24,13 +24,18 @@
                   </TextField>
                </children>
             </HBox>
-            <HBox prefHeight="252.0">
+            <HBox prefHeight="500.0" prefWidth="593.0">
                <children>
-                  <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxWidth="524.0" minWidth="524.0" prefHeight="204.0" prefWidth="524.0" vbarPolicy="ALWAYS">
-                     <content>
-                        <TextArea fx:id="cardText" maxWidth="505.0" minWidth="505.0" opacity="0.7" prefHeight="217.0" prefWidth="505.0" promptText="add more detailed description about the task..." wrapText="true" />
-                     </content>
-                  </ScrollPane>
+                  <VBox prefHeight="207.0" prefWidth="499.0">
+                     <children>
+                        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxWidth="524.0" minWidth="361.0" prefHeight="129.0" prefWidth="510.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <TextArea fx:id="cardText" maxWidth="507.0" minWidth="303.0" opacity="0.7" prefHeight="137.0" prefWidth="507.0" promptText="add more detailed description about the task..." wrapText="true" />
+                           </content>
+                        </ScrollPane>
+                        <TextArea fx:id="CardStory" minWidth="-Infinity" prefHeight="86.0" prefWidth="513.0" promptText="card's Stroy point" wrapText="true" />
+                     </children>
+                  </VBox>
                </children>
                <padding>
                   <Insets left="30.0" right="30.0" top="30.0" />
@@ -56,9 +61,9 @@
                   <Button fx:id="deleteCard1" mnemonicParsing="false" onAction="#deleteButtonAction" prefHeight="49.0" prefWidth="50.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@../images/bin.png" />
-                              </image>
+                           <image>
+                              <Image url="@../images/bin.png" />
+                           </image>
                         </ImageView>
                      </graphic>
                      <VBox.margin>
@@ -70,6 +75,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" />
          </children>
       </VBox>
    </children>
