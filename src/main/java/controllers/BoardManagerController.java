@@ -16,7 +16,7 @@ import java.util.*;
 
 /**
  * Controller for the Mello Board Manager.
- * Displays all of the existing boards. Allows user to add, remove, and view boards.
+ * Displays all of the existing boards. Allows user to add and select boards.
  *
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
@@ -62,7 +62,7 @@ public class BoardManagerController {
     @FXML
     public void addAction (ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newboard.fxml"));
-//        // Create a controller instance
+        // Create a controller instance
 //        NewBoardController controller = new NewBoardController();
 //        // Set it in the FXMLLoader
 //        loader.setController(controller);
@@ -73,14 +73,16 @@ public class BoardManagerController {
             stage.setScene(new Scene(popup));
             stage.setResizable(false);
             stage.show();
+
+
+            ((NewBoardController)loader.getController()).setStage(stage);
+            // Create a controller instance
+            // Set it in the FXMLLoader
         }
         catch (Exception e){
             System.out.println("failed to launch popup");
             e.printStackTrace();
         }
-    }
-
-    public void removeAction (ActionEvent actionEvent) {
     }
 
     /**
@@ -96,6 +98,7 @@ public class BoardManagerController {
             stage.setScene(new Scene(popup));
             stage.setResizable(false);
             stage.show();
+//            boardList BoardManager.get().getCurrentBoard();
         }
         catch (Exception e){
             System.out.println("failed to launch popup");
