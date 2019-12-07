@@ -28,10 +28,10 @@
             <Insets bottom="5.0" right="5.0" />
          </VBox.margin></VBox>
 
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="475.0" style="-fx-background-image: url('../../rebackGroud.jpg');" VBox.vgrow="ALWAYS">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="475.0" style="-fx-background-image: url('../../rebackGroud.jpg');" VBox.vgrow="ALWAYS">
 
          <content>
-            <VBox fx:id="cardContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="432.0" minWidth="-Infinity" prefHeight="445.0" prefWidth="245.0" style="-fx-background-image: url('backGroud.jpg'); -fx-background-size: 270px 500px;">
+            <VBox fx:id="cardContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="432.0" minWidth="-Infinity" prefWidth="245.0" style="-fx-background-image: url('backGroud.jpg'); -fx-background-size: 270px 500px;">
                <children>
                   <HBox prefHeight="27.0">
                      <children>
