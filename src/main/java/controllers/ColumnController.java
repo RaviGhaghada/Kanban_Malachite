@@ -68,7 +68,7 @@ public class ColumnController {
         BoardManager.get().setCurrentCard(null);
 
 
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newtitle.fxml"));
 
         try {
             Parent popup = loader.load();
