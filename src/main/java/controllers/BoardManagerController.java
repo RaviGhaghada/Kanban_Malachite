@@ -41,6 +41,7 @@ public class BoardManagerController {
     @FXML
     public void initialize() {
 
+        BoardManager.get().setCurrentBoard(null);
         // Board list styling
         boardListView.setStyle("-fx-font-family: 'monospaced';");
 
@@ -93,18 +94,13 @@ public class BoardManagerController {
     /**
      * Opens the window with selected board.
      */
-    // TODO: Functionality of opening correct board
     public void openBoard (Board board){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
         BoardManager.get().setCurrentBoard(board);
 
         try {
             Parent popup = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(popup));
-            stage.setResizable(false);
-            stage.show();
-
+            backButton.getScene().setRoot(popup);
         }
         catch (Exception e){
             System.out.println("failed to launch popup");
