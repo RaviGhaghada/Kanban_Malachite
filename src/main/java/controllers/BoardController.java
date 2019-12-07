@@ -55,7 +55,7 @@ public class BoardController {
         // TODO: Use Mariam's popup to ask for a name
         // code ... code ... code .. code
         // BUT ONLY FOR TESTING PURPOSES, for now:
-        BoardManager.get().setCurrentColumn(new Column("Title"));
+        BoardManager.get().setCurrentColumn(new Column("ColumnTitle"));
         // The program will pause until the popup is closed.
 
         // Now if we are at this line, then that means

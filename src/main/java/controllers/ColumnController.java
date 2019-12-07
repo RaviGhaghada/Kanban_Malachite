@@ -3,8 +3,10 @@ package controllers;
 import boardpackage.BoardManager;
 import boardpackage.Card;
 import boardpackage.Column;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,6 +25,8 @@ public class ColumnController {
     private TextField titleText;
     @FXML
     private VBox cardContainer;
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     public void initialize(){
@@ -54,14 +58,32 @@ public class ColumnController {
 
     @FXML
     public void addCardAction() {
+        BoardManager.get().setCurrentColumn(columnVbox.getColumn());
 
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/cardpopup.fxml"));
-            BoardManager.get().setCurrentCard(null);
-            loader.load();
-        } catch(Exception e){
-            e.printStackTrace();
+        BoardManager.get().setCurrentCard(null);
+
+        // TODO: Use Mariam's popup to ask for a title
+        // code ... code ... code .. code
+        // BUT ONLY FOR TESTING PURPOSES, for now:
+        BoardManager.get().setCurrentCard(new Card("CardTitle"));
+        // The program will pause until the popup is closed.
+
+        // Now if we are at this line, then that means
+        // that the popup has closed
+
+        if (BoardManager.get().getCurrentCard() != null){
+            // that means that a column successfully created in the popup
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/card.fxml"));
+                CardWrapper cardBox = loader.load();
+                cardContainer.getChildren().add(cardBox);
+                BoardManager.get().setCurrentCard(null);
+
+                Platform.runLater(() -> scrollPane.setVvalue(1.0));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -75,21 +97,5 @@ public class ColumnController {
         titleText.setText(columnVbox.getColumn().getTitle());
     }
 
-/*
-    public void addSmallCard(String s) {
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/card.fxml"));
-
-        try {
-            HBox cardInColumn = loader.load();
-            CardController smallCard = loader.getController();
-
-            //smallCard.setText(s);
-            cardContainer.getChildren().add(cardInColumn);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 }
 
