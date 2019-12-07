@@ -23,8 +23,7 @@ public class BoardManager{
      */
     private BoardManager(){
         this.boards = new ArrayList<>();
-
-        // TODO: load boards with actual data from the json file
+        load();
     }
 
     /**
@@ -143,6 +142,15 @@ public class BoardManager{
         new Card("Task07");
         new Card("Task08");
         new Card("Task09");
+    }
+
+    private void load(){
+
+        // TODO: @Manvi load all the boards onto field boards
+    }
+
+    public void save(){
+        // TODO: @Manvi save all the boards
     }
 
 }
