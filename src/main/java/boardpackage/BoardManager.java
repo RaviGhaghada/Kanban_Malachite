@@ -111,6 +111,16 @@ public class BoardManager{
     }
 
     /**
+     * Take in an arraylist of boards
+     * Ideally, it's supposed to be used
+     * when reading from a json file.
+     * @param boards array list of board objects
+     */
+    void setBoards(ArrayList<Board> boards){
+        this.boards = boards;
+    }
+
+    /**
      * Do not test this class.
      * It is merely for populating data.
      */
