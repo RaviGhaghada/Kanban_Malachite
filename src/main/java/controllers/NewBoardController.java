@@ -47,6 +47,7 @@ public class NewBoardController {
             Parent popup = (Parent) loader.load();
             stage.setScene(new Scene(popup));
             stage.showAndWait();
+            System.out.println("FUCK THIS");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -82,9 +83,6 @@ public class NewBoardController {
      */
     @FXML
     public void cancelAction(ActionEvent event){
-        //Button cancelButton = new Button();
-//        cancelButton.getScene().getWindow();
-//        Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 }

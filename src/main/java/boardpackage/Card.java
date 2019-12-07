@@ -76,6 +76,14 @@ public class Card {
         }
     }
 
+    /**
+     * Get the text description
+     * @return text
+     */
+    public String getText(){
+        return text;
+    }
+
 
     /**
      * Get the story points
@@ -130,5 +138,14 @@ public class Card {
      */
     void setId(String id){
         this.id = id;
+    }
+
+    public void delete(){
+        this.parentColumn.removeCard(this);
+        this.parentColumn = null;
+        if (this.equals(BoardManager.get().getCurrentCard())){
+            BoardManager.get().setCurrentCard(null);
+        }
+        // TODO: notify the logger about deletion of this card
     }
 }

@@ -1,12 +1,11 @@
 package controllers;
+import boardpackage.BoardManager;
+import boardpackage.Card;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -18,38 +17,49 @@ import javafx.stage.Stage;
 
 public class CardPopupController {
 
-    //the text area for writing the content of each card in it
-    @FXML
-    private TextArea cardText;
-    //the title for each card .
+    // title of a card
     @FXML
     private TextField cardTitle;
-    //the parent of each card which is a small card.
-    private smallCardController parent ;
-    //the content of each card will be shown on the text area of the small cards in columns .
-    private TextArea smallcard;
-    private ColumnController columncontroller;
+
+    // add a detailed description
+    @FXML
+    private TextArea cardDescription;
+
+    // story points of a card
+    @FXML
+    private TextArea storypoints;
+
+    Card card;
 
     @FXML
-    public void saveAndCloseAction(){
-            if (this.columncontroller == null){
-                this.smallcard.setText(cardText.getText());
-            }
-            else
-                this.columncontroller.addSmallCard("hola");
-
+    public void initialize(){
+        card = BoardManager.get().getCurrentCard();
+        cardTitle.setText(card.getTitle());
+        cardDescription.setText(card.getText());
+        storypoints.setText(card.getStoryPoints());
     }
 
     @FXML
-    public void deleteButtonAction(){
-        parent.removeCardBtnAction();
+    public void saveAndCloseAction(ActionEvent event){
+        if (cardTitle.getText().length() > 0) {
+            card.setTitle(cardTitle.getText());
+            card.setText(cardDescription.getText());
+            card.setStoryPoints(storypoints.getText());
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        }
+        else{
+            // TODO: show error popup saying that it must have a title
+        }
     }
 
-    public void setParent(smallCardController currentParent){
-        this.parent = currentParent ;
-    }
+    @FXML
+    public void deleteButtonAction(ActionEvent event){
+        // signal for deletion
+        BoardManager.get().setCurrentCard(null);
 
-    public void setColumnController(ColumnController columnController) {
-        this.columncontroller = columnController;
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

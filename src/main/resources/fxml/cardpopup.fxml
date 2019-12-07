@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CardPopupController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CardPopupController">
    <children>
       <VBox layoutX="4.0" layoutY="3.0" prefHeight="392.0" prefWidth="593.0">
          <children>
@@ -30,10 +30,10 @@
                      <children>
                         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxWidth="524.0" minWidth="361.0" prefHeight="129.0" prefWidth="510.0" vbarPolicy="ALWAYS">
                            <content>
-                              <TextArea fx:id="cardText" maxWidth="507.0" minWidth="303.0" opacity="0.7" prefHeight="137.0" prefWidth="507.0" promptText="add more detailed description about the task..." wrapText="true" />
+                              <TextArea fx:id="cardDescription" maxWidth="507.0" minWidth="303.0" opacity="0.7" prefHeight="137.0" prefWidth="507.0" promptText="add more detailed description about the task..." wrapText="true" />
                            </content>
                         </ScrollPane>
-                        <TextArea fx:id="CardStory" minWidth="-Infinity" prefHeight="86.0" prefWidth="513.0" promptText="card's Stroy point" wrapText="true" />
+                        <TextArea fx:id="storypoints" minWidth="-Infinity" prefHeight="86.0" prefWidth="513.0" promptText="Enter the card's story points" wrapText="true" />
                      </children>
                   </VBox>
                </children>

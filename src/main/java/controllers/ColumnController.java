@@ -1,40 +1,65 @@
 package controllers;
 
-import app.Main;
 import boardpackage.BoardManager;
+import boardpackage.Card;
+import boardpackage.Column;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import wrappers.CardWrapper;
+import wrappers.ColumnWrapper;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 
 public class ColumnController {
 
     @FXML
-    private VBox columnVbox;
+    private ColumnWrapper columnVbox;
 
     @FXML
-    private VBox cardContainer;       //each column
+    private TextField titleText;
+    @FXML
+    private VBox cardContainer;
 
-    private ArrayList<smallCardController> childrenList ;
+    @FXML
+    public void initialize(){
+        Column column = BoardManager.get().getCurrentColumn();
+        columnVbox.setColumn(column);
 
-    public ColumnController() {
-        childrenList = new ArrayList<>();
+        for (Card card : column.getCards()){
+            BoardManager.get().setCurrentCard(card);
+            CardWrapper cardBox;
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/card.fxml"));
+                cardBox = loader.load();
+                cardContainer.getChildren().add(cardBox);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        BoardManager.get().setCurrentCard(null);
 
+        // Updates the column object to notify about
+        titleText.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
+            if (!newPropertyValue)
+                columnVbox.getColumn().setTitle(titleText.getText());
+        });
+
+        refresh();
     }
 
     @FXML
     public void addCardAction() {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/cardHbox.fxml"));
+
         try {
-            HBox cardInColumn = loader.load();
-            smallCardController smallCard = loader.getController();
-            smallCard.setParent(this);
-            childrenList.add(smallCard);
-            cardContainer.getChildren().add(cardInColumn);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/cardpopup.fxml"));
+            BoardManager.get().setCurrentCard(null);
+            loader.load();
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -42,19 +67,29 @@ public class ColumnController {
 
     @FXML
     public void removeColumnAction(){
+        columnVbox.getColumn().delete();
         ((HBox)columnVbox.getParent()).getChildren().remove(columnVbox);
     }
 
-    public void removeSmallCard(smallCardController currentChild){
-        smallCardController deleteThis = null;
-        for(smallCardController smallCard : childrenList){
-            if(currentChild==smallCard){
-                deleteThis = currentChild;
-
-            }
-        }
-        cardContainer.getChildren().remove(deleteThis.getHbox());
-        childrenList.remove(currentChild);
+    public void refresh(){
+        titleText.setText(columnVbox.getColumn().getTitle());
     }
+
+/*
+    public void addSmallCard(String s) {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/card.fxml"));
+
+        try {
+            HBox cardInColumn = loader.load();
+            CardController smallCard = loader.getController();
+
+            //smallCard.setText(s);
+            cardContainer.getChildren().add(cardInColumn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 }
 

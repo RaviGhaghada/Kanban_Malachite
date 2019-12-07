@@ -52,7 +52,7 @@
       </GridPane>
       <ScrollPane layoutY="50.0" prefHeight="550.0" prefWidth="1000.0" style="-fx-background-color: #D5F3FE;">
          <content>
-            <HBox fx:id="columnHbox" fillHeight="false" spacing="30.0">
+            <HBox fx:id="columnContainer" fillHeight="false" spacing="30.0">
                <padding>
                   <Insets left="15.0" right="15.0" top="30.0" />
                </padding>

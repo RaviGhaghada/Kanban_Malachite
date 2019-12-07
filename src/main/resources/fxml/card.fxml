@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import wrappers.CardWrapper?>
 
-<CardWrapper fx:id="smallCardHbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="218.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="218.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.smallCardController">
+<CardWrapper fx:id="smallCardHbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="218.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="218.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CardController">
    <children>
       <TextArea fx:id="cardDisplayText" editable="false" maxWidth="214.0" minHeight="-Infinity" onMouseClicked="#openEditPopupAction" prefHeight="121.0" prefWidth="214.0" style="-fx-background-color: transparent;" wrapText="true" />
    </children>

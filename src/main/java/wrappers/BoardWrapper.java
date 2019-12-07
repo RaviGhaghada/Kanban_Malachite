@@ -9,11 +9,12 @@ import javafx.scene.layout.HBox;
  * each of which holds multiple cards.
  */
 public class BoardWrapper extends HBox {
-    private Board board;
+    private Board board = null;
 
-    public BoardWrapper(Board board){
-        this.board = board;
+    public BoardWrapper(){
+        super();
     }
+
     public Board getBoard() {
         return board;
     }
@@ -21,4 +22,5 @@ public class BoardWrapper extends HBox {
     public void setBoard(Board board) {
         this.board = board;
     }
+
 }

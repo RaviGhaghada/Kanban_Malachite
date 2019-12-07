@@ -46,8 +46,7 @@ public class BoardManagerController {
         // Board list styling
         boardListView.setStyle("-fx-font-family: 'monospaced';");
 
-        boardListView.getItems().add(new Board("Rojina"));
-
+        boardListView.getItems().addAll(BoardManager.get().getBoards());
         boardListView.setCellFactory(lv -> new ListCell<Board>() {
             @Override
             public void updateItem(Board item, boolean empty) {

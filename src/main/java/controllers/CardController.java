@@ -7,12 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import wrappers.CardWrapper;
 
 import java.io.IOException;
 
-public class smallCardController {
+public class CardController {
 
     @FXML
     private CardWrapper smallCardHbox;
@@ -39,13 +42,13 @@ public class smallCardController {
             root = loader.load();
             Scene scene = new Scene(root, 600, 400);
             stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Card Editor");
             stage.setResizable(false);
             stage.setScene(scene);
-            stage.show();
             stage.showAndWait();
 
-            if (BoardManager.get().getCurrentColumn() == null){
+            if (BoardManager.get().getCurrentCard() == null){
                 removeCardBtnAction();
             }
             else{
@@ -61,14 +64,9 @@ public class smallCardController {
 
     public void removeCardBtnAction(){
         smallCardHbox.getCard().delete();
-        smallCardHbox.getParent().getChildrenUnmodifiable().remove(smallCardHbox);
+
+        ((Pane)(smallCardHbox.getParent())).getChildren().remove(smallCardHbox);
     }
-
-    public HBox getHbox(){
-        return smallCardHbox;
-    }
-
-
 
     public void refresh(){
         cardDisplayText.setText(smallCardHbox.getCard().getTitle());

@@ -110,4 +110,29 @@ public class BoardManager{
         return boards;
     }
 
+    /**
+     * Do not test this class.
+     * It is merely for populating data.
+     */
+    public void populate(){
+        Board b1 = new Board("Malachite");
+        setCurrentBoard(b1);
+        Column c1 = new Column("Backlog");
+        setCurrentColumn(c1);
+        new Card("Task01");
+        new Card("Task02");
+        new Card("Task03");
+        new Card("SecretTask01");
+        Column c2 = new Column("Developing");
+        setCurrentColumn(c2);
+        new Card("Task04");
+        new Card("Task05");
+        new Card("Task06");
+        Column c3 = new Column("Finished");
+        setCurrentColumn(c3);
+        new Card("Task07");
+        new Card("Task08");
+        new Card("Task09");
+    }
+
 }

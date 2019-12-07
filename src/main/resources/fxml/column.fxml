@@ -9,8 +9,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import wrappers.ColumnWrapper?>
 
-<VBox fx:id="columnVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="270.0" style="-fx-border-style-fx-border-style: solid; -fx-border-width: 8px; -fx-border-color: #87CEFA; -fx-background-image: url('backGroud.jpg') url('backGroud.jpg'); -fx-background-size: 270px 500px; -fx-background-radius: 20px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ColumnController">
+<ColumnWrapper fx:id="columnVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="270.0" style="-fx-border-style-fx-border-style: solid; -fx-border-width: 8px; -fx-border-color: #87CEFA; -fx-background-image: url('../images/backGroud.jpg') url('backGroud.jpg'); -fx-background-size: 270px 500px; -fx-background-radius: 20px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ColumnController">
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
@@ -27,14 +28,14 @@
             <Insets bottom="5.0" right="5.0" />
          </VBox.margin></VBox>
 
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="475.0" style="-fx-background-image: url('../images/backGroud.jpg');" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="475.0" style="-fx-background-image: url('../../rebackGroud.jpg');" VBox.vgrow="ALWAYS">
 
          <content>
             <VBox fx:id="cardContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="432.0" minWidth="-Infinity" prefHeight="445.0" prefWidth="245.0" style="-fx-background-image: url('backGroud.jpg'); -fx-background-size: 270px 500px;">
                <children>
                   <HBox prefHeight="27.0">
                      <children>
-                        <TextField prefHeight="24.0" prefWidth="248.0" promptText="add the title for the column here ..." style="-fx-background-color: transparent;" />
+                        <TextField fx:id="titleText" prefHeight="24.0" prefWidth="248.0" promptText="add the title for the column here ..." style="-fx-background-color: transparent;" />
                      </children>
                   </HBox>
                   <HBox prefHeight="31.0" prefWidth="224.0" spacing="128.0">
@@ -66,5 +67,4 @@
    <padding>
       <Insets top="5.0" />
    </padding>
-</VBox>
-
+</ColumnWrapper>
