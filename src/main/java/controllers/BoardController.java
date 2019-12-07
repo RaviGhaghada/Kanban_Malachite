@@ -45,6 +45,7 @@ public class BoardController {
                 loader.setLocation(getClass().getResource("/fxml/column.fxml"));
                 colBox = loader.load();
                 columnContainer.getChildren().add(colBox);
+                dragCol(colBox);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -75,6 +76,7 @@ public class BoardController {
                 ColumnWrapper colBox = loader.load();
                 colBox.setColumn(BoardManager.get().getCurrentColumn());
                 columnContainer.getChildren().add(colBox);
+                dragCol(colBox);
 
                 BoardManager.get().setCurrentColumn(null);
 
