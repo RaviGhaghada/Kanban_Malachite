@@ -6,7 +6,6 @@ import java.util.*;
  */
 public class Column {
 
-    private Board parent;
     private Board parentBoard;
     private String id;
     private String title;
@@ -20,7 +19,7 @@ public class Column {
      * from a json file
      */
     Column (Board parent, String id, String title, String role){
-        this.parent = parent;
+        this.parentBoard = parent;
         parent.addColumn(this);
 
         this.id = id;
