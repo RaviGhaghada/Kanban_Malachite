@@ -6,10 +6,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewBoardController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.NewTitleController">
    <children>
       <TextArea fx:id="textInput" layoutX="16.0" layoutY="107.0" prefHeight="55.0" prefWidth="569.0" />
-      <Button fx:id="saveButton" layoutX="241.0" layoutY="265.0" mnemonicParsing="false" onAction="#saveAndCloseAction" onMouseClicked="#save" text="Save and Close" />
+      <Button fx:id="saveButton" layoutX="241.0" layoutY="265.0" mnemonicParsing="false" onAction="#saveAndCloseAction" onMouseClicked="#saveAndCloseAction" text="Save and Close" />
       <Button fx:id="cancelButton" cancelButton="true" layoutX="266.0" layoutY="324.0" mnemonicParsing="false" onAction="#cancelAction" text="Cancel" />
       <Text fx:id="messageBox" layoutX="142.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>

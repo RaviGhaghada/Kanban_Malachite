@@ -2,17 +2,21 @@ package controllers;
 import boardpackage.Board;
 import boardpackage.BoardManager;
 import boardpackage.Column;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import wrappers.CardWrapper;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import wrappers.ColumnWrapper;
 
 import java.io.IOException;
@@ -23,6 +27,9 @@ public class BoardController {
 
     @FXML
     private HBox columnContainer;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     private Board board;
 
@@ -51,28 +58,35 @@ public class BoardController {
 
         BoardManager.get().setCurrentColumn(null);
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newtitle.fxml"));
 
-        // TODO: Use Mariam's popup to ask for a name
-        // code ... code ... code .. code
-        // BUT ONLY FOR TESTING PURPOSES, for now:
-        BoardManager.get().setCurrentColumn(new Column("ColumnTitle"));
-        // The program will pause until the popup is closed.
+        try {
+            Parent popup = loader.load();
+            ((NewTitleController)loader.getController()).setaClass(Column.class);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(popup));
+            stage.setResizable(false);
+            stage.showAndWait();
 
-        // Now if we are at this line, then that means
-        // that the popup has closed
-
-        if (BoardManager.get().getCurrentColumn() != null){
-            // that means that a column successfully created in the popup
-            try {
-                FXMLLoader loader = new FXMLLoader();
+            if (BoardManager.get().getCurrentBoard() != null){
+                loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/fxml/column.fxml"));
                 ColumnWrapper colBox = loader.load();
+                colBox.setColumn(BoardManager.get().getCurrentColumn());
                 columnContainer.getChildren().add(colBox);
 
                 BoardManager.get().setCurrentColumn(null);
-            } catch (IOException e) {
-                e.printStackTrace();
+
+                Platform.runLater(() -> {
+                    scrollPane.setHvalue(1.0);
+                });
             }
+
+        }
+        catch (Exception e){
+            System.err.println("failed to launch load fxml file");
+            e.printStackTrace();
         }
     }
 

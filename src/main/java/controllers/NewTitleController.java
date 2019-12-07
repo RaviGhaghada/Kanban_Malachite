@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -64,7 +63,7 @@ public class NewTitleController {
             Parent popup = (Parent) loader.load();
             stage.setScene(new Scene(popup));
             stage.showAndWait();
-            System.out.println("FUCK THIS");
+
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -96,7 +95,6 @@ public class NewTitleController {
             }
 
             ((Stage)(saveButton.getScene().getWindow())).close();
-
 
         }
 
