@@ -103,7 +103,7 @@ public class ColumnController {
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
-                    scrollPane.setHvalue(1.0);
+                    scrollPane.setVvalue(1.0);
                 });
             }
         } catch (IOException e) {

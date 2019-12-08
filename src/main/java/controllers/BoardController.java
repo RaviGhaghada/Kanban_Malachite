@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PageLayout;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -101,23 +102,32 @@ public class BoardController {
     }
 
     @FXML
-    // TODO: Delete current board, add a prompt to confirm
     public void deleteBoardAction(){
+        System.out.println("DELETE? " + BoardManager.get().getBoards().size());
+        board.delete();
+        System.out.println("DELETED: " +BoardManager.get().getBoards().size());
+        this.board = null;
+        backAction();
     }
 
     @FXML
-    public void backAction(ActionEvent actionEvent) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
-        System.out.println("I was clicked!");
-        Parent root = (Parent) loader.load();
-        Scene s = backButton.getScene();
-        s.setRoot(root);
-
+    public void backAction(){
+        try {
+            BoardManager.get().setCurrentBoard(null);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
+            System.out.println("I was clicked!");
+            Parent root = (Parent) loader.load();
+            Scene s = backButton.getScene();
+            s.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    // TODO: quit app
+    // TODO: call BoardManager.save() when Manvi pushes her code
     public void quitAction(){
+        Platform.exit();
     }
 
 

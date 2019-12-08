@@ -3,9 +3,13 @@ import boardpackage.BoardManager;
 import boardpackage.Card;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -50,7 +54,26 @@ public class CardPopupController {
             stage.close();
         }
         else{
-            // TODO: show error popup saying that it must have a title
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/errorpopup.fxml"));
+                // Create a controller instance
+                ErrorPopupController controller = new ErrorPopupController("Cannot give the board a blank title!");
+                // Set it in the FXMLLoader
+                loader.setController(controller);
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL); // blocks other windows until dialog is closed
+                Parent popup = (Parent) loader.load();
+                stage.setScene(new Scene(popup));
+                stage.showAndWait();
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Failed to launch popup.");
+            }
+
         }
     }
 

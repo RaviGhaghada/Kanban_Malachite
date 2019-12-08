@@ -51,7 +51,7 @@ public class BoardManager{
      * @param board
      */
     void removeBoard(Board board){
-        boards.add(board);
+        boards.remove(board);
     }
 
     /**
