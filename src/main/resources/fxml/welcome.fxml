@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WelcomeController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WelcomeController">
    <children>
 
        <ImageView fitHeight="341.0" fitWidth="370.0" layoutX="320.0" layoutY="-49.0">
@@ -24,6 +24,21 @@
             <Font name="Hiragino Sans W1" size="18.0" />
          </font></Button>
       <Text layoutX="418.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="384.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Mello!" textAlignment="CENTER" wrappingWidth="239.23046875">
+         <font>
+            <Font name="Hiragino Sans W1" size="26.0" />
+         </font>
+      </Text>
+      <Text layoutX="303.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mello is the best way to manage your Kanban boards.">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="303.0" layoutY="291.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click &quot;Get Started&quot; to entire the Mello world and manage your projects." textAlignment="CENTER" wrappingWidth="403.609375">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
 
    </children>
 </AnchorPane>

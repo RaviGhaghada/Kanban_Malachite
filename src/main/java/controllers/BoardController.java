@@ -92,6 +92,12 @@ public class BoardController {
         }
     }
 
+    @FXML
+    // TODO: Delete current board, add a prompt to confirm
+    public void deleteBoardAction(){
+    }
+
+
     public void dragCol(VBox column) {
         VBox head = (VBox) column.getChildren().get(0);
         head.setOnDragDetected(event -> {
