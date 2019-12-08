@@ -4,11 +4,13 @@ import boardpackage.BoardManager;
 import boardpackage.Column;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -18,6 +20,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import wrappers.ColumnWrapper;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +36,10 @@ public class BoardController {
     private ScrollPane scrollPane;
 
     private Board board;
+
+    @FXML
+    public Button backButton;
+    public Button quitButton;
 
     @FXML
     public void initialize(){
@@ -91,6 +99,27 @@ public class BoardController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    // TODO: Delete current board, add a prompt to confirm
+    public void deleteBoardAction(){
+    }
+
+    @FXML
+    public void backAction(ActionEvent actionEvent) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
+        System.out.println("I was clicked!");
+        Parent root = (Parent) loader.load();
+        Scene s = backButton.getScene();
+        s.setRoot(root);
+
+    }
+
+    @FXML
+    // TODO: quit app
+    public void quitAction(){
+    }
+
 
     public void dragCol(VBox column) {
         VBox head = (VBox) column.getChildren().get(0);
