@@ -5,10 +5,13 @@ import boardpackage.BoardManager;
 import boardpackage.Card;
 import boardpackage.Column;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -18,6 +21,7 @@ import javafx.stage.Stage;
 import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
 
+import java.awt.*;
 import java.io.IOException;
 
 
@@ -32,12 +36,17 @@ public class ColumnController {
     private VBox cardContainer;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private ChoiceBox<String> cardRoll;
+
+    ObservableList<String> availableChoices = FXCollections.observableArrayList("To do", "Doing","Done");;
 
     @FXML
     public void initialize(){
+        loadDataChoiceBox();
         Column column = BoardManager.get().getCurrentColumn();
         columnVbox.setColumn(column);
-
+        cardRoll = new ChoiceBox<>();   //create a choice box for each added column
         for (Card card : column.getCards()){
             BoardManager.get().setCurrentCard(card);
             CardWrapper cardBox;
@@ -105,6 +114,18 @@ public class ColumnController {
     public void refresh(){
         titleText.setText(columnVbox.getColumn().getTitle());
     }
+
+    private void loadDataChoiceBox(){
+        availableChoices.removeAll(availableChoices);
+        String ToDo = "To Do";
+        String doing = "Doing";
+        String done = "done";
+        availableChoices.addAll(ToDo , doing , done);
+        cardRoll.getItems().addAll(availableChoices);
+        cardRoll.setValue("To Do");
+    }
+
+
 
 }
 
