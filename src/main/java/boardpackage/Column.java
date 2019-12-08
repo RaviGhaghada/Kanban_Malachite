@@ -57,6 +57,7 @@ public class Column {
         // TODO: low priority notification for the logger
     }
 
+
     /**
      * Get the ID of a column
      * @return unique id of the column
@@ -78,9 +79,10 @@ public class Column {
      * Set to package private.
      * @param card card to be added
      */
-    void addCard(Card card){
+    public void addCard(Card card){
         // TODO: notify logger
         cards.add(card);
+
     }
 
     /**
@@ -92,12 +94,14 @@ public class Column {
         cards.remove(card);
     }
 
+
     /**
      * Get the title of a column
      * @return title
      */
     public String getTitle(){
         return title;
+
     }
 
 

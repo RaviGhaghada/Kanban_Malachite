@@ -54,12 +54,14 @@ public class BoardManager{
         boards.add(board);
     }
 
+
     /**
      * Focus on a current board
      * @param board
      */
     public void setCurrentBoard(Board board) {
         this.currentBoard = board;
+
     }
 
     /**

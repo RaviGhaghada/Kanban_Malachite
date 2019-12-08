@@ -1,3 +1,4 @@
+
 package boardpackage;
 
 import java.util.Objects;
@@ -132,3 +133,4 @@ public class Card {
         this.id = id;
     }
 }
+
