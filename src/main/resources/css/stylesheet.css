@@ -1,8 +1,9 @@
 .split-pane:horizontal > .split-pane-divider {
-   -fx-background-color: add8e6;
+   -fx-background-color: transparent;
 }
+
 .split-pane:vertical > .split-pane-divider {
-   -fx-background-color: add8e6;
+   -fx-background-color: transparent;
 }
 
 .backButton {
@@ -10,6 +11,13 @@
     -fx-background-radius:0;
     -fx-border-color:grey;
     -fx-background-image: url("..images/arrow_left.png");
+}
+
+.forwardButton {
+    -fx-background-color:transparent ;
+    -fx-background-radius:0;
+    -fx-border-color:grey;
+    -fx-background-image: url("..images/arrow_right.png");
 }
 
 .button:hover {
@@ -28,14 +36,11 @@
 }
 
 .check-box:selected .mark {
-
--fx-background-color: white;
-
+    -fx-background-color: white;
 }
 
 .check-box:selected .box {
-
--fx-background-color: #28a3f4;
+    -fx-background-color: #b8ddf5;
 }
 
 .combo-box-base {
@@ -52,8 +57,6 @@
     -fx-border-width: 2 2 2 2;
 }
 
-
-
 .toggle-button {
     -fx-background-color:transparent ;
     -fx-background-radius:0;
@@ -61,13 +64,13 @@
     -fx-border-width: 1 1 1 1;
 }
 
-
 .toggle-button:selected {
     -fx-background-color:transparent ;
     -fx-background-radius:0;
     -fx-border-color:grey;
     -fx-border-width: 1 1 1 1;
 }
+
 .toggle-button:selected:focused {
 
 }
