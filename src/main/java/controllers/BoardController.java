@@ -97,6 +97,16 @@ public class BoardController {
     public void deleteBoardAction(){
     }
 
+    @FXML
+    // TODO: go back to BoardManager
+    public void backAction(){
+    }
+
+    @FXML
+    // TODO: quit app
+    public void quitAction(){
+    }
+
 
     public void dragCol(VBox column) {
         VBox head = (VBox) column.getChildren().get(0);
