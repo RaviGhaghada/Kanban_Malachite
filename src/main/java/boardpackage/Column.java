@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class Column {
 
-    private Board parent;
+
     private Board parentBoard;
     private String id;
     private String title;
@@ -20,8 +20,8 @@ public class Column {
      * from a json file
      */
     Column (Board parent, String id, String title, String role){
-        this.parent = parent;
-        parent.addColumn(this);
+        this.parentBoard = parent;
+        parentBoard.addColumn(this);
 
         this.id = id;
         this.title = title;
@@ -50,7 +50,7 @@ public class Column {
      * @param finalIndex
      */
     public void moveCard(Card card, int finalIndex){
-        if (cards.contains(card)) {
+        if (cards.contains(card) && cards.size() > finalIndex && finalIndex >= 0) {
             cards.remove(card);
             cards.add(finalIndex, card);
         }
@@ -80,11 +80,18 @@ public class Column {
      * @param card card to be added
      */
     public void addCard(Card card){
+	if(card != null)
         // TODO: notify logger
-        cards.add(card);
+        	cards.add(card);
 
     }
-
+	/**
+	* return parent board
+	*@return parentBoard
+	*/
+	public Board getParentBoard(){
+		return parentBoard;
+	}
     /**
      * Remove a card from a column
      * Set to package-private
@@ -110,7 +117,7 @@ public class Column {
      * @param title
      */
     public void setTitle(String title){
-        if (!this.title.equals(title)) {
+        if (this.title != null && !this.title.equals(title)) { //to not log twice same thing
             this.title = title;
             // TODO: notify the logger
         }
@@ -149,7 +156,8 @@ public class Column {
      * @param board parent
      */
     void setParentBoard(Board board){
-        this.parentBoard = board;
+	if(board != null)
+        	this.parentBoard = board;
     }
 
 

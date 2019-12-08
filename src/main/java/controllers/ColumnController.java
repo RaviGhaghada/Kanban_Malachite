@@ -1,60 +1,110 @@
 package controllers;
 
-import app.Main;
+import boardpackage.Board;
 import boardpackage.BoardManager;
+import boardpackage.Card;
+import boardpackage.Column;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import wrappers.CardWrapper;
+import wrappers.ColumnWrapper;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 
 public class ColumnController {
 
     @FXML
-    private VBox columnVbox;
+    private ColumnWrapper columnVbox;
 
     @FXML
-    private VBox cardContainer;       //each column
+    private TextField titleText;
+    @FXML
+    private VBox cardContainer;
+    @FXML
+    private ScrollPane scrollPane;
 
-    private ArrayList<smallCardController> childrenList ;
+    @FXML
+    public void initialize(){
+        Column column = BoardManager.get().getCurrentColumn();
+        columnVbox.setColumn(column);
 
-    public ColumnController() {
-        childrenList = new ArrayList<>();
+        for (Card card : column.getCards()){
+            BoardManager.get().setCurrentCard(card);
+            CardWrapper cardBox;
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/card.fxml"));
+                cardBox = loader.load();
+                cardContainer.getChildren().add(cardBox);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        BoardManager.get().setCurrentCard(null);
 
+        // Updates the column object to notify about
+        titleText.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
+            if (!newPropertyValue)
+                columnVbox.getColumn().setTitle(titleText.getText());
+        });
+
+        refresh();
     }
 
     @FXML
     public void addCardAction() {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/cardHbox.fxml"));
+        BoardManager.get().setCurrentColumn(columnVbox.getColumn());
+
+        BoardManager.get().setCurrentCard(null);
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newtitle.fxml"));
+
         try {
-            HBox cardInColumn = loader.load();
-            smallCardController smallCard = loader.getController();
-            smallCard.setParent(this);
-            childrenList.add(smallCard);
-            cardContainer.getChildren().add(cardInColumn);
-        } catch(Exception e){
+            Parent popup = loader.load();
+            ((NewTitleController) loader.getController()).setaClass(Card.class);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(popup));
+            stage.setResizable(false);
+            stage.showAndWait();
+
+            if (BoardManager.get().getCurrentCard()!= null){
+                loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/card.fxml"));
+                CardWrapper cardBox = loader.load();
+                cardContainer.getChildren().add(cardBox);
+                BoardManager.get().setCurrentCard(null);
+
+                Platform.runLater(() -> {
+                    scrollPane.setHvalue(1.0);
+                });
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to load fxml file.");
             e.printStackTrace();
         }
     }
 
     @FXML
     public void removeColumnAction(){
+        columnVbox.getColumn().delete();
         ((HBox)columnVbox.getParent()).getChildren().remove(columnVbox);
     }
 
-    public void removeSmallCard(smallCardController currentChild){
-        smallCardController deleteThis = null;
-        for(smallCardController smallCard : childrenList){
-            if(currentChild==smallCard){
-                deleteThis = currentChild;
-
-            }
-        }
-        cardContainer.getChildren().remove(deleteThis.getHbox());
-        childrenList.remove(currentChild);
+    public void refresh(){
+        titleText.setText(columnVbox.getColumn().getTitle());
     }
+
 }
 

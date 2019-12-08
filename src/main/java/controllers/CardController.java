@@ -1,60 +1,75 @@
 package controllers;
+import boardpackage.BoardManager;
+import boardpackage.Card;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import wrappers.CardWrapper;
 
-/**
- * This is a class fro creating the cards as we click on the small cards located in each column .
- * User can type the content of the card in it and save them in the cards .
- * Also user can delete the card from the columns using this class .
- *
- */
+import java.io.IOException;
 
 public class CardController {
 
-    //the text area for writing the content of each card in it
     @FXML
-    private TextArea cardText;
-    //the title for each card .
-    @FXML
-    private TextField cardTitle;
-    //the parent of each card which is a small card.
-    private smallCardController parent ;
-    //the content of each card will be shown on the text area of the small cards in columns .
-    private TextArea smallcard;
-
-    /**
-     *
-     * @param smallCard the card in the columns to store the
-     */
-    public void setFollow(TextArea smallCard){
-        String title = cardTitle.getText();
-        this.smallcard = smallCard;
-        this.cardText.setText(this.smallcard.getText());
-    }
+    private CardWrapper smallCardHbox;
 
     @FXML
-    public void saveAndCloseAction(){
-        this.smallcard.setText(cardText.getText());
-    }
+    private TextArea cardDisplayText;
+
+    private Stage stage;
 
     @FXML
-    public void deleteButtonAction(){
-        cardText.setText("");
-        smallcard.setText("");
-
-        parent.removeCardBtnAction();
-    }
-
-    public void setParent(smallCardController currentParent){
-        this.parent = currentParent ;
+    public void initialize(){
+        Card card = BoardManager.get().getCurrentCard();
+        smallCardHbox.setCard(card);
+        refresh();
     }
 
 
+    @FXML
+    public void openEditPopupAction(){
+        BoardManager.get().setCurrentCard(smallCardHbox.getCard());
+        try {
+            Parent root;
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/cardpopup.fxml"));
+            root = loader.load();
+            Scene scene = new Scene(root, 600, 400);
+            stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Card Editor");
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            if (BoardManager.get().getCurrentCard() == null){
+                removeCardBtnAction();
+            }
+            else{
+                refresh();
+            }
+
+        } catch (IOException ioe){
+            ioe.printStackTrace();
+        } finally {
+            BoardManager.get().setCurrentCard(null);
+        }
+    }
+
+    public void removeCardBtnAction(){
+        smallCardHbox.getCard().delete();
+
+        ((Pane)(smallCardHbox.getParent())).getChildren().remove(smallCardHbox);
+    }
+
+    public void refresh(){
+        cardDisplayText.setText(smallCardHbox.getCard().getTitle());
+    }
 }
+

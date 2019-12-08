@@ -60,7 +60,7 @@ public class Card {
      * @param title new title
      */
     public void setTitle(String title) {
-        if (!("".equals(title) || Objects.equals(this.title, title))){
+        if (!("".equals(title) || Objects.equals(this.title, title))){ //to not log twice same thing
             this.title = title;
             // TODO: notify the logger
         }
@@ -71,10 +71,18 @@ public class Card {
      * @param text new text
      */
     public void setText(String text){
-        if (!Objects.equals(text, this.text)){
+        if (!Objects.equals(text, this.text)){ //to not log twice same thing
             this.text = text;
             // TODO: notify the logger
         }
+    }
+
+    /**
+     * Get the text description
+     * @return text
+     */
+    public String getText(){
+        return text;
     }
 
 
@@ -91,7 +99,7 @@ public class Card {
      * @param storypoints story points of a card
      */
     public void setStoryPoints(String storypoints) {
-        if (!Objects.equals(this.storypoints,storypoints)){
+        if (storypoints != null && !Objects.equals(this.storypoints,storypoints)){ //to not log twice same thing
             this.storypoints = storypoints;
             // TODO: notify the logger
         }
@@ -119,18 +127,29 @@ public class Card {
      * @param parentColumn parent column
      */
     void setParentColumn(Column parentColumn) {
-        this.parentColumn = parentColumn;
+	if(parentColumn != null)
+        	this.parentColumn = parentColumn;
     }
 
 
     /**
      * Set the id of a card.
-     * Ideally, it should be used by the logger.
+     * used by the logger.
      * Is package-private.
      * @param id id of card
      */
     void setId(String id){
         this.id = id;
+    }
+
+
+    public void delete(){
+        this.parentColumn.removeCard(this);
+        this.parentColumn = null;
+        if (this.equals(BoardManager.get().getCurrentCard())){
+            BoardManager.get().setCurrentCard(null);
+        }
+        // TODO: notify the logger about deletion of this card
     }
 }
 

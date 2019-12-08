@@ -7,12 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-
-import java.net.URL;
-import java.util.*;
 
 /**
  * Controller for the Mello Board Manager.
@@ -43,11 +41,11 @@ public class BoardManagerController {
     @FXML
     public void initialize() {
 
+        BoardManager.get().setCurrentBoard(null);
         // Board list styling
         boardListView.setStyle("-fx-font-family: 'monospaced';");
 
-        boardListView.getItems().add(new Board("Rojina"));
-
+        boardListView.getItems().addAll(BoardManager.get().getBoards());
         boardListView.setCellFactory(lv -> new ListCell<Board>() {
             @Override
             public void updateItem(Board item, boolean empty) {
@@ -60,10 +58,6 @@ public class BoardManagerController {
                 }
             }
         });
-
-
-
-
     }
 
     /**
@@ -72,26 +66,27 @@ public class BoardManagerController {
     // TODO: Functionality of creating new board and adding to boards
     @FXML
     public void addAction (ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newboard.fxml"));
-        // Create a controller instance
-//        NewBoardController controller = new NewBoardController();
-//        // Set it in the FXMLLoader
-//        loader.setController(controller);
+        BoardManager.get().setCurrentBoard(null);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newtitle.fxml"));
 
         try {
-            Parent popup = (Parent) loader.load();
+            Parent popup = loader.load();
+            ((NewTitleController)loader.getController()).setaClass(Board.class);
             Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(popup));
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
 
+            if (BoardManager.get().getCurrentBoard() != null){
+                boardListView.getItems().add(BoardManager.get().getCurrentBoard());
+                BoardManager.get().setCurrentBoard(null);
+            }
 
-            ((NewBoardController)loader.getController()).setStage(stage);
-            // Get a controller instance
-            // Set it in the FXMLLoader
         }
         catch (Exception e){
-            System.out.println("failed to launch popup");
+            System.err.println("failed to launch new title popup");
             e.printStackTrace();
         }
     }
@@ -99,18 +94,13 @@ public class BoardManagerController {
     /**
      * Opens the window with selected board.
      */
-    // TODO: Functionality of opening correct board
     public void openBoard (Board board){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
         BoardManager.get().setCurrentBoard(board);
 
         try {
             Parent popup = (Parent) loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(popup));
-            stage.setResizable(false);
-            stage.show();
-
+            backButton.getScene().setRoot(popup);
         }
         catch (Exception e){
             System.out.println("failed to launch popup");

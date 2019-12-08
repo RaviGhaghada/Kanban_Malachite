@@ -1,165 +1,69 @@
 package boardpackage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 public class BoardManagerTest{
-
-
 	@Test
-	public void testAddBoardNormal(){
-		BoardManager bm = new BoardManager();
-		String t="";
-		try{
-			bm.addBoard("b1","1");
-		}
-		catch(DuplicateNameException e){
-			t = e.getMessage();
-		}
-		assertEquals("", t);
-
-		}
-
+	public void testAddRemoveBoard(){
+		Board b = new Board("");
+		BoardManager.get().addBoard(b);
+		assertEquals(true,BoardManager.get().getBoards().contains(b));
+		BoardManager.get().removeBoard(b);
+		assertEquals(false,BoardManager.get().getBoards().contains(b));
+		int size = BoardManager.get().getBoards().size();
+		BoardManager.get().addBoard(null);
+		assertEquals(size,BoardManager.get().getBoards().size());
+		BoardManager.get().removeBoard(b);
+		assertEquals(false,BoardManager.get().getBoards().contains(b));
+		assertEquals(size,BoardManager.get().getBoards().size());
+	}
 	@Test
-	public void testAddBoardDuplicate(){
-		BoardManager bm = new BoardManager();
-		String t="";
-		try{
-			bm.addBoard("b1","1");
-		}
-		catch(DuplicateNameException e){
-			t = e.getMessage();
-		}
-		assertEquals("", t);
-		try{
-			bm.addBoard("b1","1");
-		}
-		catch(DuplicateNameException e){
-			t = e.getMessage();
-		}
-		assertEquals("Board of same name already exists.", t);
+	public void testNotNullGet(){
+		assertNotNull(BoardManager.get());
+		assertNotNull(BoardManager.get().getBoards());
+	}
+	@Test
+	public void testSameGet(){
+		Board b = new Board("");
+		BoardManager.get().addBoard(b);
+		assertEquals(true,BoardManager.get().getBoards().contains(b));
+		assertEquals(BoardManager.get(),BoardManager.get()); // to check if get returns same board
+	}
+	@Test
+	public void testSetGetCurrentCard(){
+		assertNotNull(BoardManager.get().getCurrentCard());
+		BoardManager.get().setCurrentCard(null);
+		assertNotNull(BoardManager.get().getCurrentCard());
+		BoardManager.get().setCurrentCard(new Card("1"));
+		assertEquals("1",BoardManager.get().getCurrentCard().getTitle());
+		BoardManager.get().setCurrentCard(null);
+		assertEquals("1",BoardManager.get().getCurrentCard().getTitle());
+
+	}
+	@Test
+	public void testSetGetCurrentColumn(){
+		assertNotNull(BoardManager.get().getCurrentColumn());
+		BoardManager.get().setCurrentColumn(null);
+		assertNotNull(BoardManager.get().getCurrentColumn());
+		BoardManager.get().setCurrentColumn(new Column("1"));
+		assertEquals("1",BoardManager.get().getCurrentColumn().getTitle());
+		BoardManager.get().setCurrentColumn(null);
+		assertEquals("1",BoardManager.get().getCurrentColumn().getTitle());
+	}
+	@Test
+	public void testSetGetCurrentBoard(){
+		assertNotNull(BoardManager.get().getCurrentBoard());
+		BoardManager.get().setCurrentBoard(null);
+		assertNotNull(BoardManager.get().getCurrentBoard());
+		BoardManager.get().setCurrentBoard(new Board("1"));
+		assertEquals("1",BoardManager.get().getCurrentBoard().getTitle());
+		BoardManager.get().setCurrentBoard(null);
+		assertEquals("1",BoardManager.get().getCurrentBoard().getTitle());
 	}
 
-	@Test
-	public void testAddGeneral(){
-		BoardManager bm = new BoardManager();
-		String thisShoudlpass = "";
-		try{
-		bm.addBoard("b2","2");
-			bm.addBoard("b3","3");
-			bm.addBoard(null,null);
-		}
-		catch(DuplicateNameException e){
-			thisShoudlpass = e.getMessage();
-		}	
-		assertEquals("",thisShoudlpass);
+
 
 
 }
 
-	@Test
-	public void testGetCurrentBoardNull(){
-		BoardManager bm = new BoardManager();
-		try{
-			bm.addBoard("b1","1");
-			bm.addBoard("b2","2");
-			bm.addBoard("b3","3");
-		}
-		catch(DuplicateNameException e){
-			//this shoudlnt happen, is tested by previous tests
-		}
-		assertNull(bm.getCurrentBoard());
-	}
-
-	@Test
-	public void testSetCurrentBoardNull(){
-		BoardManager bm = new BoardManager();
-		assertNull(bm.getCurrentBoard());
-		String testNull="";
-		try{
-			bm.setCurrentBoard(null);
-		}
-		catch(UnknownBoardException e){
-			testNull = e.getMessage();
-		}
-		assertEquals("Attempt to set current to inexistent board.",testNull);
-		assertNull(bm.getCurrentBoard());
-	}
-	@Test
-	public void testSetCurrentBoardNonExistant(){
-		BoardManager bm = new BoardManager();
-		String testNotExistent="";
-		try{
-			bm.setCurrentBoard("b4");
-		}
-		catch(UnknownBoardException e){
-			testNotExistent = e.getMessage();
-		}
-		assertEquals("Attempt to set current to inexistent board.",testNotExistent);
-		assertNull(bm.getCurrentBoard());
-	}
-	@Test
-	public void testSetCurrentBoardProper(){
-		BoardManager bm = new BoardManager();
-		try{
-			bm.addBoard("b3","3");
-		}
-		catch(DuplicateNameException e){
-			//this shoudlnt happen, is tested by previous tests
-		}
-		String test="";
-		try{
-			bm.setCurrentBoard("b3");
-		}
-		catch(UnknownBoardException e){
-			test = e.getMessage();
-		}
-		assertEquals("",test);
-		assertEquals("b3",bm.getCurrentBoard().getId());
-
-	}
-	@Test
-	public void testRemoveBoardwithCurrent(){
-		BoardManager bm = new BoardManager();
-		try{
-			bm.addBoard("b3","3");
-		}
-		catch(DuplicateNameException e){
-			//this shoudlnt happen, is tested by previous tests
-		}
-		try{
-			bm.setCurrentBoard("b3");
-		}
-		catch(UnknownBoardException e){
-			//again this is tested before
-		}
-		bm.removeBoard();
-		assertNull(bm.getCurrentBoard());
-		String test="";
-		try{
-			bm.setCurrentBoard("b3");
-		}
-		catch(UnknownBoardException e){
-			test = e.getMessage();
-		}
-		assertEquals("Attempt to set current to inexistent board.",test);
-		String test2="";
-		try{
-			bm.addBoard("b3","");
-		}
-		catch(DuplicateNameException e){
-			test2 = e.getMessage();
-		}
-		assertEquals("",test2);
-
-	}
-	@Test
-	public void testRemoveBoardwithooutCurrent(){
-		BoardManager bm = new BoardManager();
-		assertNull(bm.getCurrentBoard());
-		bm.removeBoard();
-		assertNull(bm.getCurrentBoard());
-	}
-
-
-
-}
