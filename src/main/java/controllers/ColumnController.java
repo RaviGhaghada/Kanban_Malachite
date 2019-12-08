@@ -60,6 +60,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
+                dragCard(cardBox);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -98,6 +99,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 CardWrapper cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
+                dragCard(cardBox);
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
