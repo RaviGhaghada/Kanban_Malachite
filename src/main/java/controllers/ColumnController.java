@@ -9,11 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -23,6 +27,7 @@ import wrappers.ColumnWrapper;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ColumnController {
@@ -125,6 +130,50 @@ public class ColumnController {
         cardRoll.setValue("To Do");
     }
 
+    public void dragCard(HBox card) {
+            VBox mainVBox = (VBox) card.getChildren().get(0);
+            VBox head = (VBox) mainVBox.getChildren().get(0);
+            head.setOnDragDetected(event -> {
+                Dragboard db = card.startDragAndDrop(TransferMode.ANY);
+                ClipboardContent content = new ClipboardContent();
+                content.putString(card.toString());
+                db.setContent(content);
+                event.consume();
+            });
+
+            head.setOnDragOver(event -> {
+                Parent newParent = (Parent) event.getGestureSource();
+                if (newParent != card && event.getDragboard().hasString()) {
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    event.consume();
+                }
+            });
+
+            head.setOnDragDropped(event -> {
+                boolean finish = false;
+                if (event.getDragboard().hasString()) {
+                    Parent start = (Parent) event.getGestureSource();
+                    int startingPoint = cardContainer.getChildren().indexOf(start);
+                    int endingPoint = cardContainer.getChildren().indexOf(card);
+                    if (startingPoint >= 0 && endingPoint >= 0) {
+                        ObservableList<Node> allCards = cardContainer.getChildren();
+                        ArrayList<Node> allSwappedCards = new ArrayList<>(allCards);
+                        Node swapped = allSwappedCards.get(startingPoint);
+                        allSwappedCards.set(startingPoint, allSwappedCards.get(endingPoint));
+                        allSwappedCards.set(endingPoint, swapped);
+                        cardContainer.getChildren().clear();
+                        for (Node node : allSwappedCards) {
+                            cardContainer.getChildren().add(node);
+                        }
+                    }
+                    finish = true;
+                }
+                event.setDropCompleted(finish);
+                event.consume();
+            });
+
+
+        }
 
 
 }
