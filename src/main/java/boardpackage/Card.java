@@ -13,7 +13,7 @@ public class Card {
     private String id;
     private String title;
     private String text = "";
-    private String storypoints = "";
+    private int storypoints = 0;
 
     /**
      * Special constructor for a card
@@ -21,7 +21,7 @@ public class Card {
      * It must only be used to create pre-existing cards being loaded
      * from a json file
      */
-    Card (Column parentColumn, String id, String title, String text, String storypoints){
+    Card (Column parentColumn, String id, String title, String text, int storypoints){
         this.parentColumn = parentColumn;
         this.parentColumn.addCard(this);
 
@@ -89,7 +89,7 @@ public class Card {
      * Get the story points
      * @return String
      */
-    public String getStoryPoints() {
+    public int getStoryPoints() {
         return storypoints;
     }
 
@@ -97,7 +97,7 @@ public class Card {
      * Set the story points of a card
      * @param storypoints story points of a card
      */
-    public void setStoryPoints(String storypoints) {
+    public void setStoryPoints(int storypoints) {
         if (!Objects.equals(this.storypoints,storypoints)){
             this.storypoints = storypoints;
             // TODO: notify the logger
