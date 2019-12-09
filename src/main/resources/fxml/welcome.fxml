@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WelcomeController" style="-fx-background-color: dae8ed;">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: dae8ed;" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WelcomeController">
    <children>
 
        <ImageView fitHeight="341.0" fitWidth="370.0" layoutX="320.0" layoutY="-49.0">
@@ -39,6 +39,18 @@
             <Font size="16.0" />
          </font>
       </Text>
+      <Button fx:id="quitButton" alignment="TOP_LEFT" layoutX="848.0" layoutY="4.0" minHeight="46.0" minWidth="192.0" mnemonicParsing="false" onAction="#quitAction" prefHeight="50.0" prefWidth="148.0" style="-fx-min-width: 100; -fx-min-height: 50; -fx-background-color: transparent;" text="quit app">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/power_button.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
 
    </children>
 </AnchorPane>

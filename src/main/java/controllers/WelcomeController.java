@@ -1,6 +1,7 @@
 package controllers;
 
 import boardpackage.BoardManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,15 @@ public class WelcomeController {
         BoardManager.get(); // to construct single instance enclosed within
         BoardManager.get().populate(); // create one sample board
 
+    }
+
+    /**
+     * Enables user to exit the application.
+     */
+    @FXML
+    // TODO: call BoardManager.save() when Manvi pushes her code
+    public void quitAction(){
+        Platform.exit();
     }
 
     /**

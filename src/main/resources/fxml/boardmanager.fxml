@@ -52,6 +52,42 @@
                   <Image url="@../images/Mello_Logo.png" />
                </image>
             </ImageView>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #87CEFA;" stylesheets="@../css/stylesheet.css" GridPane.columnIndex="2">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <!--<children>-->
+                        <!--<Button fx:id="deleteButton" alignment="TOP_LEFT" layoutY="4.0" minHeight="46.0" minWidth="192.0" mnemonicParsing="false" onAction="#deleteBoardAction" prefHeight="46.0" prefWidth="200.0" style="-fx-min-width: 200; -fx-min-height: 50; -fx-background-color: transparent;" text="delete board">-->
+                           <!--<font>-->
+                              <!--<Font name="System Italic" size="18.0" />-->
+                           <!--</font>-->
+                           <!--<graphic>-->
+                              <!--<ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">-->
+                                 <!--<image>-->
+                                    <!--<Image url="@../images/minus.png" />-->
+                                 <!--</image>-->
+                              <!--</ImageView>-->
+                           <!--</graphic>-->
+                        <!--</Button>-->
+                     <!--</children>-->
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="quitButton" alignment="TOP_LEFT" layoutY="4.0" minHeight="46.0" minWidth="192.0" mnemonicParsing="false" onAction="#quitAction" prefHeight="50.0" prefWidth="148.0" style="-fx-min-width: 100; -fx-min-height: 50; -fx-background-color: transparent;" text="quit app">
+                           <font>
+                              <Font name="System Italic" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/power_button.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
