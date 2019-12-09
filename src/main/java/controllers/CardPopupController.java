@@ -40,15 +40,15 @@ public class CardPopupController {
         card = BoardManager.get().getCurrentCard();
         cardTitle.setText(card.getTitle());
         cardDescription.setText(card.getText());
-        storypoints.setText(card.getStoryPoints());
+        storypoints.setText(String.valueOf(card.getStoryPoints()));
     }
 
     @FXML
     public void saveAndCloseAction(ActionEvent event){
-        if (cardTitle.getText().length() > 0) {
+        if (cardTitle.getText().length() > 0 && storypoints.getText().matches("\\d+")) {
             card.setTitle(cardTitle.getText());
             card.setText(cardDescription.getText());
-            card.setStoryPoints(storypoints.getText());
+            card.setStoryPoints(Integer.parseInt(storypoints.getText()));
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
