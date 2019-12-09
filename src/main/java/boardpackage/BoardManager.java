@@ -145,12 +145,15 @@ public class BoardManager{
     }
 
     private void load(){
-
+        BoardReader br = new BoardReader();
+        this.boards = br.loadBoardsFromJSON();
         // TODO: @Manvi load all the boards onto field boards
     }
 
-    public void save(){
+    public void save(){/*
         // TODO: @Manvi save all the boards
-    }
+        BoardWriter bw = new BoardWriter();
+        bw.convertToJSON(boards);
+    */}
 
 }

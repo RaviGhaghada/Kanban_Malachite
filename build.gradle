@@ -7,7 +7,7 @@ plugins {
 
 sourceCompatibility= 1.11
 targetCompatibility= 1.11
-mainClassName = 'boardpackage.Test'
+mainClassName = 'app.Main'
 dependencies {
     testCompile 'junit:junit:4.13-rc-1'
   implementation 'com.google.code.gson:gson:2.8.6'

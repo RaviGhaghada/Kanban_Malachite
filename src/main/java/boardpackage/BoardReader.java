@@ -4,34 +4,42 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class BoardReader{
 
-    Gson gson = new Gson();
+    private Gson gson;
+    
+    public BoardReader(){
+     gson = new Gson();
+    }
 
-    public BoardReader(){}
-
-    public void convertFromJSON(){
-
-
+    public ArrayList<Board> loadBoardsFromJSON(){
        try {
            File file = new File("./src/main/resources/data/databoard.json"); 
+           BufferedReader br = new BufferedReader(new FileReader(file)); 
   
-  BufferedReader br = new BufferedReader(new FileReader(file)); 
-  
-  String st; 
-  String jsonString = "";
-  while ((st = br.readLine()) != null) {
-   jsonString += st; 
-  } 
+           // TODO: remove this segment
+            String st; 
+            String jsonString = "";
+            while ((st = br.readLine()) != null) {
+            jsonString += st; 
+            } 
+            System.out.println(jsonString);
+            
+            //ArrayList<Board> alboard = new ArrayList<>();
+            ArrayList<Board> boards = (ArrayList<Board>) gson.fromJson(jsonString, ArrayList.class);
+            System.out.println("HOLA " + gson.toJson(boards));
 
-  System.out.println(jsonString);
-  
-  Board[] boards = gson.fromJson(jsonString, Board[].class);
-  System.out.println(boards[0].getColumns().get(0).getCards());
-    } catch (IOException e) {
-        System.out.println("exception " + e.getMessage());
-        e.printStackTrace();
-    }
+            //Collections.addAll(alboard, boards);
+
+
+        } catch (IOException e) {
+            System.out.println("Exception " + e.getMessage());
+            e.printStackTrace();
+        }
+        return new ArrayList<Board>();
     }
 }
