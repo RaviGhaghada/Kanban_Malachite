@@ -13,9 +13,9 @@ public class BoardManager{
     private static BoardManager bm = null;
 
     private ArrayList<Board> boards;
-    private Board currentBoard = null;
-    private Column currentColumn = null;
-    private Card currentCard = null;
+    private transient Board currentBoard = null;
+    private transient Column currentColumn = null;
+    private transient Card currentCard = null;
 
     /**
      * Constructor for the board manager
