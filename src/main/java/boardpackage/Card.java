@@ -8,8 +8,7 @@ import java.util.Objects;
  */
 public class Card {
 
-    private Column parentColumn;
-
+    private transient Column parentColumn;
     private String id;
     private String title;
     private String text = "";

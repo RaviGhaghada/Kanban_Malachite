@@ -6,8 +6,7 @@ import java.util.*;
  */
 public class Column {
 
-
-    private Board parentBoard;
+    private transient Board parentBoard;
     private String id;
     private String title;
     private String role;
@@ -149,6 +148,7 @@ public class Column {
     }
 
 
+    
     public void delete(){
         this.parentBoard.removeColumn(this);
         this.parentBoard = null;
