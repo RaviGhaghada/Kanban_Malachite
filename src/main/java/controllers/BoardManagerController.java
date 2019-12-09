@@ -110,7 +110,7 @@ public class BoardManagerController {
 
     /**
      * Checks mouseClick event for double click.
-     * Opens board popup if there is a listed board selected & available.
+     * Opens board if there is a listed board selected & available.
      * @param mouseEvent the details on the mouseClick event
      */
     public void selectAction (MouseEvent mouseEvent) {

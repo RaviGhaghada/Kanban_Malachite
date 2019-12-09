@@ -1,14 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.StatisticsController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticsController">
+   <children>
+      <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="653.0" style="-fx-background-color: #87CEFA;">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="333.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fitHeight="133.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true" style="-fx-min-height: 100;">
+                     <image>
+                        <Image url="@../images/Mello_Logo.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <SplitPane prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #87CEFA;" stylesheets="@../css/stylesheet.css" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+       <Text fx:id="messageBox" layoutX="142.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0">
+           <font>
+               <Font name="Hiragino Sans W1" size="35.0" />
+           </font>
+       </Text>
+      <GridPane layoutX="38.0" layoutY="79.0" prefHeight="275.0" prefWidth="576.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+   </children>
 </AnchorPane>
