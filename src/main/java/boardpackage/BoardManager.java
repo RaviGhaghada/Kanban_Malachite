@@ -1,6 +1,7 @@
 package boardpackage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A facade, singleton.
@@ -12,6 +13,9 @@ import java.util.ArrayList;
 public class BoardManager{ 
     private static BoardManager bm = null;
 
+    private BoardWriter bw;
+    private BoardReader br;
+
     private ArrayList<Board> boards;
     private transient Board currentBoard = null;
     private transient Column currentColumn = null;
@@ -22,8 +26,13 @@ public class BoardManager{
      * that loads the boards.
      */
     private BoardManager(){
+        this.bw = new BoardWriter();
+        this.br = new BoardReader();
         this.boards = new ArrayList<>();
-        load();
+        ArrayList<String> boardids = br.getAllBoardIds();
+        for (String id : boardids){
+            boards.add(br.getBoard(id));
+        }
     }
 
     /**
@@ -144,16 +153,17 @@ public class BoardManager{
         new Card("Task09");
     }
 
-    private void load(){
-        BoardReader br = new BoardReader();
-        this.boards = br.loadBoardsFromJSON();
-        // TODO: @Manvi load all the boards onto field boards
+    public HashMap<String, String[]> getAllBoardVersionsMeta(){
+        return br.getAllVersionsMeta();
     }
 
-    public void save(){/*
-        // TODO: @Manvi save all the boards
-        BoardWriter bw = new BoardWriter();
-        bw.convertToJSON(boards);
-    */}
+    BoardWriter getBoardWriter() {
+        return bw;
+    }
+
+    BoardReader getBoardReader() {
+        return br;
+    }
+
 
 }

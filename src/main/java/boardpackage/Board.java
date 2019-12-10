@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Board{
 
-    private String id="1"; // TODO: unassign "1"
+    private String id;
     private String title;
     private LinkedList<Column> columns;
 
@@ -36,8 +36,9 @@ public class Board{
         this.columns = new LinkedList<>();
 
         BoardManager.get().addBoard(this);
-        // TODO: notify the logger and get an id for this object
-        // TODO: notify the logger that a new board key-value area must be allocated
+        this.id = BoardManager.get().getBoardReader().getNewBoardId();
+        System.out.println(this.id);
+        BoardManager.get().getBoardWriter().createBoard(this, "Created new board");
     }
 
     /**
@@ -46,12 +47,14 @@ public class Board{
      * @param columnTo destination column
      */
     public void moveCardTos(Card card, Column columnTo){
-        if(columnTo != null && card != null){
-            card.getParentColumn().removeCard(card);
-            columnTo.addCard(card);
-            card.setParentColumn(columnTo);
-        }
-        // TODO: low priority notification to the logger about moving cards
+        String info = "Moved card %s (%s) from column %s (%s) to column %s (%s).";
+        info = String.format(info, card.getTitle(), card.getId(),
+                card.getParentColumn().getTitle(), card.getParentColumn().getId(),
+                columnTo.getTitle(), columnTo.getId());
+        card.getParentColumn().removeCard(card);
+        columnTo.addCard(card);
+        card.setParentColumn(columnTo);
+        BoardManager.get().getBoardWriter().append(info);
     }
 
     /**
@@ -76,11 +79,13 @@ public class Board{
      * @param index New index of the board
      */
     public void moveColumn(Column column, int index){
-        if(index < columns.size() && index >= 0&&column != null){
+        if(index < columns.size() && index >= 0 &&column != null){
+            String info = "Moved column %s (%s) to index %s";
+            info = String.format(info, column.getTitle(), column.getId(), String.valueOf(index));
+            BoardManager.get().getBoardWriter().append(info);
             if(columns.remove(column))
                 columns.add(index,column);
         }
-        // TODO: low priority notification to the logger that a card has been moved
     }
 
     /**
@@ -113,17 +118,6 @@ public class Board{
      */
     public LinkedList<Column> getColumns(){
         return columns;
-    }
-
-    /**
-     * Set the title of the Kanban board
-     * @param title new title
-     */
-    public void setTitle(String title) {
-        if (!("".equals(title) || Objects.equals(this.title, title))){
-            this.title = title;
-            // TODO: notify the logger
-        }
     }
 
     public void delete(){

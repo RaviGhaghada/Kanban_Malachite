@@ -2,25 +2,26 @@ package boardpackage;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.io.FileWriter;
-import java.lang.reflect.Array;
 import java.util.*;
 
-public class BoardReader{
+class BoardReader{
 
     private Gson gson;
 
-    public BoardReader(){
+    private static final String filepath = "./src/main/resources/data/databoard.json";
+
+    BoardReader(){
         gson = new Gson();
     }
 
     public Board getBoardVersion(String id, String version){
-        try (FileReader file = new FileReader("./src/data.json")) {
+        try (FileReader file = new FileReader(filepath)) {
             JSONObject jo = (JSONObject) new JSONParser().parse(file);
             jo = (JSONObject) jo.get("boards");
             jo = (JSONObject) jo.get(id);
@@ -36,50 +37,56 @@ public class BoardReader{
 
             return new Board(id, title, columns);
 
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        finally {
         }
         return null;
     }
 
-    public ArrayList<Board> getAllBoards(){
-        ArrayList<Board> boards = new ArrayList<>();
-        try {
-            JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader("./src/data.json"));
+    ArrayList<String> getAllBoardIds(){
+        ArrayList<String> ids = new ArrayList<>();
+        try (FileReader file = new FileReader(filepath)){
+            JSONObject jo = (JSONObject) new JSONParser().parse(file);
             jo = (JSONObject) jo.get("boards");
             Set<String> allIds = (Set<String>) jo.keySet();
+            ids.addAll(allIds);
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return ids;
+    }
+    public ArrayList<Board> getAllBoards(){
+        ArrayList<Board> boards = new ArrayList<>();
+        try (FileReader file = new FileReader(filepath)){
+            JSONObject jo = (JSONObject) new JSONParser().parse(file);
+            JSONObject head = (JSONObject) jo.get("boards");
+            Set<String> allIds = (Set<String>) jo.keySet();
             for (String id : allIds) {
+                jo = head;
                 jo = (JSONObject) jo.get(id);
-
-                String title = jo.get("title").toString();
+                JSONObject temp = (JSONObject) jo.clone();
+                String title = temp.get("title").toString();
 
                 jo = (JSONObject) jo.get("versions");
                 Set<String> s = jo.keySet();
                 String latestVersion = String.valueOf(s.stream().mapToInt(Integer::parseInt).max().getAsInt());
 
                 jo = (JSONObject) jo.get(latestVersion);
-                jo = (JSONObject) jo.get("columns");
+                String columnsjson = (String) jo.get("columns");
 
-                String columnsjson = jo.toJSONString();
                 LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
 
                 boards.add(new Board(id, title, columns));
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
         return boards;
     }
 
-    public Board getBoard(String id){
+    Board getBoard(String id){
         try {
             JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader("./src/main/resources/data/databoard.json"));
             jo = (JSONObject) jo.get("boards");
@@ -92,12 +99,11 @@ public class BoardReader{
             String latestVersion = String.valueOf(s.stream().mapToInt(Integer::parseInt).max().getAsInt());
 
             jo  = (JSONObject) jo.get(latestVersion);
-            jo = (JSONObject) jo.get("columns");
 
-            String columnsjson = jo.toJSONString();
+            String columnsjson = (String) jo.get("columns");
             LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
 
-            new Board(id, title, columns);
+            return new Board(id, title, columns);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,5 +111,99 @@ public class BoardReader{
             e.printStackTrace();
         }
         return null;
+    }
+
+    String getNewBoardId(){
+        String newid = "";
+        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+            JSONObject jo = (JSONObject) new JSONParser().parse(fileReader);
+            jo = (JSONObject) jo.get("boards");
+            Set <String> s = jo.keySet();
+            newid = String.valueOf(s.stream().mapToInt(Integer::parseInt).max().orElse(0)+1);
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return newid;
+    }
+
+    String getNewCardId(){
+        String newid = "";
+        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+            Object obj = (JSONObject) new JSONParser().parse(fileReader);
+            JSONObject jo = (JSONObject) obj;
+            jo = (JSONObject) jo.get("boards");
+            JSONObject head = (JSONObject) jo.get(BoardManager.get().getCurrentBoard().getId());
+            jo = head;
+            JSONArray cardids = (JSONArray) jo.get("cardids");
+            if (cardids.size() == 0) {
+                newid = "0";
+            }
+            else {
+                newid = (String) cardids.get(cardids.size() - 1);
+                newid = String.valueOf(Integer.valueOf(newid) + 1);
+            }
+            cardids.add(newid);
+            head.replace("cardids", cardids);
+            PrintWriter pw = new PrintWriter("./src/main/resources/data/databoard.json");
+            pw.write(((JSONObject) obj).toJSONString());
+
+            pw.flush();
+            pw.close();
+            
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return newid;
+    }
+
+    String getNewColId(){
+        String newid = "";
+        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+            Object obj = (JSONObject) new JSONParser().parse(fileReader);
+            JSONObject jo = (JSONObject) obj;
+            jo = (JSONObject) jo.get("boards");
+            JSONObject head = (JSONObject) jo.get(BoardManager.get().getCurrentBoard().getId());
+            jo = head;
+            JSONArray colids = (JSONArray) jo.get("colids");
+            if (colids.size()==0){
+                newid = "0";
+            }
+            else {
+                newid = (String) colids.get(colids.size() - 1);
+                newid = String.valueOf(Integer.valueOf(newid) + 1);
+            }
+            colids.add(newid);
+            head.replace("colids", colids);
+            PrintWriter pw = new PrintWriter("./src/main/resources/data/databoard.json");
+            pw.write(((JSONObject) obj).toJSONString());
+
+            pw.flush();
+            pw.close();
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return newid;
+
+    }
+
+    HashMap<String, String[]> getAllVersionsMeta(){
+        HashMap<String, String[]> versions = new HashMap<>();
+        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+            JSONObject jo = (JSONObject) new JSONParser().parse(fileReader);
+            jo = (JSONObject) jo.get("boards");
+            jo = (JSONObject) jo.get(BoardManager.get().getCurrentBoard().getId());
+            jo = (JSONObject) jo.get("versions");
+            Set<String> vkeys = jo.keySet();
+            for (String vno : vkeys){
+                JSONObject version = (JSONObject) jo.get(vno);
+                String[] value = new String[] {(String) version.get("date"), (String) version.get("info")};
+                versions.put(vno, value);
+            }
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return versions;
     }
 }

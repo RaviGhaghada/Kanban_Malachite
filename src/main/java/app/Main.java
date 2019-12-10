@@ -24,13 +24,11 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/welcome.fxml"));
         primaryStage.setTitle("Mello");
         primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.setOnCloseRequest(event -> BoardManager.get().save());
     }
 
 
