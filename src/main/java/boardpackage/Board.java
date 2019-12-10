@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class Board{
 
-    private String id;
+    private String id="1"; // TODO: unassign "1"
     private String title;
     private LinkedList<Column> columns;
 
@@ -21,13 +21,10 @@ public class Board{
      * It must only be used to create a board being loaded
      * from a json file
      */
-    Board(String id, String title){
+    Board(String id, String title, LinkedList<Column> columns){
         this.id = id;
         this.title = title;
-
-        BoardManager.get().addBoard(this);
-
-        this.columns = new LinkedList<>();
+        this.columns = columns;
     }
 
     /**

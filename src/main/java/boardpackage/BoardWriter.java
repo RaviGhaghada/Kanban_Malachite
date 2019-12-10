@@ -1,9 +1,11 @@
 package boardpackage;
 
 import com.google.gson.Gson;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.*;
-import java.io.FileWriter;
-import java.util.ArrayList;
 
 public class BoardWriter{
 
@@ -13,21 +15,25 @@ public class BoardWriter{
         gson = new Gson();
     }
 
-    public void convertToJSON(ArrayList<Board> boards){
+    public void insert(Board board, String version, String versionInfo){
+        try {
+            Object obj = new JSONParser().parse(new FileReader("./src/data.json"));
+            JSONObject ptr = (JSONObject) obj;
+            //ptr = ptr.get("boards");
 
-       try {
-            String jsonString = gson.toJson(boards);
 
-            FileWriter file = new FileWriter("./src/main/resources/data/databoard.json");
-            File directory = new File("./src/main/resources/data/databoard.json");
-            System.out.println(directory.getAbsolutePath());
-            file.write(jsonString);
-            file.close();
-        //    System.out.println(jsonString);
-            //System.out.println(file.getName());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("exception " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private String getBoardJson(Board board){
+
+        String jsonString = gson.toJson(board);
+        return jsonString;
     }
 }
