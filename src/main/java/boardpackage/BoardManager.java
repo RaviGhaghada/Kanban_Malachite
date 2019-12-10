@@ -61,8 +61,8 @@ public class BoardManager{
      * @param board
      */
     public void setCurrentBoard(Board board) {
-	if(board != null)
-        	this.currentBoard = board;
+
+        this.currentBoard = board;
 
     }
 
@@ -112,8 +112,8 @@ public class BoardManager{
      * @param currentColumn
      */
     public void setCurrentColumn(Column currentColumn) {
-	if(currentColumn != null)
-        	this.currentColumn = currentColumn;
+
+        this.currentColumn = currentColumn;
     }
 
     /**
@@ -138,8 +138,8 @@ public class BoardManager{
      * @param currentCard
      */
     public void setCurrentCard(Card currentCard) {
-	if(currentCard != null)
-        	this.currentCard = currentCard;
+
+        this.currentCard = currentCard;
     }
 
     /**

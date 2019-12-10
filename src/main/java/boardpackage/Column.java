@@ -21,7 +21,9 @@ public class Column {
      */
     Column (Board parent, String id, String title, String role){
         this.parentBoard = parent;
+
         parentBoard.addColumn(this);
+
 
         this.id = id;
         this.title = title;

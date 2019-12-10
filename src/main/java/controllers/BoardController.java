@@ -4,11 +4,14 @@ import boardpackage.BoardManager;
 import boardpackage.Column;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PageLayout;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -18,6 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import wrappers.ColumnWrapper;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +37,10 @@ public class BoardController {
     private ScrollPane scrollPane;
 
     private Board board;
+
+    @FXML
+    public Button backButton;
+    public Button quitButton;
 
     @FXML
     public void initialize(){
@@ -91,6 +100,36 @@ public class BoardController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void deleteBoardAction(){
+        System.out.println("DELETE? " + BoardManager.get().getBoards().size());
+        board.delete();
+        System.out.println("DELETED: " +BoardManager.get().getBoards().size());
+        this.board = null;
+        backAction();
+    }
+
+    @FXML
+    public void backAction(){
+        try {
+            BoardManager.get().setCurrentBoard(null);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
+            System.out.println("I was clicked!");
+            Parent root = (Parent) loader.load();
+            Scene s = backButton.getScene();
+            s.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    // TODO: call BoardManager.save() when Manvi pushes her code
+    public void quitAction(){
+        Platform.exit();
+    }
+
 
     public void dragCol(VBox column) {
         VBox head = (VBox) column.getChildren().get(0);

@@ -60,10 +60,16 @@ public class CardTest{
 	public void testSetGetStoryPoint(){
 		Card c = new Card("1");
 		assertNotNull(c.getStoryPoints());
-		c.setStoryPoints("something");
-		assertEquals("something",c.getStoryPoints());
-		c.setStoryPoints(null);
-		assertNotNull(c.getStoryPoints());
+		c.setStoryPoints(1);
+		assertEquals(1,c.getStoryPoints());
+		c.setStoryPoints(-10);
+		assertEquals(10,c.getStoryPoints());
+		c.setStoryPoints(2147483647);
+		assertEquals(2147483647,c.getStoryPoints());
+		c.setStoryPoints(-2147483648);
+		assertEquals(-2147483648,c.getStoryPoints());
+		c.setStoryPoints(0);
+		assertEquals(0,c.getStoryPoints());
 	}
 	@Test
 	public void testDelete(){

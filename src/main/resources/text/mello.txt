@@ -1,0 +1,3 @@
+Welcome to Mello!
+Mello is the best way to manage your Kanban boards.
+Click "Get Started" to entire the Mello world and manage your projects.

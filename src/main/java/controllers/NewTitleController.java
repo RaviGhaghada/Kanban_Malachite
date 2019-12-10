@@ -50,7 +50,7 @@ public class NewTitleController {
      * Has a catch statement in case the popup fails to open.
      * @param errorMessage
      */
-    public void newBoardErrorPopup(String errorMessage){
+    public void newErrorPopup(String errorMessage){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/errorpopup.fxml"));
             // Create a controller instance
@@ -80,7 +80,7 @@ public class NewTitleController {
     public void saveAndCloseAction(){
         if (textInput.getText().length() == 0){
             String classname = aClass.getSimpleName().toLowerCase();
-            newBoardErrorPopup("Please give your " + classname + " a name!");
+            newErrorPopup("Please give your " + classname + " a name!");
         } else {
 
             if (aClass.equals(Board.class)){

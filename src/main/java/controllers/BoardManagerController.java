@@ -63,7 +63,6 @@ public class BoardManagerController {
     /**
      * Allows user to add Board. Opens "New Board" popup.
      */
-    // TODO: Functionality of creating new board and adding to boards
     @FXML
     public void addAction (ActionEvent actionEvent) {
         BoardManager.get().setCurrentBoard(null);
