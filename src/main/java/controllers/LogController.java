@@ -32,7 +32,7 @@ public class LogController {
     @FXML
     public void initialize() {
         messageBox.setText("Log for Your Board");
-        boardTableView.getItems().addAll(Logger.get().getVersions());
+        // boardTableView.getItems().addAll(Logger.get().getVersions());
     }
 
     /**
