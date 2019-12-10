@@ -11,6 +11,7 @@ mainClassName = 'app.Main'
 dependencies {
     testCompile 'junit:junit:4.13-rc-1'
   implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.apache.clerezza.ext:org.json.simple:0.4'
 }
 javafx {
     version = "11.0.2"
