@@ -1,1 +1,96 @@
-[{"title":"Malachite","columns":[{"title":"Backlog","cards":[{"title":"Task01","text":"","storypoints":""},{"title":"Task02","text":"","storypoints":""},{"title":"Task03","text":"","storypoints":""},{"title":"SecretTask01","text":"","storypoints":""}]},{"title":"Developing","cards":[{"title":"Task04","text":"","storypoints":""},{"title":"Task05","text":"","storypoints":""},{"title":"Task06","text":"","storypoints":""}]},{"title":"Finished","cards":[{"title":"Task07","text":"","storypoints":""},{"title":"Task08","text":"","storypoints":""},{"title":"Task09","text":"","storypoints":""}]}]}]
+{
+  "boards": {
+    "1": {
+      "versions": {
+        "11": {
+          "date": "2019-12-10T18:23:49.043565",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[{\"id\":\"4\",\"title\":\"Task04\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"5\",\"title\":\"Task05\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"6\",\"title\":\"Task06\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"2\",\"title\":\"Finished\",\"cards\":[{\"id\":\"7\",\"title\":\"Task07\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task07 (7) to column Finished (2)"
+        },
+        "12": {
+          "date": "2019-12-10T18:23:49.055497",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[{\"id\":\"4\",\"title\":\"Task04\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"5\",\"title\":\"Task05\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"6\",\"title\":\"Task06\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"2\",\"title\":\"Finished\",\"cards\":[{\"id\":\"7\",\"title\":\"Task07\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"8\",\"title\":\"Task08\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task08 (8) to column Finished (2)"
+        },
+        "13": {
+          "info": "Added new card Task09 (9) to column Finished (2)",
+          "date": "2019-12-10T18:23:49.061944",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[{\"id\":\"4\",\"title\":\"Task04\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"5\",\"title\":\"Task05\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"6\",\"title\":\"Task06\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"2\",\"title\":\"Finished\",\"cards\":[{\"id\":\"7\",\"title\":\"Task07\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"8\",\"title\":\"Task08\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"9\",\"title\":\"Task09\",\"text\":\"\",\"storypoints\":\"\"}]}]"
+        },
+        "0": {
+          "date": "2019-12-10T18:23:48.919801",
+          "columns": "[]",
+          "info": "Created new board"
+        },
+        "1": {
+          "date": "2019-12-10T18:23:48.977841",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[]}]",
+          "info": "Added new column Backlog (0)"
+        },
+        "2": {
+          "date": "2019-12-10T18:23:49.000293",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task01 (0) to column Backlog (0)"
+        },
+        "3": {
+          "date": "2019-12-10T18:23:49.003301",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task02 (1) to column Backlog (0)"
+        },
+        "4": {
+          "date": "2019-12-10T18:23:49.007192",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task03 (2) to column Backlog (0)"
+        },
+        "5": {
+          "date": "2019-12-10T18:23:49.011289",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card SecretTask01 (3) to column Backlog (0)"
+        },
+        "6": {
+          "date": "2019-12-10T18:23:49.016200",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[]}]",
+          "info": "Added new column Developing (1)"
+        },
+        "7": {
+          "date": "2019-12-10T18:23:49.020387",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[{\"id\":\"4\",\"title\":\"Task04\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task04 (4) to column Developing (1)"
+        },
+        "8": {
+          "date": "2019-12-10T18:23:49.025053",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[{\"id\":\"4\",\"title\":\"Task04\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"5\",\"title\":\"Task05\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task05 (5) to column Developing (1)"
+        },
+        "9": {
+          "date": "2019-12-10T18:23:49.032725",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[{\"id\":\"4\",\"title\":\"Task04\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"5\",\"title\":\"Task05\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"6\",\"title\":\"Task06\",\"text\":\"\",\"storypoints\":\"\"}]}]",
+          "info": "Added new card Task06 (6) to column Developing (1)"
+        },
+        "10": {
+          "date": "2019-12-10T18:23:49.038025",
+          "columns": "[{\"id\":\"0\",\"title\":\"Backlog\",\"cards\":[{\"id\":\"0\",\"title\":\"Task01\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"1\",\"title\":\"Task02\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"2\",\"title\":\"Task03\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"3\",\"title\":\"SecretTask01\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"1\",\"title\":\"Developing\",\"cards\":[{\"id\":\"4\",\"title\":\"Task04\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"5\",\"title\":\"Task05\",\"text\":\"\",\"storypoints\":\"\"},{\"id\":\"6\",\"title\":\"Task06\",\"text\":\"\",\"storypoints\":\"\"}]},{\"id\":\"2\",\"title\":\"Finished\",\"cards\":[]}]",
+          "info": "Added new column Finished (2)"
+        }
+      },
+      "colids": [
+        "0",
+        "1",
+        "2"
+      ],
+      "title": "Malachite",
+      "cardids": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ]
+    }
+  }
+}
