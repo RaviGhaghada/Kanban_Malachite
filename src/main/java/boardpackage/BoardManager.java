@@ -157,6 +157,10 @@ public class BoardManager{
         return br.getAllVersionsMeta();
     }
 
+    public Board getBoardVersion(String version){
+        return br.getBoardVersion(version);
+    }
+
     BoardWriter getBoardWriter() {
         return bw;
     }
@@ -164,6 +168,5 @@ public class BoardManager{
     BoardReader getBoardReader() {
         return br;
     }
-
 
 }

@@ -20,10 +20,11 @@ class BoardReader{
         gson = new Gson();
     }
 
-    public Board getBoardVersion(String id, String version){
+    Board getBoardVersion(String version){
         try (FileReader file = new FileReader(filepath)) {
             JSONObject jo = (JSONObject) new JSONParser().parse(file);
             jo = (JSONObject) jo.get("boards");
+            String id = BoardManager.get().getCurrentBoard().getId();
             jo = (JSONObject) jo.get(id);
 
             String title = jo.get("title").toString();
