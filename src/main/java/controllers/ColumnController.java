@@ -150,7 +150,6 @@ public class ColumnController {
                     event.consume();
                 }
             });
-
             head.setOnDragDropped(event -> {
                 boolean finish = false;
                 if (event.getDragboard().hasString()) {
