@@ -14,7 +14,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardManagerController">
    <children>
       <ListView fx:id="boardListView" layoutX="44.0" layoutY="210.0" onMouseClicked="#selectAction" prefHeight="346.0" prefWidth="903.0" />
-      <Button layoutX="833.0" layoutY="176.0" mnemonicParsing="false" onAction="#addAction" text="New Board">
+      <Button fx:id="addBoard" layoutX="833.0" layoutY="176.0" mnemonicParsing="false" onAction="#addAction" text="New Board">
          <font>
             <Font name="Hiragino Sans W1" size="17.0" />
          </font></Button>
