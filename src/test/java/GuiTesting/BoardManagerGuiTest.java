@@ -5,19 +5,22 @@ import static org.testfx.matcher.control.ListViewMatchers.*;
 import static org.testfx.matcher.base.NodeMatchers.*;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.robot.Motion;
-
+import org.testfx.api.FxToolkit;
 import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;	
 import javafx.scene.input.KeyCodeCombination;
 
 import app.Main;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.testfx.robot.TypeRobot.*;
+
 public class BoardManagerGuiTest extends ApplicationTest{
 	@Before
 	public void setUp() throws Exception{
@@ -34,6 +37,13 @@ public class BoardManagerGuiTest extends ApplicationTest{
 	@Override
 	public void start(Stage s) throws Exception{
 		s.show();
+
+	}
+	@After
+	public void tearDown() throws Exception{
+		FxToolkit.hideStage();
+   		release(new KeyCode[]{});
+   		release(new MouseButton[]{});
 
 	}
 	@Test

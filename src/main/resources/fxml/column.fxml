@@ -16,7 +16,7 @@
       <Insets />
    </opaqueInsets>
    <children>
-      <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="186.0">
+      <VBox fx:id="columns" nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="186.0">
          <children>
             <HBox prefHeight="27.0" prefWidth="239.0" spacing="135.0">
                <children>
