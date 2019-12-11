@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ebf4ff#ebf4ff;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardController">
+<AnchorPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ebf4ff#ebf4ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardController">
    <children>
       <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #87CEFA;">
         <columnConstraints>
@@ -111,12 +112,11 @@
             <Insets />
          </opaqueInsets>
       </GridPane>
-      <ImageView fitHeight="356.0" fitWidth="482.0" layoutY="50.0" opacity="0.55" pickOnBounds="true" preserveRatio="true" />
-      <ScrollPane fx:id="scrollPane" layoutY="50.0" prefHeight="550.0" prefWidth="1000.0" style="-fx-background-color: #D5F3FE;" vbarPolicy="NEVER">
+      <ScrollPane fx:id="scrollPane" layoutY="83.0" prefHeight="517.0" prefWidth="1000.0" style="-fx-background-color: #D5F3FE;" vbarPolicy="NEVER">
          <content>
             <HBox fx:id="columnContainer" fillHeight="false" spacing="30.0">
                <padding>
-                  <Insets left="15.0" right="15.0" top="30.0" />
+                  <Insets left="15.0" right="15.0" top="10.0" />
                </padding>
                <opaqueInsets>
                   <Insets />
@@ -124,5 +124,31 @@
             </HBox>
          </content>
       </ScrollPane>
+      <HBox layoutX="4.0" layoutY="51.0" prefHeight="30.0" prefWidth="994.0" spacing="20.0">
+         <children>
+            <TextArea minHeight="-Infinity" prefHeight="13.0" prefWidth="186.0" promptText="board title..." />
+            <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/line-chart.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/file.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+         <padding>
+            <Insets top="2.0" />
+         </padding>
+      </HBox>
    </children>
 </AnchorPane>
