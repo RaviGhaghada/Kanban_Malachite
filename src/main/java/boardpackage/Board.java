@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * A class to represent a Kanban board.
- * board is capable of holding multiple columns
+ * Ideally a board should be capable of holding multiple columns
  * each of which holds multiple cards.
  */
 public class Board{
@@ -21,10 +21,13 @@ public class Board{
      * It must only be used to create a board being loaded
      * from a json file
      */
-    Board(String id, String title, LinkedList<Column> columns){
+    Board(String id, String title){
         this.id = id;
         this.title = title;
-        this.columns = columns;
+
+        BoardManager.get().addBoard(this);
+
+        this.columns = new LinkedList<>();
     }
 
     /**
@@ -36,7 +39,8 @@ public class Board{
         this.columns = new LinkedList<>();
 
         BoardManager.get().addBoard(this);
-
+        // TODO: notify the logger and get an id for this object
+        // TODO: notify the logger that a new board key-value area must be allocated
     }
 
     /**
@@ -45,11 +49,12 @@ public class Board{
      * @param columnTo destination column
      */
     public void moveCardTos(Card card, Column columnTo){
-
-        card.getParentColumn().removeCard(card);
-        columnTo.addCard(card);
-        card.setParentColumn(columnTo);
-
+        if(columnTo != null && card != null){
+            card.getParentColumn().removeCard(card);
+            columnTo.addCard(card);
+            card.setParentColumn(columnTo);
+        }
+        // TODO: low priority notification to the logger about moving cards
     }
 
     /**
@@ -74,10 +79,11 @@ public class Board{
      * @param index New index of the board
      */
     public void moveColumn(Column column, int index){
-        if(index < columns.size() && index >= 0 &&column != null){
+        if(index < columns.size() && index >= 0&&column != null){
             if(columns.remove(column))
                 columns.add(index,column);
         }
+        // TODO: low priority notification to the logger that a card has been moved
     }
 
     /**
@@ -110,6 +116,17 @@ public class Board{
      */
     public LinkedList<Column> getColumns(){
         return columns;
+    }
+
+    /**
+     * Set the title of the Kanban board
+     * @param title new title
+     */
+    public void setTitle(String title) {
+        if (!("".equals(title) || Objects.equals(this.title, title))){
+            this.title = title;
+            // TODO: notify the logger
+        }
     }
 
     public void delete(){

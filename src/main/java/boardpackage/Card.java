@@ -1,4 +1,3 @@
-
 package boardpackage;
 
 import java.util.Objects;
@@ -9,7 +8,8 @@ import java.util.Objects;
  */
 public class Card {
 
-    private transient Column parentColumn;
+    private Column parentColumn;
+
     private String id;
     private String title;
     private String text = "";
@@ -34,7 +34,7 @@ public class Card {
     /**
      * Constructor for a card
      * It must have a non-null title
-     * @param title title of the card
+     * @param title
      */
     public Card(String title){
         this.title = title;
@@ -42,10 +42,7 @@ public class Card {
         parentColumn = BoardManager.get().getCurrentColumn();
         parentColumn.addCard(this);
 
-        this.id = BoardManager.get().getBoardReader().getNewCardId();
-        String info = String.format("Added new card %s (%s) to column %s (%s)",
-                this.title, this.id, parentColumn.getTitle(), parentColumn.getId());
-        BoardManager.get().getBoardWriter().append(info);
+        // TODO: request the logger to allocate a new unique id for this card
     }
 
 
@@ -62,10 +59,9 @@ public class Card {
      * @param title new title
      */
     public void setTitle(String title) {
-
-        if (!("".equals(title) || Objects.equals(this.title, title))){ //to not log twice same thing
-
+        if (!("".equals(title) || Objects.equals(this.title, title))){
             this.title = title;
+            // TODO: notify the logger
         }
     }
 
@@ -74,10 +70,9 @@ public class Card {
      * @param text new text
      */
     public void setText(String text){
-        if (!Objects.equals(text, this.text)){ //to not log twice same thing
+        if (!Objects.equals(text, this.text)){
             this.text = text;
-            String info = String.format("Changed card %s (%s) 's description to %s", this.getText(), this.getId(), text);
-            BoardManager.get().getBoardWriter().append(info);
+            // TODO: notify the logger
         }
     }
 
@@ -102,11 +97,10 @@ public class Card {
      * Set the story points of a card
      * @param storypoints story points of a card
      */
-
     public void setStoryPoints(int storypoints) {
         if (!Objects.equals(this.storypoints,storypoints)){
-
             this.storypoints = storypoints;
+            // TODO: notify the logger
         }
     }
 
@@ -132,14 +126,13 @@ public class Card {
      * @param parentColumn parent column
      */
     void setParentColumn(Column parentColumn) {
-	if(parentColumn != null)
-        	this.parentColumn = parentColumn;
+        this.parentColumn = parentColumn;
     }
 
 
     /**
      * Set the id of a card.
-     * used by the logger.
+     * Ideally, it should be used by the logger.
      * Is package-private.
      * @param id id of card
      */
@@ -147,14 +140,13 @@ public class Card {
         this.id = id;
     }
 
-
     public void delete(){
         this.parentColumn.removeCard(this);
         this.parentColumn = null;
         if (this.equals(BoardManager.get().getCurrentCard())){
             BoardManager.get().setCurrentCard(null);
         }
-
+        // TODO: notify the logger about deletion of this card
     }
 }
 
