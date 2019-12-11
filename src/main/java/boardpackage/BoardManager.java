@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 /**
  * A facade, singleton.
- * It represents an entity that controls
- * all Kanban board entities.
+ * It represents an entity that appears to
+ * magically control all Kanban board entities.
  * There can be only one shared instance of this entity
  * throughout this whole program.
  */
@@ -23,7 +23,7 @@ public class BoardManager{
      */
     private BoardManager(){
         this.boards = new ArrayList<>();
-	BoardManager.bm = this;
+
         // TODO: load boards with actual data from the json file
     }
 
@@ -43,8 +43,7 @@ public class BoardManager{
      * @param board
      */
     void addBoard(Board board){
-	if(board != null)
-        	boards.add(board);
+        boards.add(board);
     }
 
     /**
@@ -55,15 +54,12 @@ public class BoardManager{
         boards.remove(board);
     }
 
-
     /**
      * Focus on a current board
      * @param board
      */
     public void setCurrentBoard(Board board) {
-
         this.currentBoard = board;
-
     }
 
     /**
@@ -71,18 +67,6 @@ public class BoardManager{
      * @return Board
      */
     public Board getCurrentBoard() {
-	if(currentBoard == null){
-		if(boards.size() > 0){
-			currentBoard = boards.get(0);
-		}
-		else{
-			Board b = new Board("new board");
-			addBoard(b);
-			setCurrentBoard(b);
-			
-		}
-		
-	}
         return this.currentBoard;
     }
 
@@ -91,19 +75,6 @@ public class BoardManager{
      * @return Column
      */
     public Column getCurrentColumn() {
-	if(currentColumn == null){
-		Board b = getCurrentBoard();
-		if(b.getColumns().size() > 0){
-			currentColumn = b.getColumns().get(0);
-		}
-		else{
-			Column c = new Column("new column");
-			b.addColumn(c);
-			setCurrentColumn(c);
-			
-		}
-		
-	}
         return this.currentColumn;
     }
 
@@ -112,7 +83,6 @@ public class BoardManager{
      * @param currentColumn
      */
     public void setCurrentColumn(Column currentColumn) {
-
         this.currentColumn = currentColumn;
     }
 
@@ -121,16 +91,7 @@ public class BoardManager{
      * @return Card
      */
     public Card getCurrentCard() {
-	if(this.currentCard == null){
-		Column col = getCurrentColumn();
-		if(col.getCards().size()==0){
-			col.addCard(new Card("new card"));
-		}
-		this.currentCard = col.getCards().get(0);		
-		
-		
-	}
-        return this.currentCard;
+        return currentCard;
     }
 
     /**
@@ -138,7 +99,6 @@ public class BoardManager{
      * @param currentCard
      */
     public void setCurrentCard(Card currentCard) {
-
         this.currentCard = currentCard;
     }
 

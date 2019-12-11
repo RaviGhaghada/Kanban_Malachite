@@ -1,8 +1,8 @@
+package boardpackage;
 import static org.testfx.api.FxAssert.*;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 import static org.testfx.matcher.control.ListViewMatchers.*;
 import static org.testfx.matcher.base.NodeMatchers.*;
-import boardpackage.*;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.robot.Motion;
 
@@ -19,6 +19,13 @@ public class NewBoardGuiTest extends ApplicationTest{
 	@Before
 	public void setUp() throws Exception{
 		ApplicationTest.launch(Main.class);
+		while(BoardManager.get().getBoards().size()>0){
+			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+		}
+		BoardManager.get().populate();
+		BoardManager.get().setCurrentColumn(null);
+		BoardManager.get().setCurrentBoard(null);
+		BoardManager.get().setCurrentCard(null);
 		clickOn("#forwardButton");
 		clickOn("#addBoard");
 		write("unique_board_27182");

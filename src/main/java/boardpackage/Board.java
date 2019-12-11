@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * A class to represent a Kanban board.
- * board is capable of holding multiple columns
+ * Ideally a board should be capable of holding multiple columns
  * each of which holds multiple cards.
  */
 public class Board{

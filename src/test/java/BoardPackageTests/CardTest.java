@@ -4,9 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
+import org.junit.Before;
 
 public class CardTest{
-
+	@Before
+	public void setUp(){
+		Board board = new Board("");
+		BoardManager.get().setCurrentBoard(board);
+		Column col = new Column("");
+		BoardManager.get().setCurrentColumn(col);
+	}
 	@Test
 	public void testGetIDOnInit(){
 		Card c = new Card("1");
