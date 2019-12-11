@@ -49,7 +49,7 @@ public class Column {
      * @param finalIndex
      */
     public void moveCard(Card card, int finalIndex){
-        if (cards.contains(card)) {
+        if (cards.contains(card) && finalIndex > 0 && finalIndex < cards.size()-1) {
             cards.remove(card);
             cards.add(finalIndex, card);
         }
@@ -78,8 +78,9 @@ public class Column {
      * @param card card to be added
      */
     void addCard(Card card){
+	if(card != null)
         // TODO: notify logger
-        cards.add(card);
+        	cards.add(card);
     }
 
     /**
@@ -105,7 +106,7 @@ public class Column {
      * @param title
      */
     public void setTitle(String title){
-        if (!this.title.equals(title)) {
+        if (title != null && !this.title.equals(title)) {
             this.title = title;
             // TODO: notify the logger
         }
@@ -146,7 +147,9 @@ public class Column {
     void setParentBoard(Board board){
         this.parentBoard = board;
     }
-
+    public Board getParentBoard(){
+        return this.parentBoard;
+    }
 
     public void delete(){
         this.parentBoard.removeColumn(this);

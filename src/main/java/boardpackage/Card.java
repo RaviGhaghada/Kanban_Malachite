@@ -149,3 +149,4 @@ public class Card {
         // TODO: notify the logger about deletion of this card
     }
 }
+
