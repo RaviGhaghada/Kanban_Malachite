@@ -12,21 +12,35 @@ import javafx.stage.Stage;
 import javafx.stage.Modality;
 import javafx.event.ActionEvent;
 
+/**
+ * Controller for the New Title Popup.
+ * Allows users to make new board, column, or card by assigning a title.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
+
 public class NewTitleController {
 
-    private Class aClass;
+    private Class aClass; // Class of new object
 
     @FXML
-    private Text messageBox;
+    private Text messageBox; // Message displayed in window
 
     @FXML
-    private TextArea textInput;
+    private TextArea textInput; // Text input area for new title
 
     @FXML
     public Button cancelButton; // button labeled as "Cancel" in popup
 
     @FXML
     public Button saveButton; // button labeled as "Save" in popup
+
+    /**
+     * Sets the class type for New Title popup.
+     * Sets the message on popup window.
+     * @param aClass the Class type of object created.
+     */
 
     public void setaClass(Class aClass){
         this.aClass = aClass;
@@ -48,7 +62,7 @@ public class NewTitleController {
     /**
      * Creates an error message popup when an error occurs.
      * Has a catch statement in case the popup fails to open.
-     * @param errorMessage
+     * @param errorMessage Message associated with the Error.
      */
     public void newErrorPopup(String errorMessage){
         try {
@@ -73,7 +87,7 @@ public class NewTitleController {
 
     /**
      * Adds new board to the existing boards.
-     * Checks for empty name or duplicate name.
+     * Checks for empty name.
      * Closes NewBoard popup.
      */
     @FXML
@@ -82,7 +96,6 @@ public class NewTitleController {
             String classname = aClass.getSimpleName().toLowerCase();
             newErrorPopup("Please give your " + classname + " a name!");
         } else {
-
             if (aClass.equals(Board.class)){
                 Board board = new Board(textInput.getText());
                 BoardManager.get().setCurrentBoard(board);
@@ -93,9 +106,7 @@ public class NewTitleController {
                 Card card = new Card(textInput.getText());
                 BoardManager.get().setCurrentCard(card);
             }
-
             ((Stage)(saveButton.getScene().getWindow())).close();
-
         }
 
     }

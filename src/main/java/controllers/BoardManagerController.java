@@ -1,6 +1,7 @@
 package controllers;
 
 import boardpackage.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -109,7 +110,7 @@ public class BoardManagerController {
 
     /**
      * Checks mouseClick event for double click.
-     * Opens board popup if there is a listed board selected & available.
+     * Opens board if there is a listed board selected & available.
      * @param mouseEvent the details on the mouseClick event
      */
     public void selectAction (MouseEvent mouseEvent) {
@@ -126,6 +127,15 @@ public class BoardManagerController {
             }
         }
 
+    }
+
+    /**
+     * Enables user to exit the application.
+     */
+    @FXML
+    // TODO: call BoardManager.save() when Manvi pushes her code
+    public void quitAction(){
+        Platform.exit();
     }
 
 
