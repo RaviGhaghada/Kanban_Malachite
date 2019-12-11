@@ -10,11 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 
 import app.Main;
 import org.junit.Test;
 import org.junit.Before;
-
+import static org.junit.Assert.assertEquals;
+import org.testfx.robot.TypeRobot.*;
 public class ColumnGuiTest extends ApplicationTest{
 	@Before
 	public void setUp() throws Exception{
@@ -27,11 +30,33 @@ public class ColumnGuiTest extends ApplicationTest{
 		BoardManager.get().setCurrentBoard(null);
 		BoardManager.get().setCurrentCard(null);
 		clickOn("#forwardButton");
+		clickOn("Malachite");
+		clickOn("Malachite");
 	}
 	@Override
 	public void start(Stage s) throws Exception{
 		s.show();
 	}
+	@Test
+	public void editTitleTest(){
+
+		clickOn("#titleText");
+		write("123");
+		verifyThat("#titleText",hasText("Backlog123"));
+		clickOn("#backButton");
+		
+	}
+	@Test
+	public void deleteTest(){
+		int a = BoardManager.get().getCurrentBoard().getColumns().size();
+		clickOn("Backlog");
+		clickOn("#deleteColumn");
+		verifyThat("#columnContainer",hasItems(a-1));
+		assertEquals(a-1,BoardManager.get().getCurrentBoard().getColumns().size());
+		clickOn("#backButton");
+	}
+
+	
 
 
 }
