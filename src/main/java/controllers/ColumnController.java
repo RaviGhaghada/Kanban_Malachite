@@ -16,6 +16,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
@@ -24,17 +25,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
-
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class ColumnController {
 
     @FXML
     private ColumnWrapper columnVbox;
-
     @FXML
     private TextField titleText;
     @FXML
@@ -51,6 +50,8 @@ public class ColumnController {
         loadDataChoiceBox();
         Column column = BoardManager.get().getCurrentColumn();
         columnVbox.setColumn(column);
+        columnVbox.setOnDragDone(this::onDragDone);
+        //columnVbox.setOnDragDone(event -> System.out.println("ACCESS!"));
         cardRoll = new ChoiceBox<>();   //create a choice box for each added column
         for (Card card : column.getCards()){
             BoardManager.get().setCurrentCard(card);
@@ -59,6 +60,13 @@ public class ColumnController {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 cardBox = loader.load();
+                cardBox.setOnDragDetected(event -> {
+                    BoardManager.get().setCurrentCard(cardBox.getCard());
+                    System.out.println("picked card " + cardBox.getCard().getTitle());
+                });
+                cardBox.setOnDragDropped(event -> {
+                    cardContainer.getChildren().remove(cardBox);
+                });
                 cardContainer.getChildren().add(cardBox);
                 dragCard(cardBox);
             } catch (IOException e) {
@@ -74,6 +82,28 @@ public class ColumnController {
         });
 
         refresh();
+    }
+
+    public void onDragDone(DragEvent dragEvent) {
+        Card card = BoardManager.get().getCurrentCard();
+        System.out.println("I am here");
+        try {
+            if (card != null && card.getParentColumn() != columnVbox.getColumn()) {
+                // at this point, we have a unique column
+                FXMLLoader cardloader = new FXMLLoader();
+                cardloader.setLocation(getClass().getResource("/fxml/card.fxml"));
+                // BoardManager.get().setCurrentCard(card);
+                CardWrapper newcard = cardloader.load();
+                System.out.println("1>" + cardContainer.getChildren().size());
+                cardContainer.getChildren().add(newcard);
+                System.out.println("2>" + cardContainer.getChildren().size());
+                BoardManager.get().setCurrentCard(null);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(card != null);
+        System.out.println(columnVbox.getColumn() != card.getParentColumn());
     }
 
     @FXML
@@ -99,7 +129,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 CardWrapper cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                dragCard(cardBox);
+                //dragCard(cardBox);
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
@@ -150,10 +180,13 @@ public class ColumnController {
                     event.consume();
                 }
             });
+
+
             head.setOnDragDropped(event -> {
                 boolean finish = false;
                 if (event.getDragboard().hasString()) {
                     Parent start = (Parent) event.getGestureSource();
+                    Parent end = (Parent) event.getGestureTarget();
                     int startingPoint = cardContainer.getChildren().indexOf(start);
                     int endingPoint = cardContainer.getChildren().indexOf(card);
                     if (startingPoint >= 0 && endingPoint >= 0) {
@@ -166,16 +199,63 @@ public class ColumnController {
                         for (Node node : allSwappedCards) {
                             cardContainer.getChildren().add(node);
                         }
-                    }
-                    finish = true;
-                }
-                event.setDropCompleted(finish);
-                event.consume();
-            });
+                    }/*
+                        else {
+                             //else its not in our VBOX
+                             LinkedList<Column> listOfColumns = BoardManager.get().getCurrentBoard().getColumns();
+                             for(Column col : listOfColumns){
+                                if (col.getContainsTaskRoot(end) != null){
+                                    //do the swap
+                                    ObservableList<Node> listOfColsToBeSwapped = boxOfTask.getChildren();
+                                    ArrayList<Node> newListOfCols = new ArrayList<>(listOfColsToBeSwapped);
+                                    newListOfCols.remove(end);
+                                    newListOfCols.add(start);
+
+                                    boxOfTask.getChildren().clear();
+                                    ArrayList<Node> cleard = new ArrayList<>();
+                                    for( Node n : newListOfCols){
+                                        if(!(cleard.contains(n))){
+                                            cleard.add(n);
+                                        }
+                                    }
+                                    newListOfCols = cleard;
+
+                                    for (Node node : newListOfCols ){
+                                        boxOfTask.getChildren().add(node);
+                                    }
+
+                                    //to do : get source's boxOfTask and add Target into it.
+
+                                    ObservableList<Node> listOfColsTarget = col.getTaskBox().getChildren();
+                                    ArrayList<Node> targetListOfCols = new ArrayList<>(listOfColsTarget);
+                                    targetListOfCols.add(end);
+
+                                    (col.getTaskBox()).getChildren().clear();
+                                    ArrayList<Node> clearTargetd = new ArrayList<>();
+                                    for( Node n : newListOfCols){
+                                        if(!(cleard.contains(n))){
+                                            cleard.add(n);
+                                        }
+                                    }
+                                    newListOfCols = clearTargetd;
+
+                                    for (Node node : targetListOfCols ){
+                                        col.getTaskBox().getChildren().add(node);
+                                    }
+
+                                    break;
+                                }
+                            }
+
+                        }
+                        finish = true;
+
+                    event.setDropCompleted(finish);
+                    event.consume();
+                }*/
+            }});
 
 
-        }
-
-
+    }
 }
 

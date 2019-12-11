@@ -1,6 +1,7 @@
 package controllers;
 import boardpackage.Board;
 import boardpackage.BoardManager;
+import boardpackage.Card;
 import boardpackage.Column;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,7 +56,7 @@ public class BoardController {
                 loader.setLocation(getClass().getResource("/fxml/column.fxml"));
                 colBox = loader.load();
                 columnContainer.getChildren().add(colBox);
-                dragCol(colBox);
+                //dragCol(colBox);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -85,7 +87,7 @@ public class BoardController {
                 ColumnWrapper colBox = loader.load();
                 colBox.setColumn(BoardManager.get().getCurrentColumn());
                 columnContainer.getChildren().add(colBox);
-                dragCol(colBox);
+                //dragCol(colBox);
 
                 BoardManager.get().setCurrentColumn(null);
 
@@ -130,7 +132,7 @@ public class BoardController {
         Platform.exit();
     }
 
-
+/*
     public void dragCol(VBox column) {
         VBox head = (VBox) column.getChildren().get(0);
         head.setOnDragDetected(event -> {
@@ -148,6 +150,7 @@ public class BoardController {
                 event.consume();
             }
         });
+
 
         head.setOnDragDropped(event -> {
             boolean finish = false;
@@ -174,5 +177,5 @@ public class BoardController {
 
 
     }
-
+*/
 }
