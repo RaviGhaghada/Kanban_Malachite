@@ -1,8 +1,8 @@
-package boardpackage;
 import static org.testfx.api.FxAssert.*;
 import static org.testfx.matcher.control.LabeledMatchers.hasText;
 import static org.testfx.matcher.control.ListViewMatchers.*;
 import static org.testfx.matcher.base.NodeMatchers.*;
+import boardpackage.*;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.robot.Motion;
 
@@ -22,13 +22,6 @@ public class BoardManagerGuiTest extends ApplicationTest{
 	@Before
 	public void setUp() throws Exception{
 		ApplicationTest.launch(Main.class);
-		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
-		}
-		BoardManager.get().populate();
-		BoardManager.get().setCurrentColumn(null);
-		BoardManager.get().setCurrentBoard(null);
-		BoardManager.get().setCurrentCard(null);
 		clickOn("#forwardButton");
 	}
 	@Override
@@ -39,11 +32,9 @@ public class BoardManagerGuiTest extends ApplicationTest{
 	@Test
 	public void addBoardTest(){
 		int a = BoardManager.get().getBoards().size();
-		System.out.println(a);
 		clickOn("#addBoard");
 		write("board");
 		clickOn("#saveButton");
-		System.out.println(BoardManager.get().getBoards().size());
 		verifyThat("#boardListView",hasItems(a+1));
 		assertEquals(a+1,BoardManager.get().getBoards().size());
 		clickOn("#addBoard");

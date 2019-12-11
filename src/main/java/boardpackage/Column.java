@@ -7,7 +7,7 @@ import java.util.*;
 public class Column {
 
 
-    private transient Board parentBoard;
+    private Board parentBoard;
     private String id;
     private String title;
     private String role;
@@ -21,7 +21,9 @@ public class Column {
      */
     Column (Board parent, String id, String title, String role){
         this.parentBoard = parent;
-        parent.addColumn(this);
+
+        parentBoard.addColumn(this);
+
 
         this.id = id;
         this.title = title;
@@ -52,12 +54,13 @@ public class Column {
      * @param finalIndex
      */
     public void moveCard(Card card, int finalIndex){
-        if (cards.contains(card) && finalIndex > 0 && finalIndex < cards.size()-1) {
+        if (cards.contains(card) && cards.size() > finalIndex && finalIndex >= 0) {
             cards.remove(card);
             cards.add(finalIndex, card);
         }
         // TODO: low priority notification for the logger
     }
+
 
     /**
      * Get the ID of a column
@@ -80,15 +83,25 @@ public class Column {
      * Set to package private.
      * @param card card to be added
      */
-    void addCard(Card card){
+    public void addCard(Card card){
 	if(card != null)
         // TODO: notify logger
         	cards.add(card);
 
 
 
+
     }
 
+
+    }
+	/**
+	* return parent board
+	*@return parentBoard
+	*/
+	public Board getParentBoard(){
+		return parentBoard;
+	}
     /**
      * Remove a card from a column
      * Set to package-private
@@ -98,12 +111,14 @@ public class Column {
         cards.remove(card);
     }
 
+
     /**
      * Get the title of a column
      * @return title
      */
     public String getTitle(){
         return title;
+
     }
 
 
@@ -113,9 +128,7 @@ public class Column {
      */
     public void setTitle(String title){
 
-        if (title != null && !this.title.equals(title)) {
-            String info = String.format("Renamed column %s (%s) 's title to %s", this.title, this.id, title);
-            BoardManager.get().getBoardWriter().append(info);
+        if (this.title != null && !this.title.equals(title)) { //to not log twice same thing
             this.title = title;
         }
     }
@@ -155,13 +168,11 @@ public class Column {
      * @param board parent
      */
     void setParentBoard(Board board){
-        this.parentBoard = board;
-    }
-    public Board getParentBoard(){
-        return this.parentBoard;
+	if(board != null)
+        	this.parentBoard = board;
     }
 
-    
+
     public void delete(){
         this.parentBoard.removeColumn(this);
         this.parentBoard = null;
@@ -169,8 +180,7 @@ public class Column {
             BoardManager.get().setCurrentColumn(null);
             BoardManager.get().setCurrentCard(null);
         }
-        String info = String.format("Removed column %s (%s)", this.title, this.id, title);
-        BoardManager.get().getBoardWriter().append(info);
+
     }
 
 }

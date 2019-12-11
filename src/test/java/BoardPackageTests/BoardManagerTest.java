@@ -32,10 +32,9 @@ public class BoardManagerTest{
 	}
 	@Test
 	public void testSetGetCurrentCard(){
+		assertNotNull(BoardManager.get().getCurrentCard());
 		BoardManager.get().setCurrentCard(null);
-		assertNull(BoardManager.get().getCurrentCard());
-		BoardManager.get().setCurrentBoard(new Board(""));
-		BoardManager.get().setCurrentColumn(new Column(""));
+		assertNotNull(BoardManager.get().getCurrentCard());
 		BoardManager.get().setCurrentCard(new Card("1"));
 		assertEquals("1",BoardManager.get().getCurrentCard().getTitle());
 
@@ -43,17 +42,18 @@ public class BoardManagerTest{
 	}
 	@Test
 	public void testSetGetCurrentColumn(){
+		assertNotNull(BoardManager.get().getCurrentColumn());
 		BoardManager.get().setCurrentColumn(null);
-		assertNull(BoardManager.get().getCurrentColumn());
-		BoardManager.get().setCurrentBoard(new Board(""));
+		assertNotNull(BoardManager.get().getCurrentColumn());
 		BoardManager.get().setCurrentColumn(new Column("1"));
 		assertEquals("1",BoardManager.get().getCurrentColumn().getTitle());
 
 	}
 	@Test
 	public void testSetGetCurrentBoard(){
+		assertNotNull(BoardManager.get().getCurrentBoard());
 		BoardManager.get().setCurrentBoard(null);
-		assertNull(BoardManager.get().getCurrentBoard());
+		assertNotNull(BoardManager.get().getCurrentBoard());
 		BoardManager.get().setCurrentBoard(new Board("1"));
 		assertEquals("1",BoardManager.get().getCurrentBoard().getTitle());
 

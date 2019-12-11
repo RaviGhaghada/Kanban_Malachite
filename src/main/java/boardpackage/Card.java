@@ -1,3 +1,4 @@
+
 package boardpackage;
 
 import java.util.Objects;
@@ -61,9 +62,9 @@ public class Card {
      * @param title new title
      */
     public void setTitle(String title) {
-        if (!("".equals(title) || Objects.equals(this.title, title))){
-            String info = String.format("Changed card %s (%s) 's title to %s", this.getTitle(), this.getId(), title);
-            BoardManager.get().getBoardWriter().append(info);
+
+        if (!("".equals(title) || Objects.equals(this.title, title))){ //to not log twice same thing
+
             this.title = title;
         }
     }
@@ -73,7 +74,7 @@ public class Card {
      * @param text new text
      */
     public void setText(String text){
-        if (!Objects.equals(text, this.text)){
+        if (!Objects.equals(text, this.text)){ //to not log twice same thing
             this.text = text;
             String info = String.format("Changed card %s (%s) 's description to %s", this.getText(), this.getId(), text);
             BoardManager.get().getBoardWriter().append(info);
@@ -101,8 +102,10 @@ public class Card {
      * Set the story points of a card
      * @param storypoints story points of a card
      */
+
     public void setStoryPoints(int storypoints) {
         if (!Objects.equals(this.storypoints,storypoints)){
+
             this.storypoints = storypoints;
         }
     }
@@ -129,13 +132,14 @@ public class Card {
      * @param parentColumn parent column
      */
     void setParentColumn(Column parentColumn) {
-        this.parentColumn = parentColumn;
+	if(parentColumn != null)
+        	this.parentColumn = parentColumn;
     }
 
 
     /**
      * Set the id of a card.
-     * Ideally, it should be used by the logger.
+     * used by the logger.
      * Is package-private.
      * @param id id of card
      */
@@ -143,14 +147,14 @@ public class Card {
         this.id = id;
     }
 
+
     public void delete(){
         this.parentColumn.removeCard(this);
         this.parentColumn = null;
         if (this.equals(BoardManager.get().getCurrentCard())){
             BoardManager.get().setCurrentCard(null);
         }
-        String info = String.format("Deleted card %s (%s)", this.getTitle(), this.getId());
-        BoardManager.get().getBoardWriter().append(info);
+
     }
 }
 
