@@ -8,8 +8,7 @@ import java.util.Objects;
  */
 public class Card {
 
-    private Column parentColumn;
-
+    private transient Column parentColumn;
     private String id;
     private String title;
     private String text = "";
@@ -34,7 +33,7 @@ public class Card {
     /**
      * Constructor for a card
      * It must have a non-null title
-     * @param title
+     * @param title title of the card
      */
     public Card(String title){
         this.title = title;
@@ -42,7 +41,10 @@ public class Card {
         parentColumn = BoardManager.get().getCurrentColumn();
         parentColumn.addCard(this);
 
-        // TODO: request the logger to allocate a new unique id for this card
+        this.id = BoardManager.get().getBoardReader().getNewCardId();
+        String info = String.format("Added new card %s (%s) to column %s (%s)",
+                this.title, this.id, parentColumn.getTitle(), parentColumn.getId());
+        BoardManager.get().getBoardWriter().append(info);
     }
 
 
@@ -60,8 +62,9 @@ public class Card {
      */
     public void setTitle(String title) {
         if (!("".equals(title) || Objects.equals(this.title, title))){
+            String info = String.format("Changed card %s (%s) 's title to %s", this.getTitle(), this.getId(), title);
+            BoardManager.get().getBoardWriter().append(info);
             this.title = title;
-            // TODO: notify the logger
         }
     }
 
@@ -72,7 +75,8 @@ public class Card {
     public void setText(String text){
         if (!Objects.equals(text, this.text)){
             this.text = text;
-            // TODO: notify the logger
+            String info = String.format("Changed card %s (%s) 's description to %s", this.getText(), this.getId(), text);
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 
@@ -100,7 +104,6 @@ public class Card {
     public void setStoryPoints(int storypoints) {
         if (!Objects.equals(this.storypoints,storypoints)){
             this.storypoints = storypoints;
-            // TODO: notify the logger
         }
     }
 
@@ -146,6 +149,7 @@ public class Card {
         if (this.equals(BoardManager.get().getCurrentCard())){
             BoardManager.get().setCurrentCard(null);
         }
-        // TODO: notify the logger about deletion of this card
+        String info = String.format("Deleted card %s (%s)", this.getTitle(), this.getId());
+        BoardManager.get().getBoardWriter().append(info);
     }
 }
