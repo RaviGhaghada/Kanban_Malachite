@@ -6,7 +6,8 @@ import java.util.*;
  */
 public class Column {
 
-    private Board parentBoard;
+
+    private transient Board parentBoard;
     private String id;
     private String title;
     private String role;
@@ -40,7 +41,9 @@ public class Column {
         parentBoard = BoardManager.get().getCurrentBoard();
         parentBoard.addColumn(this);
 
-        // TODO: request the logger to give us a new unique id for this column
+        this.id = BoardManager.get().getBoardReader().getNewColId();
+        String info = String.format("Added new column %s (%s)", this.title, this.id);
+        BoardManager.get().getBoardWriter().append(info);
     }
 
     /**
@@ -81,6 +84,9 @@ public class Column {
 	if(card != null)
         // TODO: notify logger
         	cards.add(card);
+
+
+
     }
 
     /**
@@ -106,9 +112,11 @@ public class Column {
      * @param title
      */
     public void setTitle(String title){
+
         if (title != null && !this.title.equals(title)) {
+            String info = String.format("Renamed column %s (%s) 's title to %s", this.title, this.id, title);
+            BoardManager.get().getBoardWriter().append(info);
             this.title = title;
-            // TODO: notify the logger
         }
     }
 
@@ -136,6 +144,8 @@ public class Column {
      */
     public void setRole(String role) {
         this.role = role;
+        String info = String.format("Changed column %s (%s) 's role to %s", this.role, this.id, role);
+        BoardManager.get().getBoardWriter().append(info);
     }
 
     /**
@@ -151,6 +161,7 @@ public class Column {
         return this.parentBoard;
     }
 
+    
     public void delete(){
         this.parentBoard.removeColumn(this);
         this.parentBoard = null;
@@ -158,7 +169,8 @@ public class Column {
             BoardManager.get().setCurrentColumn(null);
             BoardManager.get().setCurrentCard(null);
         }
-        // TODO: notify the logger about deletion of this column
+        String info = String.format("Removed column %s (%s)", this.title, this.id, title);
+        BoardManager.get().getBoardWriter().append(info);
     }
 
 }

@@ -1,5 +1,6 @@
 package app;
 
+import boardpackage.BoardManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +24,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/welcome.fxml"));
         primaryStage.setTitle("Mello");
         primaryStage.setScene(new Scene(root, 1000, 600));
