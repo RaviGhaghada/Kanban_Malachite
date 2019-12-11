@@ -9,8 +9,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import wrappers.ColumnWrapper?>
 
+<?import wrappers.ColumnWrapper?>
 <ColumnWrapper fx:id="columnVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="270.0" style="-fx-border-style-fx-border-style: solid; -fx-border-width: 8px; -fx-border-color: #87CEFA; -fx-background-image: url('../images/backGroud.jpg') url('backGroud.jpg'); -fx-background-size: 270px 500px; -fx-background-radius: 20px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ColumnController">
    <opaqueInsets>
       <Insets />
@@ -18,54 +18,64 @@
    <children>
       <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="28.0" prefWidth="186.0">
          <children>
-            <ChoiceBox fx:id="cardRoll" prefHeight="27.0" prefWidth="70.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ChoiceBox>
+            <HBox prefHeight="27.0" prefWidth="239.0" spacing="135.0">
+               <children>
+                  <ChoiceBox fx:id="cardRoll" prefHeight="33.0" prefWidth="81.0" />
+                  <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/drag.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
          <VBox.margin>
             <Insets bottom="5.0" right="5.0" />
          </VBox.margin></VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="27.0">
+               <children>
+                  <TextField fx:id="titleText" prefHeight="24.0" prefWidth="248.0" promptText="add the title for the column here ..." style="-fx-background-color: transparent;" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
 
       <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="475.0" style="-fx-background-image: url('../images/backGroud.jpg');" VBox.vgrow="ALWAYS">
 
          <content>
-            <VBox fx:id="cardContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="432.0" minWidth="-Infinity" prefWidth="245.0" style="-fx-background-image: url('../images/backGroud.jpg'); -fx-background-size: 270px 500px;">
-               <children>
-                  <HBox prefHeight="27.0">
-                     <children>
-                        <TextField fx:id="titleText" prefHeight="24.0" prefWidth="248.0" promptText="add the title for the column here ..." style="-fx-background-color: transparent;" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="31.0" prefWidth="224.0" spacing="128.0" style="-fx-position-shape: fixed;">
-                     <children>
-                        <Button fx:id="addCardBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#addCardAction" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: transparent;" text="card">
-                           <graphic>
-                              <ImageView fitHeight="26.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/plus.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="deleteColumn" mnemonicParsing="false" onAction="#removeColumnAction" prefHeight="22.0" prefWidth="28.0" style="-fx-background-color: transparent;">
-                           <graphic>
-                              <ImageView fitHeight="23.0" fitWidth="20.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/unprotected.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                  </HBox>
-               </children></VBox>
+            <VBox fx:id="cardContainer" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="432.0" minWidth="-Infinity" prefWidth="245.0" style="-fx-background-image: url('../images/backGroud.jpg'); -fx-background-size: 270px 500px;" />
          </content>
       </ScrollPane>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <HBox prefHeight="36.0" prefWidth="252.0" spacing="128.0" style="-fx-position-shape: fixed;">
+               <children>
+                  <Button fx:id="addCardBtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#addCardAction" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: transparent;" text="card">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="deleteColumn" mnemonicParsing="false" onAction="#removeColumnAction" prefHeight="22.0" prefWidth="28.0" style="-fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="20.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/unprotected.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
    </children>
    <padding>
       <Insets top="5.0" />
    </padding>
 </ColumnWrapper>
-
