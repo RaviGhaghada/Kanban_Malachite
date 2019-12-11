@@ -46,7 +46,7 @@ class BoardWriter{
 
             jo.put(board.getId(), meta);
 
-            PrintWriter pw = new PrintWriter("./src/main/resources/data/databoard.json");
+            PrintWriter pw = new PrintWriter(filepath);
             pw.write(((JSONObject) obj).toJSONString());
 
             pw.flush();

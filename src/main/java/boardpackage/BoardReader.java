@@ -88,8 +88,8 @@ class BoardReader{
     }
 
     Board getBoard(String id){
-        try {
-            JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader("./src/main/resources/data/databoard.json"));
+        try (FileReader file = new FileReader(filepath)){
+            JSONObject jo = (JSONObject) new JSONParser().parse(file);
             jo = (JSONObject) jo.get("boards");
             jo = (JSONObject) jo.get(id);
 
@@ -116,7 +116,7 @@ class BoardReader{
 
     String getNewBoardId(){
         String newid = "";
-        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+        try (FileReader fileReader = new FileReader(filepath)){
             JSONObject jo = (JSONObject) new JSONParser().parse(fileReader);
             jo = (JSONObject) jo.get("boards");
             Set <String> s = jo.keySet();
@@ -130,7 +130,7 @@ class BoardReader{
 
     String getNewCardId(){
         String newid = "";
-        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+        try (FileReader fileReader = new FileReader(filepath)){
             Object obj = (JSONObject) new JSONParser().parse(fileReader);
             JSONObject jo = (JSONObject) obj;
             jo = (JSONObject) jo.get("boards");
@@ -146,7 +146,7 @@ class BoardReader{
             }
             cardids.add(newid);
             head.replace("cardids", cardids);
-            PrintWriter pw = new PrintWriter("./src/main/resources/data/databoard.json");
+            PrintWriter pw = new PrintWriter(filepath);
             pw.write(((JSONObject) obj).toJSONString());
 
             pw.flush();
@@ -160,7 +160,7 @@ class BoardReader{
 
     String getNewColId(){
         String newid = "";
-        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+        try (FileReader fileReader = new FileReader(filepath)){
             Object obj = (JSONObject) new JSONParser().parse(fileReader);
             JSONObject jo = (JSONObject) obj;
             jo = (JSONObject) jo.get("boards");
@@ -176,7 +176,7 @@ class BoardReader{
             }
             colids.add(newid);
             head.replace("colids", colids);
-            PrintWriter pw = new PrintWriter("./src/main/resources/data/databoard.json");
+            PrintWriter pw = new PrintWriter(filepath);
             pw.write(((JSONObject) obj).toJSONString());
 
             pw.flush();
@@ -191,7 +191,7 @@ class BoardReader{
 
     HashMap<String, String[]> getAllVersionsMeta(){
         HashMap<String, String[]> versions = new HashMap<>();
-        try (FileReader fileReader = new FileReader("./src/main/resources/data/databoard.json")){
+        try (FileReader fileReader = new FileReader(filepath)){
             JSONObject jo = (JSONObject) new JSONParser().parse(fileReader);
             jo = (JSONObject) jo.get("boards");
             jo = (JSONObject) jo.get(BoardManager.get().getCurrentBoard().getId());
