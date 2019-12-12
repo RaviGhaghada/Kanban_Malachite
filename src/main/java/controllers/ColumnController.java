@@ -185,6 +185,10 @@ public class ColumnController {
                     success = true;
                     int indexForInsertion = cardContainer.getChildren().indexOf(cardWrapper);
                     CardWrapper cardW = (CardWrapper) event.getGestureSource();
+                    // if it's the same column
+                    if (cardContainer.getChildren().contains(cardW)){
+                        cardContainer.getChildren().remove(cardW);
+                    }
                     cardContainer.getChildren().add(indexForInsertion, cardW);
                 }
                 event.setDropCompleted(success);
