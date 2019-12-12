@@ -7,6 +7,7 @@ import boardpackage.Column;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -138,15 +139,13 @@ public class ColumnController {
             // the blue stripe
             VBox cardhead = (VBox) mainVBox.getChildren().get(0);
 
-
-
             // source
             cardhead.setOnDragDetected(event -> {
-                System.out.println("DRAG DETECTED FOR " + event.getSource().getClass().getSimpleName());
                 Dragboard db = cardWrapper.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
                 content.putString(cardWrapper.toString());
                 db.setContent(content);
+                cardWrapper.setVisible(false);
                 event.consume();
             });
 
@@ -168,16 +167,13 @@ public class ColumnController {
                     int indexForInsertion = cardContainer.getChildren().indexOf(cardWrapper);
                     indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
                     CardWrapper cardW = (CardWrapper) event.getGestureSource();
-                    System.out.println(cardW.getCard().getTitle());
+                    cardW.setVisible(true);
                     // if it's the same column
                     if (cardContainer.getChildren().contains(cardW)){
                         cardContainer.getChildren().remove(cardW);
                     }
                     cardContainer.getChildren().add(indexForInsertion, cardW);
                     success = true;
-                }
-                else {
-                    System.out.println("FALSE DROP!");
                 }
                 event.setDropCompleted(success);
                 event.consume();

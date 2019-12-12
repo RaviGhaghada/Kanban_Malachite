@@ -141,11 +141,11 @@ public class BoardController {
 
         // source
         cardhead.setOnDragDetected(event -> {
-            System.out.println("DRAG DETECTED FOR " + event.getSource().getClass().getSimpleName());
             Dragboard db = columnWrapper.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
             content.putString(columnWrapper.toString());
             db.setContent(content);
+            columnWrapper.setVisible(false);
             event.consume();
         });
 
@@ -167,15 +167,13 @@ public class BoardController {
                 int indexForInsertion = columnContainer.getChildren().indexOf(columnWrapper);
                 indexForInsertion = (indexForInsertion >= 0) ? indexForInsertion : 0;
                 ColumnWrapper colW = (ColumnWrapper) event.getGestureSource();
-                System.out.println(colW.getColumn().getTitle());
+                colW.setVisible(true);
                 // if it's the same column
                 if (columnContainer.getChildren().contains(colW)) {
                     columnContainer.getChildren().remove(colW);
                 }
                 columnContainer.getChildren().add(indexForInsertion, colW);
                 success = true;
-            } else {
-                System.out.println("FALSE DROP!");
             }
             event.setDropCompleted(success);
             event.consume();
