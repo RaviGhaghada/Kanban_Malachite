@@ -147,7 +147,6 @@ public class ColumnController {
                 ClipboardContent content = new ClipboardContent();
                 content.putString(cardWrapper.toString());
                 db.setContent(content);
-                cardWrapper.setVisible(false);
                 SnapshotParameters snapShot = new SnapshotParameters();
                 snapShot.setTransform(Transform.scale(0.4,0.3));
                 db.setDragView(cardWrapper.snapshot(snapShot, null));
@@ -172,7 +171,6 @@ public class ColumnController {
                     int indexForInsertion = cardContainer.getChildren().indexOf(cardWrapper);
                     indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
                     CardWrapper cardW = (CardWrapper) event.getGestureSource();
-                    cardW.setVisible(true);
                     // if it's the same column
                     if (cardContainer.getChildren().contains(cardW)){
                         cardContainer.getChildren().remove(cardW);

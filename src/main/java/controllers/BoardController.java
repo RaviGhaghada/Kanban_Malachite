@@ -144,7 +144,6 @@ public class BoardController {
             ClipboardContent content = new ClipboardContent();
             content.putString(columnWrapper.toString());
             db.setContent(content);
-            columnWrapper.setVisible(false);
             SnapshotParameters snapShot = new SnapshotParameters();
             snapShot.setTransform(Transform.scale(0.2,0.2));
             db.setDragView(columnWrapper.snapshot(snapShot, null));
@@ -153,7 +152,6 @@ public class BoardController {
 
         // target
         cardhead.setOnDragOver(event -> {
-            //if (event.;)
             if (event.getGestureSource() instanceof ColumnWrapper && event.getGestureSource() != columnWrapper && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 event.consume();
@@ -169,7 +167,6 @@ public class BoardController {
                 int indexForInsertion = columnContainer.getChildren().indexOf(columnWrapper);
                 indexForInsertion = (indexForInsertion >= 0) ? indexForInsertion : 0;
                 ColumnWrapper colW = (ColumnWrapper) event.getGestureSource();
-                colW.setVisible(true);
                 // if it's the same column
                 if (columnContainer.getChildren().contains(colW)) {
                     columnContainer.getChildren().remove(colW);
