@@ -145,19 +145,18 @@ public class ColumnController {
             // the blue stripe
             VBox cardhead = (VBox) mainVBox.getChildren().get(0);
 
-            /*// source
-            cardWrapper.setOnDragDone(event -> {
-                Dragboard db = event.getDragboard();
-                db.setContent(new ClipboardContent());
+
+
+            // source
+            cardhead.setOnDragDone(event -> {
                 event.consume();
             });
 
             // target
-            cardWrapper.setOnDragExited(event -> {
-                if (event.getTransferMode() == TransferMode.MOVE){}
-                    event.consume();
+            cardhead.setOnDragExited(event -> {
+                event.consume();
+            });
 
-            });*/
 
             // source
             cardhead.setOnDragDetected(event -> {
@@ -171,10 +170,12 @@ public class ColumnController {
 
             // target
             cardhead.setOnDragOver(event -> {
-                if (event.getGestureTarget() != cardWrapper && event.getDragboard().hasString()) {
+                //if (event.;)
+                if (event.getGestureSource() instanceof CardWrapper && event.getGestureSource() != cardWrapper && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    event.consume();
                 }
-                event.consume();
+
             });
 
             // target
@@ -182,14 +183,19 @@ public class ColumnController {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
-                    success = true;
                     int indexForInsertion = cardContainer.getChildren().indexOf(cardWrapper);
+                    indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
                     CardWrapper cardW = (CardWrapper) event.getGestureSource();
+                    System.out.println(cardW.getCard().getTitle());
                     // if it's the same column
                     if (cardContainer.getChildren().contains(cardW)){
                         cardContainer.getChildren().remove(cardW);
                     }
                     cardContainer.getChildren().add(indexForInsertion, cardW);
+                    success = true;
+                }
+                else {
+                    System.out.println("FALSE DROP!");
                 }
                 event.setDropCompleted(success);
                 event.consume();
