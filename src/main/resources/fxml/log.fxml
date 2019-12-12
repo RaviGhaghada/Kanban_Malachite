@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LogController">
+    <children>
+        <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="653.0" style="-fx-background-color: #87CEFA;">
+            <children>
+                <Button alignment="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="333.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+                    <graphic>
+                        <ImageView fitHeight="133.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true" style="-fx-min-height: 100;">
+                            <image>
+                                <Image url="@../images/Mello_Logo.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <SplitPane prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #87CEFA;" stylesheets="@../css/stylesheet.css" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <Text fx:id="messageBox" layoutX="142.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0">
+            <font>
+                <Font name="Hiragino Sans W1" size="35.0" />
+            </font>
+        </Text>
+      <TableView layoutX="34.0" layoutY="112.0" prefHeight="260.0" prefWidth="585.0">
+        <columns>
+          <TableColumn prefWidth="99.0" text="Version" />
+          <TableColumn prefWidth="99.0" text="Timestamp" />
+            <TableColumn prefWidth="386.0" text="Changes" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>
