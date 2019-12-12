@@ -134,7 +134,7 @@ public class BoardController {
     }
 
 
-    public void dragCol(VBox column) {
+    private void dragCol(VBox column) {
         VBox head = (VBox) column.getChildren().get(0);
         head.setOnDragDetected(event -> {
             Dragboard db = column.startDragAndDrop(TransferMode.ANY);
@@ -176,6 +176,21 @@ public class BoardController {
         });
 
 
+    }
+
+    @FXML
+    private void openLogAction(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log.fxml"));
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // blocks other windows until dialog is closed
+            Parent popup = loader.load();
+            stage.setScene(new Scene(popup));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

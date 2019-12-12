@@ -1,7 +1,6 @@
 package boardpackage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * A facade, singleton.
@@ -153,7 +152,7 @@ public class BoardManager{
         new Card("Task09");
     }
 
-    public HashMap<String, String[]> getAllBoardVersionsMeta(){
+    public ArrayList<String[]> getAllBoardVersionsMeta(){
         return br.getAllVersionsMeta();
     }
 

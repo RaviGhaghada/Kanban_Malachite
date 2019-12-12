@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ebf4ff#ebf4ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardController">
+<AnchorPane maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ebf4ff#ebf4ff;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardController">
    <children>
       <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #87CEFA;">
         <columnConstraints>
@@ -136,7 +136,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+            <Button maxHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#openLogAction" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>

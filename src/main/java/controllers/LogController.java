@@ -2,27 +2,48 @@ package controllers;
 
 import boardpackage.Board;
 import boardpackage.BoardManager;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.scene.control.Label;
+import javafx.util.Callback;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+
+
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class LogController {
+
+    @FXML
+    private TableColumn versionCol;
+
+    @FXML
+    private TableColumn timeCol;
+
+    @FXML
+    private TableColumn changesCol;
 
     @FXML
     private Text messageBox;
 
     @FXML
-    public Button backButton;
+    private Button backButton;
+
+
 
     @FXML
-    public TableView<Board> boardTableView;
+    private TableView<String[]> versionTableView;
 
     /**
      * Initialises the Log pane.
@@ -31,8 +52,16 @@ public class LogController {
      */
     @FXML
     public void initialize() {
-        messageBox.setText("Log for Your Board");
-        // boardTableView.getItems().addAll(Logger.get().getVersions());
+        ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
+        versions.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
+
+        versionCol.setCellValueFactory((Callback<CellDataFeatures<String[], String>, ObservableValue<String>>) p -> new SimpleStringProperty((p.getValue()[0])));
+        timeCol.setCellValueFactory((Callback<CellDataFeatures<String[], String>, ObservableValue<String>>) p -> new SimpleStringProperty((p.getValue()[1])));
+        changesCol.setCellValueFactory((Callback<CellDataFeatures<String[], String>, ObservableValue<String>>) p -> new SimpleStringProperty((p.getValue()[2])));
+
+        ObservableList<String[]> data = FXCollections.observableArrayList();
+        data.addAll(versions);
+        versionTableView.setItems(data);
     }
 
     /**
@@ -59,7 +88,7 @@ public class LogController {
      */
     public void selectAction (MouseEvent mouseEvent) {
 
-        Board selectedBoard = boardTableView.getSelectionModel().getSelectedItem();
+        Board selectedBoard = BoardManager.get().getCurrentBoard();// = versionTableView.getSelectionModel().getSelectedItem();
 
         if (selectedBoard == null) return; // nothing to click on
 

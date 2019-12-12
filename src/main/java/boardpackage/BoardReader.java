@@ -189,8 +189,8 @@ class BoardReader{
 
     }
 
-    HashMap<String, String[]> getAllVersionsMeta(){
-        HashMap<String, String[]> versions = new HashMap<>();
+    ArrayList<String[]> getAllVersionsMeta(){
+        ArrayList<String[]> versions = new ArrayList<>();
         try (FileReader fileReader = new FileReader(filepath)){
             JSONObject jo = (JSONObject) new JSONParser().parse(fileReader);
             jo = (JSONObject) jo.get("boards");
@@ -199,8 +199,8 @@ class BoardReader{
             Set<String> vkeys = jo.keySet();
             for (String vno : vkeys){
                 JSONObject version = (JSONObject) jo.get(vno);
-                String[] value = new String[] {(String) version.get("date"), (String) version.get("info")};
-                versions.put(vno, value);
+                String[] value = new String[] {vno, (String) version.get("date"), (String) version.get("info")};
+                versions.add(value);
             }
         } catch (ParseException | IOException e) {
             e.printStackTrace();
