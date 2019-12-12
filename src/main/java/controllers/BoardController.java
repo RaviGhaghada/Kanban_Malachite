@@ -45,10 +45,10 @@ public class BoardController {
     public Button quitButton;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         this.board = BoardManager.get().getCurrentBoard();
 
-        for (Column c : this.board.getColumns()){
+        for (Column c : this.board.getColumns()) {
             BoardManager.get().setCurrentColumn(c);
             ColumnWrapper colBox;
             try {
@@ -56,7 +56,8 @@ public class BoardController {
                 loader.setLocation(getClass().getResource("/fxml/column.fxml"));
                 colBox = loader.load();
                 columnContainer.getChildren().add(colBox);
-                //dragCol(colBox);
+                setDragColumnProperties(colBox);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,7 +67,7 @@ public class BoardController {
 
 
     @FXML
-    public void addColumnAction(){
+    public void addColumnAction() {
 
         BoardManager.get().setCurrentColumn(null);
 
@@ -74,20 +75,20 @@ public class BoardController {
 
         try {
             Parent popup = loader.load();
-            ((NewTitleController)loader.getController()).setaClass(Column.class);
+            ((NewTitleController) loader.getController()).setaClass(Column.class);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(popup));
             stage.setResizable(false);
             stage.showAndWait();
 
-            if (BoardManager.get().getCurrentBoard() != null){
+            if (BoardManager.get().getCurrentBoard() != null) {
                 loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/fxml/column.fxml"));
                 ColumnWrapper colBox = loader.load();
                 colBox.setColumn(BoardManager.get().getCurrentColumn());
                 columnContainer.getChildren().add(colBox);
-                //dragCol(colBox);
+                setDragColumnProperties(colBox);
 
                 BoardManager.get().setCurrentColumn(null);
 
@@ -96,24 +97,23 @@ public class BoardController {
                 });
             }
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.err.println("failed to launch load fxml file");
             e.printStackTrace();
         }
     }
 
     @FXML
-    public void deleteBoardAction(){
+    public void deleteBoardAction() {
         System.out.println("DELETE? " + BoardManager.get().getBoards().size());
         board.delete();
-        System.out.println("DELETED: " +BoardManager.get().getBoards().size());
+        System.out.println("DELETED: " + BoardManager.get().getBoards().size());
         this.board = null;
         backAction();
     }
 
     @FXML
-    public void backAction(){
+    public void backAction() {
         try {
             BoardManager.get().setCurrentBoard(null);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
@@ -128,54 +128,59 @@ public class BoardController {
 
     @FXML
     // TODO: call BoardManager.save() when Manvi pushes her code
-    public void quitAction(){
+    public void quitAction() {
         Platform.exit();
     }
 
-/*
-    public void dragCol(VBox column) {
-        VBox head = (VBox) column.getChildren().get(0);
-        head.setOnDragDetected(event -> {
-            Dragboard db = column.startDragAndDrop(TransferMode.ANY);
+
+    public void setDragColumnProperties(ColumnWrapper columnWrapper) {
+        VBox mainVBox = (VBox) columnWrapper.getChildren().get(0);
+        //the very first component in the card , which we can drag the card with
+        HBox cardhead = (HBox) mainVBox.getChildren().get(0);
+
+
+        // source
+        cardhead.setOnDragDetected(event -> {
+            System.out.println("DRAG DETECTED FOR " + event.getSource().getClass().getSimpleName());
+            Dragboard db = columnWrapper.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
-            content.putString(column.toString());
+            content.putString(columnWrapper.toString());
             db.setContent(content);
             event.consume();
         });
 
-        head.setOnDragOver(event -> {
-            Parent newParent = (Parent) event.getGestureSource();
-            if (newParent != column && event.getDragboard().hasString()) {
+        // target
+        cardhead.setOnDragOver(event -> {
+            //if (event.;)
+            if (event.getGestureSource() instanceof ColumnWrapper && event.getGestureSource() != columnWrapper && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 event.consume();
             }
+
         });
 
-
-        head.setOnDragDropped(event -> {
-            boolean finish = false;
-            if (event.getDragboard().hasString()) {
-                Parent start = (Parent) event.getGestureSource();
-                int startingPoint = columnContainer.getChildren().indexOf(start);
-                int endingPoint = columnContainer.getChildren().indexOf(column);
-                if (startingPoint >= 0 && endingPoint >= 0) {
-                    ObservableList<Node> allColumns = columnContainer.getChildren();
-                    ArrayList<Node> allSwappedCol = new ArrayList<>(allColumns);
-                    Node swapped = allSwappedCol.get(startingPoint);
-                    allSwappedCol.set(startingPoint, allSwappedCol.get(endingPoint));
-                    allSwappedCol.set(endingPoint, swapped);
-                    columnContainer.getChildren().clear();
-                    for (Node node : allSwappedCol) {
-                        columnContainer.getChildren().add(node);
-                    }
+        // target
+        cardhead.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                int indexForInsertion = columnContainer.getChildren().indexOf(columnWrapper);
+                indexForInsertion = (indexForInsertion >= 0) ? indexForInsertion : 0;
+                ColumnWrapper colW = (ColumnWrapper) event.getGestureSource();
+                System.out.println(colW.getColumn().getTitle());
+                // if it's the same column
+                if (columnContainer.getChildren().contains(colW)) {
+                    columnContainer.getChildren().remove(colW);
                 }
-                finish = true;
+                columnContainer.getChildren().add(indexForInsertion, colW);
+                success = true;
+            } else {
+                System.out.println("FALSE DROP!");
             }
-            event.setDropCompleted(finish);
+            event.setDropCompleted(success);
             event.consume();
         });
-
-
     }
-*/
+
+
 }
