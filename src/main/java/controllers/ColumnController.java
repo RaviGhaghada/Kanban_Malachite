@@ -99,7 +99,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 CardWrapper cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                //dragCard(cardBox);
+                //setDragCardProperties(cardBox);
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
@@ -138,17 +138,6 @@ public class ColumnController {
             // the blue stripe
             VBox cardhead = (VBox) mainVBox.getChildren().get(0);
 
-
-
-            // source
-            cardhead.setOnDragDone(event -> {
-                event.consume();
-            });
-
-            // target
-            cardhead.setOnDragExited(event -> {
-                event.consume();
-            });
 
 
             // source
@@ -193,80 +182,7 @@ public class ColumnController {
                 event.setDropCompleted(success);
                 event.consume();
             });
-/*
-            cardWrapper.setOnDragDropped(event -> {
-                System.out.println("DRAG DROPPED");
-/*                boolean finish = false;
-                if (event.getDragboard().hasString()) {
-                    Parent start = (Parent) event.getGestureSource();
-                    Parent end = (Parent) event.getGestureTarget();
-                    int startingPoint = cardContainer.getChildren().indexOf(start);
-                    int endingPoint = cardContainer.getChildren().indexOf(card);
-                    if (startingPoint >= 0 && endingPoint >= 0) {
-                        ObservableList<Node> allCards = cardContainer.getChildren();
-                        ArrayList<Node> allSwappedCards = new ArrayList<>(allCards);
-                        Node swapped = allSwappedCards.get(startingPoint);
-                        allSwappedCards.set(startingPoint, allSwappedCards.get(endingPoint));
-                        allSwappedCards.set(endingPoint, swapped);
-                        cardContainer.getChildren().clear();
-                        for (Node node : allSwappedCards) {
-                            cardContainer.getChildren().add(node);
-                        }
-                    }/*
-                        else {
-                             //else its not in our VBOX
-                             LinkedList<Column> listOfColumns = BoardManager.get().getCurrentBoard().getColumns();
-                             for(Column col : listOfColumns){
-                                if (col.getContainsTaskRoot(end) != null){
-                                    //do the swap
-                                    ObservableList<Node> listOfColsToBeSwapped = boxOfTask.getChildren();
-                                    ArrayList<Node> newListOfCols = new ArrayList<>(listOfColsToBeSwapped);
-                                    newListOfCols.remove(end);
-                                    newListOfCols.add(start);
 
-                                    boxOfTask.getChildren().clear();
-                                    ArrayList<Node> cleard = new ArrayList<>();
-                                    for( Node n : newListOfCols){
-                                        if(!(cleard.contains(n))){
-                                            cleard.add(n);
-                                        }
-                                    }
-                                    newListOfCols = cleard;
-
-                                    for (Node node : newListOfCols ){
-                                        boxOfTask.getChildren().add(node);
-                                    }
-
-                                    //to do : get source's boxOfTask and add Target into it.
-
-                                    ObservableList<Node> listOfColsTarget = col.getTaskBox().getChildren();
-                                    ArrayList<Node> targetListOfCols = new ArrayList<>(listOfColsTarget);
-                                    targetListOfCols.add(end);
-
-                                    (col.getTaskBox()).getChildren().clear();
-                                    ArrayList<Node> clearTargetd = new ArrayList<>();
-                                    for( Node n : newListOfCols){
-                                        if(!(cleard.contains(n))){
-                                            cleard.add(n);
-                                        }
-                                    }
-                                    newListOfCols = clearTargetd;
-
-                                    for (Node node : targetListOfCols ){
-                                        col.getTaskBox().getChildren().add(node);
-                                    }
-
-                                    break;
-                                }
-                            }
-
-                        }
-                        finish = true;
-
-                    event.setDropCompleted(finish);
-                    event.consume();
-                }
-            });*/
 
     }
 }
