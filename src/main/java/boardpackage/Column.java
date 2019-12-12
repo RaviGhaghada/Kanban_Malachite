@@ -7,6 +7,7 @@ import java.util.*;
 public class Column {
 
     private transient Board parentBoard;
+
     private String id;
     private String title;
     private String role;
