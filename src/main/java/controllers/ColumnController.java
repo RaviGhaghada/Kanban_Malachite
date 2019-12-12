@@ -140,6 +140,10 @@ public class ColumnController {
     }
 
     public void setDragCardProperties(CardWrapper cardWrapper) {
+            VBox mainVBox = (VBox) cardWrapper.getChildren().get(0);
+
+            // the blue stripe
+            VBox cardhead = (VBox) mainVBox.getChildren().get(0);
 
             /*// source
             cardWrapper.setOnDragDone(event -> {
@@ -156,7 +160,7 @@ public class ColumnController {
             });*/
 
             // source
-            cardWrapper.setOnDragDetected(event -> {
+            cardhead.setOnDragDetected(event -> {
                 System.out.println("DRAG DETECTED FOR " + event.getSource().getClass().getSimpleName());
                 Dragboard db = cardWrapper.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
@@ -166,7 +170,7 @@ public class ColumnController {
             });
 
             // target
-            cardWrapper.setOnDragOver(event -> {
+            cardhead.setOnDragOver(event -> {
                 if (event.getGestureTarget() != cardWrapper && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
@@ -174,7 +178,7 @@ public class ColumnController {
             });
 
             // target
-            cardWrapper.setOnDragDropped(event -> {
+            cardhead.setOnDragDropped(event -> {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
