@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -23,6 +24,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Transform;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import wrappers.CardWrapper;
@@ -146,6 +148,9 @@ public class ColumnController {
                 content.putString(cardWrapper.toString());
                 db.setContent(content);
                 cardWrapper.setVisible(false);
+                SnapshotParameters snapShot = new SnapshotParameters();
+                snapShot.setTransform(Transform.scale(0.4,0.3));
+                db.setDragView(cardWrapper.snapshot(snapShot, null));
                 event.consume();
             });
 

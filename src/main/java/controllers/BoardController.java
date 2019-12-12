@@ -9,9 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.print.PageLayout;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
@@ -19,6 +17,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Transform;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import wrappers.CardWrapper;
@@ -146,6 +145,9 @@ public class BoardController {
             content.putString(columnWrapper.toString());
             db.setContent(content);
             columnWrapper.setVisible(false);
+            SnapshotParameters snapShot = new SnapshotParameters();
+            snapShot.setTransform(Transform.scale(0.2,0.2));
+            db.setDragView(columnWrapper.snapshot(snapShot, null));
             event.consume();
         });
 
