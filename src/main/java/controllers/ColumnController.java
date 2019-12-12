@@ -59,13 +59,6 @@ public class ColumnController {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 cardBox = loader.load();
-                cardBox.setOnDragDetected(event -> {
-                    BoardManager.get().setCurrentCard(cardBox.getCard());
-                    System.out.println("picked card " + cardBox.getCard().getTitle());
-                });
-                cardBox.setOnDragDropped(event -> {
-                    cardContainer.getChildren().remove(cardBox);
-                });
                 cardContainer.getChildren().add(cardBox);
                 setDragCardProperties(cardBox);
             } catch (IOException e) {
