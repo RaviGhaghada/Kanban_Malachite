@@ -131,7 +131,7 @@ public class BoardManager{
      * Do not test this class.
      * It is merely for populating data.
      */
-    public void populate(){
+    public Board populate(){
         Board b1 = new Board("Malachite");
         setCurrentBoard(b1);
         Column c1 = new Column("Backlog");
@@ -150,6 +150,7 @@ public class BoardManager{
         new Card("Task07");
         new Card("Task08");
         new Card("Task09");
+	return b1;
     }
 
     public ArrayList<String[]> getAllBoardVersionsMeta(){
