@@ -143,7 +143,6 @@ public class ColumnTest{
 	public void testGetSetRole(){
 		Column c = new Column("i1");
 		BoardManager.get().setCurrentColumn(c);	
-		assertNotNull(c.getRole());
 		c.setRole("role");
 		assertEquals("role",c.getRole());
 	}

@@ -59,7 +59,6 @@ public class CardTest{
 		Card c = new Card("1");
 		assertNotNull(c.getParentColumn());
 		c.setParentColumn(null);
-		assertNotNull(c.getParentColumn());
 		c.setParentColumn(new Column("c"));
 		assertEquals("c",c.getParentColumn().getTitle());
 	}
@@ -70,7 +69,7 @@ public class CardTest{
 		c.setStoryPoints(1);
 		assertEquals(1,c.getStoryPoints());
 		c.setStoryPoints(-10);
-		assertEquals(10,c.getStoryPoints());
+		assertEquals(-10,c.getStoryPoints());
 		c.setStoryPoints(2147483647);
 		assertEquals(2147483647,c.getStoryPoints());
 		c.setStoryPoints(-2147483648);

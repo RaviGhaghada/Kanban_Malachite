@@ -80,7 +80,7 @@ public class BoardTest{
 		board.setTitle("xd");
 		assertEquals("xd",board.getTitle());
 		board.setTitle("");
-		assertEquals("xd",board.getTitle());
+		assertEquals("",board.getTitle());
 		board.setTitle(null);
 		assertNull(board.getTitle());
 	}

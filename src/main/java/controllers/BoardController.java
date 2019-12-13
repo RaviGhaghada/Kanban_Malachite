@@ -192,7 +192,7 @@ public class BoardController {
         });
     }
 
-<<<<<<< HEAD
+
     @FXML
     private void openLogAction(){
         try {
@@ -207,8 +207,7 @@ public class BoardController {
             e.printStackTrace();
         }
     }
-=======
->>>>>>> origin/hotfix_dragndrop
+
 
     public void setReadOnly(){
         rootPane.getChildren().remove(melloPane);
