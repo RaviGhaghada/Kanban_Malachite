@@ -47,7 +47,7 @@ public class ColumnController {
     @FXML
     private ChoiceBox<String> cardRoll;
 
-    ObservableList<String> availableChoices = FXCollections.observableArrayList("To do", "Doing","Done");;
+    ObservableList<String> availableChoices = FXCollections.observableArrayList();
 
     @FXML
     public void initialize(){
@@ -127,12 +127,14 @@ public class ColumnController {
 
     private void loadDataChoiceBox(){
         availableChoices.removeAll(availableChoices);
-        String ToDo = "To Do";
-        String doing = "Doing";
-        String done = "done";
-        availableChoices.addAll(ToDo , doing , done);
+        String backlog = "Backlog";
+        String inProgress = "in progress";
+        String onHold = "On hold";
+        String completed = "completed";
+        String forInfo = "for info";
+        availableChoices.addAll(backlog , onHold , inProgress, completed , forInfo);
         cardRoll.getItems().addAll(availableChoices);
-        cardRoll.setValue("To Do");
+        cardRoll.setValue("Backlog");
     }
 
     public void setDragCardProperties(CardWrapper cardWrapper) {
