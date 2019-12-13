@@ -12,19 +12,26 @@ import java.util.ArrayList;
 public class BoardManager{ 
     private static BoardManager bm = null;
 
+    private BoardWriter bw;
+    private BoardReader br;
+
     private ArrayList<Board> boards;
-    private Board currentBoard = null;
-    private Column currentColumn = null;
-    private Card currentCard = null;
+    private transient Board currentBoard = null;
+    private transient Column currentColumn = null;
+    private transient Card currentCard = null;
 
     /**
      * Constructor for the board manager
      * that loads the boards.
      */
     private BoardManager(){
+        this.bw = new BoardWriter();
+        this.br = new BoardReader();
         this.boards = new ArrayList<>();
-
-        // TODO: load boards with actual data from the json file
+        ArrayList<String> boardids = br.getAllBoardIds();
+        for (String id : boardids){
+            boards.add(br.getBoard(id));
+        }
     }
 
     /**
@@ -111,6 +118,16 @@ public class BoardManager{
     }
 
     /**
+     * Take in an arraylist of boards
+     * Ideally, it's supposed to be used
+     * when reading from a json file.
+     * @param boards array list of board objects
+     */
+    void setBoards(ArrayList<Board> boards){
+        this.boards = boards;
+    }
+
+    /**
      * Do not test this class.
      * It is merely for populating data.
      */
@@ -133,6 +150,22 @@ public class BoardManager{
         new Card("Task07");
         new Card("Task08");
         new Card("Task09");
+    }
+
+    public ArrayList<String[]> getAllBoardVersionsMeta(){
+        return br.getAllVersionsMeta();
+    }
+
+    public Board getBoardVersion(String version){
+        return br.getBoardVersion(version);
+    }
+
+    BoardWriter getBoardWriter() {
+        return bw;
+    }
+
+    BoardReader getBoardReader() {
+        return br;
     }
 
 }

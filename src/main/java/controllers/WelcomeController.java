@@ -31,8 +31,6 @@ public class WelcomeController {
     @FXML
     protected void initialize() {
         BoardManager.get(); // to construct single instance enclosed within
-        BoardManager.get().populate(); // create one sample board
-
     }
 
     /**
