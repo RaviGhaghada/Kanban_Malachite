@@ -7,7 +7,6 @@ import java.util.*;
 public class Column {
 
     private transient Board parentBoard;
-
     private String id;
     private String title;
     private String role;
@@ -81,13 +80,10 @@ public class Column {
      * @param card card to be added
      */
     void addCard(Card card){
-<<<<<<< HEAD
 	if(card != null)
         // TODO: notify logger
         	cards.add(card);
-=======
-        cards.add(card);
->>>>>>> feature_log
+
     }
 
     /**
