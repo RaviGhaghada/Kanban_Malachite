@@ -38,6 +38,8 @@ public class StatisticsController {
     // Each label to display results for each statistic
     public Label statResult1, statResult2, statResult3;
 
+    public int days = 7; // days since the board was created
+
     /**
      * Initialises the statistics pane,
      * Loads all external data for generating statistics,
@@ -58,6 +60,11 @@ public class StatisticsController {
         velocityStatistics = new HashMap<>(); // initialise HashMap.
         leadTimeStatistics = new HashMap<>(); // initialise HashMap.
         wipStatistics = new HashMap<>(); // initialise HashMap.
+        for (int i =0; i <= days; i++) {
+            velocityStatistics.put(i, Statistics.getDailyVelocity(i));
+            leadTimeStatistics.put(i, Statistics.getDailyLeadTime(i));
+            wipStatistics.put(i, Statistics.getDailyWIP(i));
+        }
     }
 
     /**
@@ -65,13 +72,16 @@ public class StatisticsController {
      */
     public void populateStatsFields() {
         statLabel1.setText("Overall Velocity: ");
-        statResult1.setText(Statistics.calculateVelocity()+"");
+        //statResult1.setText(Statistics.calculateVelocity()+"");
+        statResult1.setText(0.0+"");
 
         statLabel2.setText("Average Lead Time: ");
-        statResult2.setText(Statistics.calculateAvgLeadTime()+"");
+        //statResult2.setText(Statistics.calculateAvgLeadTime()+"");
+        statResult2.setText(0.0+"");
 
         statLabel3.setText("Work in Progress: ");
-        statResult3.setText(Statistics.calculateWIP()+"");
+        //statResult3.setText(Statistics.calculateWIP()+"");
+        statResult3.setText(0.0+"");
     }
 
 

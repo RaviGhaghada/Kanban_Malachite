@@ -132,4 +132,75 @@ public class Board{
         // TODO: notify the logger
     }
 
+
+    public LinkedList<Card> getWIPCards() {
+        LinkedList <Card> cards = new LinkedList<>();
+        for (Column col : columns){
+            if (col.getRole().equals("Work in progress")){
+                cards.addAll(col.getCards());
+            }
+        }
+        return cards;
+    }
+
+    public LinkedList<Card> getBackLogCards() {
+        LinkedList <Card> cards = new LinkedList<>();
+        for (Column col : columns){
+            if (col.getRole().equals("backlog")){
+                cards.addAll(col.getCards());
+            }
+        }
+        return cards;
+    }
+
+    public LinkedList<Card> getOnHoldCards() {
+        LinkedList <Card> cards = new LinkedList<>();
+        for (Column col : columns){
+            if (col.getRole().equals("on hold")){
+                cards.addAll(col.getCards());
+            }
+        }
+        return cards;
+    }
+
+    public LinkedList<Card> getCompletedCards() {
+        LinkedList <Card> cards = new LinkedList<>();
+        for (Column col : columns){
+            if (col.getRole().equals("completed")){
+                cards.addAll(col.getCards());
+            }
+        }
+        return cards;
+    }
+
+    public LinkedList<Card> getInfoCards() {
+        LinkedList <Card> cards = new LinkedList<>();
+        for (Column col : columns){
+            if (col.getRole().equals("For Info Only")){
+                cards.addAll(col.getCards());
+            }
+        }
+        return cards;
+    }
+
+    public LinkedList<Card> getAllCards() {
+        LinkedList <Card> cards = new LinkedList<>();
+        for (Column col : columns){
+            cards.addAll(col.getCards());
+        }
+        return cards;
+    }
+
+    /**
+     * Calculates the number of cards completed each day.
+     * @return
+     */
+    // TODO: Get the missing time periods
+    public int getDeliveryRate(){
+//        DateTime  = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+//        DateTime completeDate = new DateTime(2010, 1, 1, 0, 0, 0, 0);
+//        int days = Days.daysBetween(dt1, dt2).getDays();
+//        return days;
+        return 1;
+    }
 }

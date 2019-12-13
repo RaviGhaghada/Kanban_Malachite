@@ -33,6 +33,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+/**
+ * Controller for the Mello Board.
+ * Displays the current state of the current Board.
+ * Hosts columns, cards, and links to Statistics and Log pop up.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
+
+
 public class BoardController {
 
     @FXML

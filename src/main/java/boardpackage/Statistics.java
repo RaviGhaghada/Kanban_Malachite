@@ -1,31 +1,36 @@
 package boardpackage;
 
-public class Statistics {
+import java.util.LinkedList;
+import java.util.List;
 
-    // Statistic values
-    private Double deliveryRate;
-    private Double leadTime;
+public class Statistics {
 
     /**
      *
      * @return velocity expressed as story points per week
      */
-    public double calculateVelocity() {
+    public double calculateVelocity(){
         double storyPoints = 0.0; // number of story points on board total
         double numWeeks = 0.0; // number of weeks since the board was created
+        LinkedList<Card> allCards = BoardManager.get().getCurrentBoard().getAllCards();
+        for (Card card : allCards) {
+            storyPoints += card.getStoryPoints();
+        }
         return storyPoints/numWeeks;
     }
 
     /**
-     *
+     * Calculates the average lead time for cards to be completed
+     * on the current board.
      * @return Double average lead time
      */
     public double calculateAvgLeadTime() {
         Double totalLeadTime = 0.0;
-        for (card : allCompletedCards) {
-            totalLeadTime += calculateLeadTime(card);
+        LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
+        for (Card card : completedCards) {
+            totalLeadTime += card.getLeadTime();
         }
-        return totalLeadTime/numberCardsCompleted;
+        return totalLeadTime/completedCards.size();
     }
 
     /**
@@ -33,25 +38,25 @@ public class Statistics {
      * @return WIP expressed in story points
      */
     public double calculateWIP() {
-        deliveryRate = calculateDeliveryRate();
-        leadTime = calculateLeadTime();
-        return deliveryRate * leadTime;
+        int totalDeliveryRate = 0;
+        Double totalLeadTime = 0.0;
+        LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
+        for (Card card : completedCards) {
+            totalLeadTime += card.getLeadTime();
+        }
+        totalDeliveryRate = BoardManager.get().getCurrentBoard().getDeliveryRate();
+        return totalDeliveryRate * totalLeadTime;
     }
 
-    /**
-     * Tracks
-     * @return delivery rate
-     */
-    public double calculateDeliveryRate() {
+    public static double getDailyVelocity(int day) {
         return 0.0;
     }
 
-    /**
-     * Tracks how long it takes for a card to move through the
-     * stream.
-     * @return lead time, expressed in weeks
-     */
-    public double calculateLeadTime(Card card) {
+    public static double getDailyLeadTime(int day) {
+        return 0.0;
+    }
+
+    public static double getDailyWIP(int day) {
         return 0.0;
     }
 

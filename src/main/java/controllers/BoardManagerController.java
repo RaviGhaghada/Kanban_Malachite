@@ -133,7 +133,6 @@ public class BoardManagerController {
      * Enables user to exit the application.
      */
     @FXML
-    // TODO: call BoardManager.save() when Manvi pushes her code
     public void quitAction(){
         Platform.exit();
     }

@@ -152,5 +152,20 @@ public class Card {
         String info = String.format("Deleted card %s (%s)", this.getTitle(), this.getId());
         BoardManager.get().getBoardWriter().append(info);
     }
+
+    /**
+     * The number of days it takes for a card to move from being created
+     * to completed.
+     * @return
+     */
+    // TODO: Get the missing time periods
+    public int getLeadTime(){
+//        DateTime creationDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+//        DateTime completeDate = new DateTime(2010, 1, 1, 0, 0, 0, 0);
+//        int days = Days.daysBetween(dt1, dt2).getDays();
+//        return days;
+        return 1;
+
+    }
 }
 
