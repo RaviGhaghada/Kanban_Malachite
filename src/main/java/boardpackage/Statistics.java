@@ -21,11 +21,15 @@ public class Statistics {
      * @return Double average lead time
      */
     public double calculateAvgLeadTime() {
-        return 0.0;
+        Double totalLeadTime = 0.0;
+        for (card : allCompletedCards) {
+            totalLeadTime += calculateLeadTime(card);
+        }
+        return totalLeadTime/numberCardsCompleted;
     }
 
     /**
-     *
+     * Tracks how many story points are in progress per week.
      * @return WIP expressed in story points
      */
     public double calculateWIP() {
@@ -35,7 +39,7 @@ public class Statistics {
     }
 
     /**
-     *
+     * Tracks
      * @return delivery rate
      */
     public double calculateDeliveryRate() {
@@ -43,10 +47,11 @@ public class Statistics {
     }
 
     /**
-     *
-     * @return lead time
+     * Tracks how long it takes for a card to move through the
+     * stream.
+     * @return lead time, expressed in weeks
      */
-    public double calculateLeadTime() {
+    public double calculateLeadTime(Card card) {
         return 0.0;
     }
 
