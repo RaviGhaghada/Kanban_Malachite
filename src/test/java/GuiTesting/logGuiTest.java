@@ -1,8 +1,6 @@
 package boardpackage;
 import static org.testfx.api.FxAssert.*;
-import static org.testfx.matcher.control.LabeledMatchers.hasText;
-import static org.testfx.matcher.control.ListViewMatchers.*; 
-import static org.testfx.matcher.base.NodeMatchers.*;
+import static org.testfx.matcher.control.TableViewMatchers.*; 
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.robot.Motion;
 import org.testfx.api.FxToolkit;
@@ -20,6 +18,9 @@ import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.testfx.robot.TypeRobot.*;
+import static org.testfx.matcher.base.NodeMatchers.*;
+
+import java.util.*;
 public class logGuiTest extends ApplicationTest{
 	private static String pathReader;
 	private static String pathWriter;
@@ -61,7 +62,14 @@ public class logGuiTest extends ApplicationTest{
 
 	}
 	@Test
+	public void testLogPopup(){
+		clickOn("#activityLog");
+		verifyThat("#versionTableView", isVisible());
+
+	}
+	@Test
 	public void testLog(){
-	
+		clickOn("#activityLog");
+		verifyThat("#versionTableView",hasItems(BoardManager.get().getBoardReader().getAllVersionsMeta().size()));
 	}
 }
