@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
  */
 public class CardWrapper extends HBox {
     private Card card = null;
-
     public CardWrapper(){
         super();
     }

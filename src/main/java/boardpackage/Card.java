@@ -153,3 +153,4 @@ public class Card {
         BoardManager.get().getBoardWriter().append(info);
     }
 }
+

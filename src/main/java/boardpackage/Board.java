@@ -47,16 +47,17 @@ public class Board{
      * @param columnTo destination column
      */
     public void moveCardTos(Card card, Column columnTo){
-        String info = "Moved card %s (%s) from column %s (%s) to column %s (%s).";
-        info = String.format(info, card.getTitle(), card.getId(),
+	if(card != null && columnTo != null ){
+        	String info = "Moved card %s (%s) from column %s (%s) to column %s (%s).";
+        	info = String.format(info, card.getTitle(), card.getId(),
                 card.getParentColumn().getTitle(), card.getParentColumn().getId(),
                 columnTo.getTitle(), columnTo.getId());
-        card.getParentColumn().removeCard(card);
-        columnTo.addCard(card);
-        card.setParentColumn(columnTo);
-        BoardManager.get().getBoardWriter().append(info);
-    }
-
+        	card.getParentColumn().removeCard(card);
+        	columnTo.addCard(card);
+        	card.setParentColumn(columnTo);
+        	BoardManager.get().getBoardWriter().append(info);
+    	}
+	}
     /**
      * Add a new column
      * @param column new column to be added
@@ -111,7 +112,13 @@ public class Board{
     public String getTitle(){
         return title;
     }
-
+	/**
+	* sets board title
+	* @args title, new title
+	*/
+	public void setTitle(String title){
+		this.title = title;	
+	}
     /**
      * Get all the columns of the board
      * @return columns
