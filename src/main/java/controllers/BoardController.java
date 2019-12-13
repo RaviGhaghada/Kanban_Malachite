@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.print.PageLayout;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
@@ -45,13 +46,17 @@ public class BoardController {
     public Button quitButton;
 
     @FXML
-    public Button activityLog;
+    private Button activityLog;
     @FXML
-    public Button stats ;
+    private Button stats ;
+    @FXML
+    private Label boardTitle;
+
 
     @FXML
     public void initialize() {
         this.board = BoardManager.get().getCurrentBoard();
+        setBoardTitle();
 
         for (Column c : this.board.getColumns()) {
             BoardManager.get().setCurrentColumn(c);
@@ -212,5 +217,12 @@ public class BoardController {
         activityLog.setTooltip(tt);
     }
 
+    @FXML
+    public void setBoardTitle(){
+        String boardName = BoardManager.get().getCurrentBoard().getTitle();
+        boardTitle.setText(boardName);
+
+
+    }
 
 }
