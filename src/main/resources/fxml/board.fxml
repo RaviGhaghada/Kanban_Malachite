@@ -124,21 +124,21 @@
             </HBox>
          </content>
       </ScrollPane>
-      <HBox layoutX="4.0" layoutY="51.0" prefHeight="30.0" prefWidth="994.0" spacing="20.0">
+      <HBox layoutX="4.0" layoutY="51.0" prefHeight="30.0" prefWidth="994.0" spacing="35.0">
          <children>
-            <TextArea editable="false" minHeight="-Infinity" prefHeight="31.0" prefWidth="202.0" promptText="board title..." />
-            <Button minHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: transparent;">
+            <TextArea editable="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="28.0" prefWidth="208.0" promptText="board title..." />
+            <Button fx:id="stats" minHeight="-Infinity" mnemonicParsing="false" onMouseEntered="#showStatsMessage" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="statsImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/line-chart.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+            <Button fx:id="activityLog" maxHeight="-Infinity" mnemonicParsing="false" onMouseEntered="#showLogMessage" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: transparent;">
                <graphic>
-                  <ImageView fitHeight="21.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="21.0" fitWidth="23.0" onMouseEntered="#showLogMessage" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/file.png" />
                      </image>
