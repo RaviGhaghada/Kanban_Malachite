@@ -2,42 +2,170 @@ package boardpackage;
 
 import java.util.ArrayList;
 
+/**
+ * A facade, singleton.
+ * It represents an entity that appears to
+ * magically control all Kanban board entities.
+ * There can be only one shared instance of this entity
+ * throughout this whole program.
+ */
+public class BoardManager{ 
+    private static BoardManager bm = null;
 
-public class BoardManager{
+    private BoardWriter bw;
+    private BoardReader br;
+
     private ArrayList<Board> boards;
-    private Board current;
+    private transient Board currentBoard = null;
+    private transient Column currentColumn = null;
+    private transient Card currentCard = null;
 
-
-    public BoardManager(){
+    /**
+     * Constructor for the board manager
+     * that loads the boards.
+     */
+    private BoardManager(){
+        this.bw = new BoardWriter();
+        this.br = new BoardReader();
         this.boards = new ArrayList<>();
-        this.current = null;
-
+        ArrayList<String> boardids = br.getAllBoardIds();
+        for (String id : boardids){
+            boards.add(br.getBoard(id));
+        }
     }
 
-    public void addBoard(String id, String name) throws DuplicateNameException{
-        Board board = new Board(id,name);
-        for (int i=0; i<this.boards.size(); i++)
-            if (this.boards.get(i).getName().equals(name))
-                throw new DuplicateNameException("Board of same name already exists.");
+    /**
+     * Get the only instance of the BoardManager
+     * @return BoardManager
+     */
+    static public BoardManager get(){
+        if (bm == null){
+            bm = new BoardManager();
+        }
+        return bm;
+    }
+
+    /**
+     * Add a board to the board manager
+     * @param board
+     */
+    void addBoard(Board board){
         boards.add(board);
     }
 
-    public void removeBoard(){
-        if (current != null)
-            this.boards.remove(current);
-        current = null;
+    /**
+     * Remove a board from the board manager
+     * @param board
+     */
+    void removeBoard(Board board){
+        boards.remove(board);
     }
 
-    public void setCurrentBoard(String boardid) throws UnknownBoardException{
-        for (int i=0; i<this.boards.size(); i++)
-            if (this.boards.get(i).getId().equals(boardid)){
-                this.current = this.boards.get(i);
-                break;
-            }
-        throw new UnknownBoardException("Attempt to set current to inexistent board."); //<-<-
+    /**
+     * Focus on a current board
+     * @param board
+     */
+    public void setCurrentBoard(Board board) {
+        this.currentBoard = board;
     }
 
+    /**
+     * Get the current board in focus
+     * @return Board
+     */
     public Board getCurrentBoard() {
-        return this.current;
+        return this.currentBoard;
     }
+
+    /**
+     * Get the current column in focus
+     * @return Column
+     */
+    public Column getCurrentColumn() {
+        return this.currentColumn;
+    }
+
+    /**
+     * Focus on a given column
+     * @param currentColumn
+     */
+    public void setCurrentColumn(Column currentColumn) {
+        this.currentColumn = currentColumn;
+    }
+
+    /**
+     * Get the current card in focus
+     * @return Card
+     */
+    public Card getCurrentCard() {
+        return currentCard;
+    }
+
+    /**
+     * Focus on a given card
+     * @param currentCard
+     */
+    public void setCurrentCard(Card currentCard) {
+        this.currentCard = currentCard;
+    }
+
+    /**
+     * Get all boards held by the boardmanager
+     * @return
+     */
+    public ArrayList<Board> getBoards(){
+        return boards;
+    }
+
+    /**
+     * Take in an arraylist of boards
+     * Ideally, it's supposed to be used
+     * when reading from a json file.
+     * @param boards array list of board objects
+     */
+    void setBoards(ArrayList<Board> boards){
+        this.boards = boards;
+    }
+
+    /**
+     * Do not test this class.
+     * It is merely for populating data.
+     */
+    public void populate(){
+        Board b1 = new Board("Malachite");
+        setCurrentBoard(b1);
+        Column c1 = new Column("Backlog");
+        setCurrentColumn(c1);
+        new Card("Task01");
+        new Card("Task02");
+        new Card("Task03");
+        new Card("SecretTask01");
+        Column c2 = new Column("Developing");
+        setCurrentColumn(c2);
+        new Card("Task04");
+        new Card("Task05");
+        new Card("Task06");
+        Column c3 = new Column("Finished");
+        setCurrentColumn(c3);
+        new Card("Task07");
+        new Card("Task08");
+        new Card("Task09");
+    }
+
+    public ArrayList<String[]> getAllBoardVersionsMeta(){
+        return br.getAllVersionsMeta();
+    }
+
+    public Board getBoardVersion(String version){
+        return br.getBoardVersion(version);
+    }
+
+    BoardWriter getBoardWriter() {
+        return bw;
+    }
+
+    BoardReader getBoardReader() {
+        return br;
+    }
+
 }

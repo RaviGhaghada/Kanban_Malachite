@@ -27,6 +27,10 @@ Now mark it as an executable
 
 > chmod +x gradlew
 
+Download the wrapper by executing it:
+
+> ./gradlew
+
 From now on, run all gradle commands using the wrapper, so instead of 'gradle build'
 use:
 

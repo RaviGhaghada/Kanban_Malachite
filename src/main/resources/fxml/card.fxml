@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import wrappers.CardWrapper?>
+<CardWrapper fx:id="smallCardHbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="220.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CardController">
+   <children>
+      <VBox fx:id="cardVBox" prefHeight="129.0" prefWidth="211.0">
+         <children>
+            <VBox fx:id="dragVBox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="211.0" style="-fx-background-color: #87CEFA;">
+               <children>
+                  <ImageView fitHeight="21.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-move-96.png" />
+                     </image>
+                  </ImageView>
+               </children></VBox>
+            <TextArea fx:id="cardDisplayText" editable="false" maxWidth="214.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#openEditPopupAction" prefHeight="101.0" prefWidth="211.0" style="-fx-background-color: transparent;" wrapText="true" />
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="12.0" />
+   </padding>
+</CardWrapper>

@@ -1,14 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardManagerController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BoardManagerController">
    <children>
-      <ScrollPane layoutX="61.0" layoutY="164.0" prefHeight="371.0" prefWidth="872.0" />
+      <ListView fx:id="boardListView" layoutX="44.0" layoutY="210.0" onMouseClicked="#selectAction" prefHeight="346.0" prefWidth="903.0" />
+      <Button fx:id="addBoard" layoutX="833.0" layoutY="176.0" mnemonicParsing="false" onAction="#addAction" text="New Board">
+         <font>
+            <Font name="Hiragino Sans W1" size="17.0" />
+         </font></Button>
+      <Text layoutX="44.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Boards">
+         <font>
+            <Font name="Hiragino Sans W1" size="32.0" />
+         </font>
+      </Text>
+      <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #87CEFA;">
+         <children>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #87CEFA;" stylesheets="@../css/stylesheet.css">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="backButton" alignment="TOP_LEFT" layoutX="23.0" layoutY="5.0" minHeight="44.0" minWidth="174.0" mnemonicParsing="false" onAction="#backClick" prefHeight="52.0" prefWidth="132.0" style="-fx-min-width: 100; -fx-min-height: 50; -fx-background-color: transparent;" text="go back">
+                           <font>
+                              <Font name="System Italic" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/arrow_left.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+               </items>
+            </SplitPane>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="333.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" />
+            <ImageView fitHeight="133.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true" translateX="100.0" GridPane.columnIndex="1">
+               <image>
+                  <Image url="@../images/Mello_Logo.png" />
+               </image>
+            </ImageView>
+            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" style="-fx-background-color: #87CEFA;" stylesheets="@../css/stylesheet.css" GridPane.columnIndex="2">
+               <items>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <!--<children>-->
+                        <!--<Button fx:id="deleteButton" alignment="TOP_LEFT" layoutY="4.0" minHeight="46.0" minWidth="192.0" mnemonicParsing="false" onAction="#deleteBoardAction" prefHeight="46.0" prefWidth="200.0" style="-fx-min-width: 200; -fx-min-height: 50; -fx-background-color: transparent;" text="delete board">-->
+                           <!--<font>-->
+                              <!--<Font name="System Italic" size="18.0" />-->
+                           <!--</font>-->
+                           <!--<graphic>-->
+                              <!--<ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">-->
+                                 <!--<image>-->
+                                    <!--<Image url="@../images/minus.png" />-->
+                                 <!--</image>-->
+                              <!--</ImageView>-->
+                           <!--</graphic>-->
+                        <!--</Button>-->
+                     <!--</children>-->
+                  </AnchorPane>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="quitButton" alignment="TOP_LEFT" layoutY="4.0" minHeight="46.0" minWidth="192.0" mnemonicParsing="false" onAction="#quitAction" prefHeight="50.0" prefWidth="148.0" style="-fx-min-width: 100; -fx-min-height: 50; -fx-background-color: transparent;" text="quit app">
+                           <font>
+                              <Font name="System Italic" size="18.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/power_button.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
    </children>
 </AnchorPane>

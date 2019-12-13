@@ -1,5 +1,6 @@
 package app;
 
+import boardpackage.BoardManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,8 +11,8 @@ import javafx.stage.Stage;
  * Main class for the Mello GUI. Extends the Application class
  * and launches the GUI when run.
  *
- * @Author Mariam Ahmed, Ravi, Manvi, Rojina, and Marek
- * @Version November 2019
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
 public class Main extends Application {
 
@@ -23,7 +24,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/welcome.fxml"));
         primaryStage.setTitle("Mello");
         primaryStage.setScene(new Scene(root, 1000, 600));
