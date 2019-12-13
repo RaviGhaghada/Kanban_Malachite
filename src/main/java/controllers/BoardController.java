@@ -12,6 +12,7 @@ import javafx.print.PageLayout;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -42,6 +43,11 @@ public class BoardController {
     @FXML
     public Button backButton;
     public Button quitButton;
+
+    @FXML
+    public Button activityLog;
+    @FXML
+    public Button stats ;
 
     @FXML
     public void initialize() {
@@ -180,6 +186,30 @@ public class BoardController {
             event.setDropCompleted(success);
             event.consume();
         });
+    }
+
+    @FXML
+    public void showStatsMessage(){
+
+        stats.setText("statistics");
+        Tooltip tt = new Tooltip();
+        tt.setText("Board Statistics");
+        tt.setStyle("-fx-font-size: 12;"
+                + "-fx-base: #AE3522; "
+                + "-fx-text-fill: #87CEFA;");
+        stats.setTooltip(tt);
+    }
+
+    @FXML
+    public void showLogMessage(){
+
+        activityLog.setText("activity");
+        Tooltip tt = new Tooltip();
+        tt.setText("Activity Log");
+        tt.setStyle("-fx-font-size: 12;"
+                + "-fx-base: #AE3522; "
+                + "-fx-text-fill: #87CEFA;");
+        activityLog.setTooltip(tt);
     }
 
 
