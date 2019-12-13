@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <?import wrappers.ColumnWrapper?>
 <ColumnWrapper fx:id="columnVbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="270.0" style="-fx-border-style-fx-border-style: solid; -fx-border-width: 8px; -fx-border-color: #87CEFA; -fx-background-image: url('../images/backGroud.jpg') url('backGroud.jpg'); -fx-background-size: 270px 500px; -fx-background-radius: 20px;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ColumnController">
    <opaqueInsets>

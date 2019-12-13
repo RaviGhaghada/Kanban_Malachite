@@ -1,5 +1,6 @@
 package wrappers;
 
+import boardpackage.BoardManager;
 import boardpackage.Column;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -24,4 +25,6 @@ public class ColumnWrapper extends VBox {
     public void setColumn(Column column) {
         this.column = column;
     }
+
+
 }

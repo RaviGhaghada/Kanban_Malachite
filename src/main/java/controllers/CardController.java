@@ -32,7 +32,6 @@ public class CardController {
         refresh();
     }
 
-
     @FXML
     public void openEditPopupAction(){
         BoardManager.get().setCurrentCard(smallCardHbox.getCard());
@@ -71,5 +70,12 @@ public class CardController {
     public void refresh(){
         cardDisplayText.setText(smallCardHbox.getCard().getTitle());
     }
+
+//    public VBox getParent(){
+//        VBox parent =(VBox) smallCardHbox.getParent();
+//        return parent;
+//    }
 }
+
+
 

@@ -7,34 +7,37 @@ import boardpackage.Column;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.skin.ScrollPaneSkin;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.transform.Transform;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
-
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class ColumnController {
 
     @FXML
     private ColumnWrapper columnVbox;
-
     @FXML
     private TextField titleText;
     @FXML
@@ -60,7 +63,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                dragCard(cardBox);
+                setDragCardProperties(cardBox);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -99,7 +102,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 CardWrapper cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                dragCard(cardBox);
+                //setDragCardProperties(cardBox);
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
@@ -132,50 +135,54 @@ public class ColumnController {
         cardRoll.setValue("To Do");
     }
 
-    public void dragCard(HBox card) {
-            VBox mainVBox = (VBox) card.getChildren().get(0);
-            VBox head = (VBox) mainVBox.getChildren().get(0);
-            head.setOnDragDetected(event -> {
-                Dragboard db = card.startDragAndDrop(TransferMode.ANY);
+    public void setDragCardProperties(CardWrapper cardWrapper) {
+            VBox mainVBox = (VBox) cardWrapper.getChildren().get(0);
+
+            // the blue stripe
+            VBox cardhead = (VBox) mainVBox.getChildren().get(0);
+
+            // source
+            cardhead.setOnDragDetected(event -> {
+                Dragboard db = cardWrapper.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
-                content.putString(card.toString());
+                content.putString(cardWrapper.toString());
                 db.setContent(content);
+                SnapshotParameters snapShot = new SnapshotParameters();
+                snapShot.setTransform(Transform.scale(0.4,0.3));
+                db.setDragView(cardWrapper.snapshot(snapShot, null));
                 event.consume();
             });
 
-            head.setOnDragOver(event -> {
-                Parent newParent = (Parent) event.getGestureSource();
-                if (newParent != card && event.getDragboard().hasString()) {
+            // target
+            cardhead.setOnDragOver(event -> {
+                //if (event.;)
+                if (event.getGestureSource() instanceof CardWrapper && event.getGestureSource() != cardWrapper && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                     event.consume();
                 }
+
             });
-            head.setOnDragDropped(event -> {
-                boolean finish = false;
-                if (event.getDragboard().hasString()) {
-                    Parent start = (Parent) event.getGestureSource();
-                    int startingPoint = cardContainer.getChildren().indexOf(start);
-                    int endingPoint = cardContainer.getChildren().indexOf(card);
-                    if (startingPoint >= 0 && endingPoint >= 0) {
-                        ObservableList<Node> allCards = cardContainer.getChildren();
-                        ArrayList<Node> allSwappedCards = new ArrayList<>(allCards);
-                        Node swapped = allSwappedCards.get(startingPoint);
-                        allSwappedCards.set(startingPoint, allSwappedCards.get(endingPoint));
-                        allSwappedCards.set(endingPoint, swapped);
-                        cardContainer.getChildren().clear();
-                        for (Node node : allSwappedCards) {
-                            cardContainer.getChildren().add(node);
-                        }
+
+            // target
+            cardhead.setOnDragDropped(event -> {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasString()) {
+                    int indexForInsertion = cardContainer.getChildren().indexOf(cardWrapper);
+                    indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
+                    CardWrapper cardW = (CardWrapper) event.getGestureSource();
+                    // if it's the same column
+                    if (cardContainer.getChildren().contains(cardW)){
+                        cardContainer.getChildren().remove(cardW);
                     }
-                    finish = true;
+                    cardContainer.getChildren().add(indexForInsertion, cardW);
+                    success = true;
                 }
-                event.setDropCompleted(finish);
+                event.setDropCompleted(success);
                 event.consume();
             });
 
 
-        }
-
-
+    }
 }
 
