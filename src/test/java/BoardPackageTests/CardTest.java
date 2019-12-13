@@ -5,14 +5,29 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.junit.Before;
+import org.junit.After;
 
 public class CardTest{
+	private static String pathReader;
+	private static String pathWriter;	 
 	@Before
 	public void setUp(){
+		pathReader = BoardManager.get().getBoardReader().getPath();
+		pathWriter = BoardManager.get().getBoardWriter().getPath();
+		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
+		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
 		Board board = new Board("");
 		BoardManager.get().setCurrentBoard(board);
 		Column col = new Column("");
 		BoardManager.get().setCurrentColumn(col);
+	}
+	@After
+	public void tearDown(){
+		while(BoardManager.get().getBoards().size()>0){
+			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+		}
+		BoardManager.get().getBoardReader().setPath(pathReader);
+		BoardManager.get().getBoardWriter().setPath(pathWriter);
 	}
 	@Test
 	public void testGetIDOnInit(){
