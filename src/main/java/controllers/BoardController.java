@@ -5,6 +5,7 @@ import boardpackage.Column;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.print.PageLayout;
@@ -15,7 +16,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -31,8 +35,13 @@ import java.util.ArrayList;
 public class BoardController {
 
     @FXML
+    private AnchorPane rootPane;
+
+    @FXML
     private HBox columnContainer;
 
+    @FXML
+    private GridPane melloPane;
     @FXML
     private ScrollPane scrollPane;
 
@@ -191,6 +200,16 @@ public class BoardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setReadOnly(){
+        rootPane.getChildren().remove(melloPane);
+        rootPane.addEventFilter(MouseEvent.ANY, event -> {
+            if (event.getTarget().getClass().toString().contains("Scroll")){
+                event.consume();
+            }
+            // else let any scrolling events slide by
+        });
     }
 
 }
