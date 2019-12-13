@@ -150,7 +150,7 @@ public class ColumnController {
                 content.putString(cardWrapper.toString());
                 db.setContent(content);
                 SnapshotParameters snapShot = new SnapshotParameters();
-                snapShot.setTransform(Transform.scale(04.,0.4));
+                snapShot.setTransform(Transform.scale(0.4,0.3));
                 db.setDragView(cardWrapper.snapshot(snapShot, null));
                 event.consume();
             });
