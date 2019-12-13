@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="625.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LogController">
+<AnchorPane prefHeight="625.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LogController">
     <children>
         <GridPane alignment="CENTER" prefHeight="50.0" prefWidth="835.0" style="-fx-background-color: #87CEFA;">
             <children>
@@ -42,7 +42,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-      <TableView fx:id="versionTableView" layoutX="15.0" layoutY="129.0" prefHeight="487.0" prefWidth="791.0">
+      <TableView fx:id="versionTableView" layoutX="15.0" layoutY="129.0" onMouseClicked="#selectAction" prefHeight="487.0" prefWidth="791.0">
         <columns>
           <TableColumn fx:id="versionCol" prefWidth="73.0" text="Version" />
           <TableColumn fx:id="timeCol" prefWidth="193.0" text="Timestamp" />

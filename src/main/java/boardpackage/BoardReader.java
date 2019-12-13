@@ -31,9 +31,8 @@ class BoardReader{
 
             jo = (JSONObject) jo.get("versions");
             jo  = (JSONObject) jo.get(version);
-            jo = (JSONObject) jo.get("columns");
 
-            String columnsjson = jo.toJSONString();
+            String columnsjson = (String) jo.get("columns");
             LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
 
             return new Board(id, title, columns);

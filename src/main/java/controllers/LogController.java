@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -16,10 +17,13 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -65,18 +69,26 @@ public class LogController {
     }
 
     /**
-     * Opens the window with selected board.
+     * Opens the window with a non-editable board.
      */
-    public void openBoard (Board board){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
-        BoardManager.get().setCurrentBoard(board);
-
+    private void openBoard(String versionNo){
         try {
-            Parent popup = (Parent) loader.load();
-            backButton.getScene().setRoot(popup);
-        }
-        catch (Exception e){
-            System.out.println("failed to launch popup");
+            Board original = BoardManager.get().getCurrentBoard();
+            Board temp = BoardManager.get().getBoardVersion(versionNo);
+
+            BoardManager.get().setCurrentBoard(temp);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/board.fxml"));
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // blocks other windows until dialog is closed
+            Parent popup = loader.load();
+            ((BoardController)loader.getController()).setReadOnly();
+            stage.setScene(new Scene(popup));
+            stage.showAndWait();
+
+            BoardManager.get().setCurrentBoard(original);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -88,17 +100,11 @@ public class LogController {
      */
     public void selectAction (MouseEvent mouseEvent) {
 
-        Board selectedBoard = BoardManager.get().getCurrentBoard();// = versionTableView.getSelectionModel().getSelectedItem();
-
-        if (selectedBoard == null) return; // nothing to click on
-
+        String versionNo = versionTableView.getSelectionModel().getSelectedItem()[0];
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
             if (mouseEvent.getClickCount() == 2) {
-                BoardManager.get().setCurrentBoard(selectedBoard);
-                System.out.println("Double clicked");
-                openBoard(selectedBoard);
+                openBoard(versionNo);
             }
         }
-
     }
 }
