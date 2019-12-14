@@ -131,7 +131,7 @@
                   <Font name="System Italic" size="17.0" />
                </font>
             </Label>
-            <Button fx:id="stats" minHeight="-Infinity" mnemonicParsing="false" onMouseEntered="#showStatsMessage" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: transparent;">
+            <Button fx:id="stats" minHeight="-Infinity" mnemonicParsing="false" onAction="#openStatisticsAction" onMouseEntered="#showStatsMessage" prefHeight="30.0" prefWidth="43.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fx:id="statsImage" fitHeight="31.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -140,7 +140,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="activityLog" maxHeight="-Infinity" mnemonicParsing="false" onMouseEntered="#showLogMessage" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: transparent;">
+            <Button fx:id="activityLog" maxHeight="-Infinity" mnemonicParsing="false" onAction="#openLogAction" onMouseEntered="#showLogMessage" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: transparent;">
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="23.0" onMouseEntered="#showLogMessage" pickOnBounds="true" preserveRatio="true">
                      <image>

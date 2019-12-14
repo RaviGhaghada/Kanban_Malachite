@@ -130,10 +130,10 @@ public class ColumnController {
         availableChoices.removeAll(availableChoices);
         String backlog = "Backlog";
 
-        String inProgress = "in progress";
-        String onHold = "On hold";
-        String completed = "completed";
-        String forInfo = "for info";
+        String inProgress = "In Progress";
+        String onHold = "On Hold";
+        String completed = "Completed";
+        String forInfo = "For Info";
         availableChoices.addAll(backlog , onHold , inProgress, completed , forInfo);
         cardRoll.getItems().addAll(availableChoices);
         cardRoll.setValue("Backlog");
