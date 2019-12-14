@@ -19,7 +19,7 @@
          <children>
             <HBox prefHeight="27.0" prefWidth="239.0" spacing="135.0">
                <children>
-                  <ChoiceBox fx:id="cardRoll" prefHeight="33.0" prefWidth="81.0" />
+                  <ChoiceBox fx:id="colRole" prefHeight="33.0" prefWidth="81.0" />
                   <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/drag.png" />

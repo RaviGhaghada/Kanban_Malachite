@@ -9,7 +9,7 @@ public class Column {
     private transient Board parentBoard;
     private String id;
     private String title;
-    private String role;
+    private Role role;
     private LinkedList<Card> cards;
 
     /**
@@ -18,7 +18,7 @@ public class Column {
      * It must only be used to create a column from data loaded
      * from a json file
      */
-    Column (Board parent, String id, String title, String role){
+    Column (Board parent, String id, String title, Role role){
         this.parentBoard = parent;
         parent.addColumn(this);
 
@@ -36,6 +36,7 @@ public class Column {
     public Column(String title){
         this.title = title;
         cards = new LinkedList<>();
+        this.role = Role.BACKLOG;
 
         parentBoard = BoardManager.get().getCurrentBoard();
         parentBoard.addColumn(this);
@@ -130,7 +131,7 @@ public class Column {
      * Get the role of the card
      * @return role
      */
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
@@ -138,10 +139,12 @@ public class Column {
      * Set the role of a card
      * @param role
      */
-    public void setRole(String role) {
-        this.role = role;
-        String info = String.format("Changed column %s (%s) 's role to %s", this.role, this.id, role);
-        BoardManager.get().getBoardWriter().append(info);
+    public void setRole(Role role) {
+        if (!role.equals(this.role)) {
+            this.role = role;
+            String info = String.format("Changed column %s (%s) 's role to %s", this.role, this.id, role);
+            BoardManager.get().getBoardWriter().append(info);
+        }
     }
 
     /**

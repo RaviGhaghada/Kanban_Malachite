@@ -35,6 +35,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+/**
+ * Controller for the Mello Board.
+ * Displays the current state of the current Board.
+ * Hosts columns, cards, and links to Statistics and Log pop up.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
+
+
 public class BoardController {
 
     @FXML
@@ -149,7 +159,6 @@ public class BoardController {
      * Enables user to exit the application.
      */
     @FXML
-    // TODO: call BoardManager.save() when Manvi pushes her code
     public void quitAction() {
         Platform.exit();
     }
@@ -239,6 +248,21 @@ public class BoardController {
     private void openLogAction(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log.fxml"));
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // blocks other windows until dialog is closed
+            Parent popup = loader.load();
+            stage.setScene(new Scene(popup));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openStatisticsAction(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/statistics.fxml"));
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // blocks other windows until dialog is closed
             Parent popup = loader.load();

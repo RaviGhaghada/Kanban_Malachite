@@ -1,6 +1,11 @@
 package boardpackage;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * This class represents a card for a column
@@ -151,6 +156,18 @@ public class Card {
         }
         String info = String.format("Deleted card %s (%s)", this.getTitle(), this.getId());
         BoardManager.get().getBoardWriter().append(info);
+    }
+
+    /**
+     * The number of days it takes for a card to move from being created
+     * to completed.
+     * @return
+     */
+    int getAge(){
+        LocalDate creationDate  = BoardManager.get().getBoardReader().getCardCreationDate(id).toLocalDate();
+        LocalDate today = LocalDate.now();
+        int days = (int) DAYS.between(creationDate, today);
+        return days;
     }
 }
 

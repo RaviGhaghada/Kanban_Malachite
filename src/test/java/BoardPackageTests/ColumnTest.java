@@ -158,8 +158,8 @@ public class ColumnTest{
 	public void testGetSetRole(){
 		Column c = new Column("i1");
 		BoardManager.get().setCurrentColumn(c);	
-		c.setRole("role");
-		assertEquals("role",c.getRole());
+		c.setRole(Role.BACKLOG);
+		assertEquals(Role.BACKLOG,c.getRole());
 	}
 	@Test
 	public void testDelete(){

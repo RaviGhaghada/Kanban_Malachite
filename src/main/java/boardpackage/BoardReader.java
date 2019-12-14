@@ -8,7 +8,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class BoardReader{
 
@@ -220,4 +224,28 @@ class BoardReader{
 	static String getPath(){
 		return filepath;
 	}
+
+    LocalDateTime getCardCreationDate(String id) {
+        try (FileReader fileReader = new FileReader(filepath)){
+            JSONObject jo = (JSONObject) new JSONParser().parse(fileReader);
+            jo = (JSONObject) jo.get("boards");
+            jo = (JSONObject) jo.get(BoardManager.get().getCurrentBoard().getId());
+            jo = (JSONObject) jo.get("versions");
+            Set<String> vkeys = jo.keySet();
+            for (String vno : vkeys){
+                JSONObject version = (JSONObject) jo.get(vno);
+                String info = (String) version.get("info");
+                Pattern p = Pattern.compile("Added new card \\w+ \\("+ id + "\\) to \\w+");
+                Matcher m = p.matcher(info);
+                if (m.find()){
+                    String datetime = (String) version.get("date");
+                    return LocalDateTime.parse(datetime);
+                }
+            }
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
