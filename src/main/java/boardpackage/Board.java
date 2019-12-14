@@ -200,7 +200,6 @@ public class Board{
      * Calculates the number of cards completed each day.
      * @return
      */
-    // TODO: Get the missing time periods
     public double getDeliveryRate(){
         ArrayList<String[]> allVersionsMeta = BoardManager.get().getBoardReader().getAllVersionsMeta();
         allVersionsMeta.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));

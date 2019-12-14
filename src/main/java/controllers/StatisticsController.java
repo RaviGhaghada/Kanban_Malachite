@@ -38,7 +38,7 @@ public class StatisticsController {
     // Each label to display results for each statistic
     public Label statResult1, statResult2, statResult3;
 
-    public int days = 7; // days since the board was created
+    public int days = BoardManager.get().getCurrentBoard().getAge(); // days since the board was created
 
     /**
      * Initialises the statistics pane,
@@ -72,16 +72,13 @@ public class StatisticsController {
      */
     public void populateStatsFields() {
         statLabel1.setText("Overall Velocity: ");
-        //statResult1.setText(Statistics.calculateVelocity()+"");
-        statResult1.setText(0.0+"");
+        statResult1.setText(Statistics.calculateVelocity()+"");
 
         statLabel2.setText("Average Lead Time: ");
-        //statResult2.setText(Statistics.calculateAvgLeadTime()+"");
-        statResult2.setText(0.0+"");
+        statResult2.setText(Statistics.calculateAvgLeadTime()+"");
 
         statLabel3.setText("Work in Progress: ");
-        //statResult3.setText(Statistics.calculateWIP()+"");
-        statResult3.setText(0.0+"");
+        statResult3.setText(Statistics.calculateWIP()+"");
     }
 
 

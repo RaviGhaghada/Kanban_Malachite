@@ -50,12 +50,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-             <Label fx:id="statLabel1" text="statLabel1" GridPane.rowIndex="0" />
-             <Label fx:id="statLabel2" text="Label" GridPane.rowIndex="1" />
-             <Label fx:id="statLabel3" text="Label" GridPane.rowIndex="2" />
-             <Label fx:id="statResult1" text="statLabel1" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-             <Label fx:id="statResult2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-             <Label fx:id="statResult3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+             <!--<Label fx:id="statLabel1" text="statLabel1" GridPane.rowIndex="0" />-->
+             <!--<Label fx:id="statLabel2" text="Label" GridPane.rowIndex="1" />-->
+             <!--<Label fx:id="statLabel3" text="Label" GridPane.rowIndex="2" />-->
+             <!--<Label fx:id="statResult1" text="statLabel1" GridPane.columnIndex="1" GridPane.rowIndex="0" />-->
+             <!--<Label fx:id="statResult2" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
+             <!--<Label fx:id="statResult3" GridPane.columnIndex="1" GridPane.rowIndex="2" />-->
          </children>
       </GridPane>
    </children>

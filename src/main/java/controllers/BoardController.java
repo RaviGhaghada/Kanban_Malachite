@@ -148,7 +148,6 @@ public class BoardController {
      * Enables user to exit the application.
      */
     @FXML
-    // TODO: call BoardManager.save() when Manvi pushes her code
     public void quitAction() {
         Platform.exit();
     }
@@ -207,6 +206,21 @@ public class BoardController {
     private void openLogAction(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/log.fxml"));
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // blocks other windows until dialog is closed
+            Parent popup = loader.load();
+            stage.setScene(new Scene(popup));
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openStatisticsAction(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/statistics.fxml"));
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // blocks other windows until dialog is closed
             Parent popup = loader.load();

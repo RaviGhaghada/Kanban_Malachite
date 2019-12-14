@@ -163,7 +163,6 @@ public class Card {
      * to completed.
      * @return
      */
-    // TODO: Get the missing time periods
     int getAge(){
         LocalDate creationDate  = BoardManager.get().getBoardReader().getCardCreationDate(id).toLocalDate();
         LocalDate today = LocalDate.now();
