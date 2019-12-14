@@ -12,7 +12,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.print.PageLayout;
 import javafx.scene.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -63,8 +65,17 @@ public class BoardController {
     public Button quitButton;
 
     @FXML
+    private Button activityLog;
+    @FXML
+    private Button stats ;
+    @FXML
+    private Label boardTitle;
+
+
+    @FXML
     public void initialize() {
         this.board = BoardManager.get().getCurrentBoard();
+        setBoardTitle();
 
         for (Column c : this.board.getColumns()) {
             BoardManager.get().setCurrentColumn(c);
@@ -201,6 +212,37 @@ public class BoardController {
         });
     }
 
+    @FXML
+    public void showStatsMessage(){
+
+        stats.setText("statistics");
+        Tooltip tt = new Tooltip();
+        tt.setText("Board Statistics");
+        tt.setStyle("-fx-font-size: 12;"
+                + "-fx-base: #AE3522; "
+                + "-fx-text-fill: #87CEFA;");
+        stats.setTooltip(tt);
+    }
+
+    @FXML
+    public void showLogMessage(){
+
+        activityLog.setText("activity");
+        Tooltip tt = new Tooltip();
+        tt.setText("Activity Log");
+        tt.setStyle("-fx-font-size: 12;"
+                + "-fx-base: #AE3522; "
+                + "-fx-text-fill: #87CEFA;");
+        activityLog.setTooltip(tt);
+    }
+
+    @FXML
+    public void setBoardTitle(){
+        String boardName = BoardManager.get().getCurrentBoard().getTitle();
+        boardTitle.setText(boardName);
+
+
+    }
 
     @FXML
     private void openLogAction(){

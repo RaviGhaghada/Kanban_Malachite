@@ -22,9 +22,15 @@ import static org.junit.Assert.assertEquals;
 import org.testfx.robot.TypeRobot.*;
 
 public class WelcomeTests extends ApplicationTest{
+	private static String pathReader;
+	private static String pathWriter;
 	@Before
 	public void setUp() throws Exception{
 		ApplicationTest.launch(Main.class);
+		pathReader = BoardManager.get().getBoardReader().getPath();
+		pathWriter = BoardManager.get().getBoardWriter().getPath();
+		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
+		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
 		while(BoardManager.get().getBoards().size()>0){
 			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
 		}
@@ -32,6 +38,8 @@ public class WelcomeTests extends ApplicationTest{
 		BoardManager.get().setCurrentBoard(null);
 		BoardManager.get().setCurrentCard(null);
 		BoardManager.get().populate();
+
+		
 	}
 	@Override
 	public void start(Stage s) throws Exception{
@@ -42,7 +50,14 @@ public class WelcomeTests extends ApplicationTest{
 		FxToolkit.hideStage();
    		release(new KeyCode[]{});
    		release(new MouseButton[]{});
-
+		while(BoardManager.get().getBoards().size()>0){
+			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+		}
+		BoardManager.get().setCurrentBoard(null);
+		BoardManager.get().setCurrentColumn(null);
+		BoardManager.get().setCurrentCard(null);
+		BoardManager.get().getBoardReader().setPath(pathReader);
+		BoardManager.get().getBoardWriter().setPath(pathWriter);
 	}
 	@Test
 	public void welcomeTest(){

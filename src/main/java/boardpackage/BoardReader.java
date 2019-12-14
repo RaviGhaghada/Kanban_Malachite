@@ -18,7 +18,7 @@ class BoardReader{
 
     private Gson gson;
 
-    private static final String filepath = "./src/main/resources/data/databoard.json";
+    private static  String filepath = "./src/main/resources/data/databoard.json";
 
     BoardReader(){
         gson = new Gson();
@@ -210,6 +210,20 @@ class BoardReader{
         }
         return versions;
     }
+
+
+	/**
+	*	for testing perpuses
+	*/
+	static void setPath(String path){
+		filepath = path;
+	}
+	/**
+	*	for testing perpuses
+	*/
+	static String getPath(){
+		return filepath;
+	}
 
     LocalDateTime getCardCreationDate(String id) {
         try (FileReader fileReader = new FileReader(filepath)){

@@ -47,7 +47,7 @@ public class ColumnController {
     @FXML
     private ChoiceBox<String> cardRoll;
 
-    ObservableList<String> availableChoices = FXCollections.observableArrayList();
+
 
     @FXML
     public void initialize(){
@@ -126,8 +126,10 @@ public class ColumnController {
     }
 
     private void loadDataChoiceBox(){
+        ObservableList<String> availableChoices = FXCollections.observableArrayList();
         availableChoices.removeAll(availableChoices);
         String backlog = "Backlog";
+
         String inProgress = "in progress";
         String onHold = "On hold";
         String completed = "completed";

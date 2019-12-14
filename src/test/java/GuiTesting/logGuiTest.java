@@ -1,8 +1,6 @@
 package boardpackage;
 import static org.testfx.api.FxAssert.*;
-import static org.testfx.matcher.control.TextInputControlMatchers.hasText;
-import static org.testfx.matcher.control.ListViewMatchers.*;
-import static org.testfx.matcher.base.NodeMatchers.*;
+import static org.testfx.matcher.control.TableViewMatchers.*; 
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.robot.Motion;
 import org.testfx.api.FxToolkit;
@@ -19,10 +17,11 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import org.testfx.robot.TypeRobot.*;
+import static org.testfx.matcher.base.NodeMatchers.*;
 
-public class CardGuiTest extends ApplicationTest{
+import java.util.*;
+public class logGuiTest extends ApplicationTest{
 	private static String pathReader;
 	private static String pathWriter;
 	@Before
@@ -63,57 +62,14 @@ public class CardGuiTest extends ApplicationTest{
 
 	}
 	@Test
-	public void addCardTest(){
-		clickOn("#addCardBtn");
-		int a = BoardManager.get().getCurrentColumn().getCards().size();
-		System.out.println("add " + BoardManager.get().getCurrentColumn());
-		clickOn("#saveButton");
-		assertEquals(a+1,BoardManager.get().getCurrentColumn().getCards().size());
-	}
-	@Test
-	public void deleteCardTest(){
-		System.out.println("del1 " + BoardManager.get().getCurrentColumn());
-		clickOn("Task01");
-		System.out.println("del2 " + BoardManager.get().getCurrentColumn());
-		int a = BoardManager.get().getCurrentBoard().getColumns().get(0).getCards().size();
-		clickOn("#deleteCard1");
-		assertEquals(a-1,BoardManager.get().getCurrentBoard().getColumns().get(0).getCards().size());
+	public void testLogPopup(){
+		clickOn("#activityLog");
+		verifyThat("#versionTableView", isVisible());
 
 	}
 	@Test
-	public void editCardTest(){
-		clickOn("Task01");
-		clickOn("#deleteCard1");
-		clickOn("Task02");
-		clickOn("#cardTitle");
-		clickOn("#cardTitle");
-		write("123");
-		clickOn("#saveAndClose");
-		clickOn("123");
-		clickOn("#cardTitle");
-		clickOn("#cardTitle");
-		write("1");
-		clickOn("#storypoints");
-		write("b");
-		clickOn("#saveAndClose");
-		assertEquals("123",BoardManager.get().getCurrentCard().getTitle());
-		assertEquals(0,BoardManager.get().getCurrentCard().getStoryPoints());
-		clickOn("#okButton");
-		clickOn("#cardTitle");
-		write("1");
-		clickOn("#storypoints");
-		clickOn("#storypoints");
-		write("1");
-		Card c = BoardManager.get().getCurrentCard();
-		assertEquals("123",BoardManager.get().getCurrentCard().getTitle());
-		assertEquals(0,BoardManager.get().getCurrentCard().getStoryPoints());
-		clickOn("#saveAndClose");
-		assertEquals("11",c.getTitle());
-		assertEquals(1,c.getStoryPoints());
-		verifyThat("#cardDisplayText",hasText("11"));
-
+	public void testLog(){
+		clickOn("#activityLog");
+		verifyThat("#versionTableView",hasItems(BoardManager.get().getBoardReader().getAllVersionsMeta().size()));
 	}
-	
-
 }
-

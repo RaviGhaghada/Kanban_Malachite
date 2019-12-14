@@ -19,11 +19,12 @@ class BoardWriter{
 
     private Gson gson;
 
-    private static final String filepath = "./src/main/resources/data/databoard.json";
+    private static  String filepath = "./src/main/resources/data/databoard.json";
 
     BoardWriter(){
         gson = new Gson();
     }
+	
 
     void createBoard(Board board, String info){
         try (FileReader file = new FileReader(filepath)) {
@@ -90,4 +91,19 @@ class BoardWriter{
             e.printStackTrace();
         }
     }
+
+
+
+	/**
+	*	for testing perpuses
+	*/
+	static void setPath(String path){
+		filepath = path;
+	}
+	/**
+	*	for testing perpuses
+	*/
+	static String getPath(){
+		return filepath;
+	}
 }
