@@ -1,6 +1,11 @@
 package boardpackage;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 
 /**
@@ -196,11 +201,30 @@ public class Board{
      * @return
      */
     // TODO: Get the missing time periods
-    public int getDeliveryRate(){
-//        DateTime  = new DateTime(2000, 1, 1, 0, 0, 0, 0);
-//        DateTime completeDate = new DateTime(2010, 1, 1, 0, 0, 0, 0);
-//        int days = Days.daysBetween(dt1, dt2).getDays();
-//        return days;
-        return 1;
+    public double getDeliveryRate(){
+        ArrayList<String[]> allVersionsMeta = BoardManager.get().getBoardReader().getAllVersionsMeta();
+        allVersionsMeta.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
+
+        TreeMap<String, LinkedList<Card>> map = new TreeMap<>();
+        for (String[] versionmeta: allVersionsMeta){
+            Board board = BoardManager.get().getBoardVersion(versionmeta[0]);
+            LocalDate date = LocalDate.from(LocalDateTime.parse(versionmeta[1]));
+            LinkedList<Card> cards = board.getCompletedCards();
+            map.put(date.toString(), cards);
+        }
+
+        HashSet<Card> allCards = new HashSet<>();
+        for (String key : map.keySet()){
+            LinkedList<Card> cards = map.get(key);
+            map.put(key, cards.stream().filter(card -> allCards.add(card)).collect(Collectors.toCollection(LinkedList::new)));
+        }
+
+        return map.values().stream().mapToInt(list -> list.size()).average().orElse(0);
+    }
+
+    public int getAge(){
+        ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
+        LocalDateTime creation = LocalDateTime.parse(versions.stream().min(Comparator.comparingInt(e -> Integer.parseInt(e[0]))).get()[1]);
+        return (int) DAYS.between(creation, LocalDate.now());
     }
 }
