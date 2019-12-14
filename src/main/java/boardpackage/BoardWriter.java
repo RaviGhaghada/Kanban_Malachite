@@ -91,6 +91,24 @@ class BoardWriter{
         }
     }
 
+    void removeBoard(Board board){
+        try (FileReader file = new FileReader(filepath)) {
+            Object obj = new JSONParser().parse(file);
+            JSONObject jo = (JSONObject) obj;
+            jo = (JSONObject) jo.get("boards");
+            jo.remove(board.getId());
+
+            PrintWriter pw = new PrintWriter(filepath);
+            pw.write(((JSONObject) obj).toJSONString());
+
+            pw.flush();
+            pw.close();
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 	/**
