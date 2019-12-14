@@ -138,60 +138,20 @@ public class Board{
     }
 
 
-    public LinkedList<Card> getWIPCards() {
+    public LinkedList<Card> getCardsOf(Role role) {
         LinkedList <Card> cards = new LinkedList<>();
         for (Column col : columns){
-            if (col.getRole().equals("Work in progress")){
+            if (col.getRole().equals(role)){
                 cards.addAll(col.getCards());
             }
         }
         return cards;
     }
 
-    public LinkedList<Card> getBackLogCards() {
+    public LinkedList<Card> getAllCards(){
         LinkedList <Card> cards = new LinkedList<>();
         for (Column col : columns){
-            if (col.getRole().equals("backlog")){
                 cards.addAll(col.getCards());
-            }
-        }
-        return cards;
-    }
-
-    public LinkedList<Card> getOnHoldCards() {
-        LinkedList <Card> cards = new LinkedList<>();
-        for (Column col : columns){
-            if (col.getRole().equals("on hold")){
-                cards.addAll(col.getCards());
-            }
-        }
-        return cards;
-    }
-
-    public LinkedList<Card> getCompletedCards() {
-        LinkedList <Card> cards = new LinkedList<>();
-        for (Column col : columns){
-            if (col.getRole().equals("completed")){
-                cards.addAll(col.getCards());
-            }
-        }
-        return cards;
-    }
-
-    public LinkedList<Card> getInfoCards() {
-        LinkedList <Card> cards = new LinkedList<>();
-        for (Column col : columns){
-            if (col.getRole().equals("For Info Only")){
-                cards.addAll(col.getCards());
-            }
-        }
-        return cards;
-    }
-
-    public LinkedList<Card> getAllCards() {
-        LinkedList <Card> cards = new LinkedList<>();
-        for (Column col : columns){
-            cards.addAll(col.getCards());
         }
         return cards;
     }
@@ -208,7 +168,7 @@ public class Board{
         for (String[] versionmeta: allVersionsMeta){
             Board board = BoardManager.get().getBoardVersion(versionmeta[0]);
             LocalDate date = LocalDate.from(LocalDateTime.parse(versionmeta[1]));
-            LinkedList<Card> cards = board.getCompletedCards();
+            LinkedList<Card> cards = board.getCardsOf(Role.COMPLETED_WORK);
             map.put(date.toString(), cards);
         }
 
@@ -233,7 +193,7 @@ public class Board{
         for (String[] versionmeta: allVersionsMeta){
             Board board = BoardManager.get().getBoardVersion(versionmeta[0]);
             LocalDate date = LocalDate.from(LocalDateTime.parse(versionmeta[1]));
-            LinkedList<Card> cards = board.getCompletedCards();
+            LinkedList<Card> cards = board.getCardsOf(Role.COMPLETED_WORK);
             map.put(date.toString(), cards);
         }
 

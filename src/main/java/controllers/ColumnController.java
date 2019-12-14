@@ -1,25 +1,18 @@
 package controllers;
 
-import boardpackage.Board;
-import boardpackage.BoardManager;
-import boardpackage.Card;
-import boardpackage.Column;
+import boardpackage.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.skin.ScrollPaneSkin;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
@@ -30,8 +23,6 @@ import javafx.stage.Stage;
 import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 
 public class ColumnController {
@@ -45,16 +36,16 @@ public class ColumnController {
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private ChoiceBox<String> cardRoll;
+    private ChoiceBox<String> colRole;
 
 
 
     @FXML
     public void initialize(){
-        loadDataChoiceBox();
+
         Column column = BoardManager.get().getCurrentColumn();
         columnVbox.setColumn(column);
-        cardRoll = new ChoiceBox<>();   //create a choice box for each added column
+
         for (Card card : column.getCards()){
             BoardManager.get().setCurrentCard(card);
             CardWrapper cardBox;
@@ -76,7 +67,7 @@ public class ColumnController {
                 columnVbox.getColumn().setTitle(titleText.getText());
         });
 
-        refresh();
+        loadDataChoiceBox();
     }
 
     @FXML
@@ -128,15 +119,15 @@ public class ColumnController {
     private void loadDataChoiceBox(){
         ObservableList<String> availableChoices = FXCollections.observableArrayList();
         availableChoices.removeAll(availableChoices);
-        String backlog = "Backlog";
+        for (Role role : Role.values()){
+            availableChoices.add(role.toString());
+        }
+        colRole.getItems().addAll(availableChoices);
+        colRole.setValue(columnVbox.getColumn().getRole().toString());
 
-        String inProgress = "In Progress";
-        String onHold = "On Hold";
-        String completed = "Completed";
-        String forInfo = "For Info";
-        availableChoices.addAll(backlog , onHold , inProgress, completed , forInfo);
-        cardRoll.getItems().addAll(availableChoices);
-        cardRoll.setValue("Backlog");
+        colRole.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            columnVbox.getColumn().setRole(Role.fromString(colRole.getSelectionModel().getSelectedItem()));
+        });
     }
 
     public void setDragCardProperties(CardWrapper cardWrapper) {

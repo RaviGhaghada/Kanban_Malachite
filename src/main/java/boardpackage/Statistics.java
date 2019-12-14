@@ -12,7 +12,7 @@ public class Statistics {
     public static double calculateVelocity(){
         double storyPoints = 0.0; // number of story points completed in total
         double numWeeks = BoardManager.get().getCurrentBoard().getAge()/7;
-        LinkedList<Card> allCompletedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
+        LinkedList<Card> allCompletedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : allCompletedCards) {
             storyPoints += card.getStoryPoints();
         }
@@ -26,7 +26,7 @@ public class Statistics {
      */
     public static double calculateAvgLeadTime() {
         Double totalLeadTime = 0.0;
-        LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
+        LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : completedCards) {
             totalLeadTime += card.getAge();
         }
@@ -40,7 +40,7 @@ public class Statistics {
     public static double calculateWIP() {
         double totalDeliveryRate = BoardManager.get().getCurrentBoard().getDeliveryRate();
         double totalLeadTime = 0.0;
-        LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
+        LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : completedCards) {
             totalLeadTime += card.getAge();
         }
