@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.testfx.robot.TypeRobot.*;
 
 public class CardGuiTest extends ApplicationTest{
@@ -95,13 +96,20 @@ public class CardGuiTest extends ApplicationTest{
 		clickOn("#storypoints");
 		write("b");
 		clickOn("#saveAndClose");
+		assertEquals("123",BoardManager.get().getCurrentCard().getTitle());
+		assertEquals(0,BoardManager.get().getCurrentCard().getStoryPoints());
 		clickOn("#okButton");
 		clickOn("#cardTitle");
 		write("1");
 		clickOn("#storypoints");
 		clickOn("#storypoints");
 		write("1");
+		Card c = BoardManager.get().getCurrentCard();
+		assertEquals("123",BoardManager.get().getCurrentCard().getTitle());
+		assertEquals(0,BoardManager.get().getCurrentCard().getStoryPoints());
 		clickOn("#saveAndClose");
+		assertEquals("11",c.getTitle());
+		assertEquals(1,c.getStoryPoints());
 		verifyThat("#cardDisplayText",hasText("11"));
 
 	}

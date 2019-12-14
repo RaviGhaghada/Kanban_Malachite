@@ -61,10 +61,11 @@ public class ColumnGuiTest extends ApplicationTest{
 	}
 	@Test
 	public void editTitleTest(){
-
 		moveTo("Backlog").clickOn("#titleText");
+		assertEquals("Backlog",BoardManager.get().getCurrentBoard().getColumns().get(0).getTitle());
 		write("123");
 		verifyThat(lookup("#titleText"),hasText("Backlog123"));
+		assertEquals("Backlog123",BoardManager.get().getCurrentBoard().getColumns().get(0).getTitle());
 		clickOn("#backButton");
 		
 	}
