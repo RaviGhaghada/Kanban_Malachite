@@ -47,7 +47,7 @@ public class StatisticsController {
      */
     @FXML
     public void initialize() {
-        messageBox.setText("Statistics for Your Board");
+        //messageBox.setText("Statistics for Your Board");
         populateStatistics();
         populateStatsFields();
         populateGraphs();

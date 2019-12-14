@@ -6,14 +6,14 @@ import java.util.List;
 public class Statistics {
 
     /**
-     *
+     * Returns how many story points are completed per week.
      * @return velocity expressed as story points per week
      */
     public static double calculateVelocity(){
-        double storyPoints = 0.0; // number of story points on board total
+        double storyPoints = 0.0; // number of story points completed in total
         double numWeeks = BoardManager.get().getCurrentBoard().getAge()/7;
-        LinkedList<Card> allCards = BoardManager.get().getCurrentBoard().getAllCards();
-        for (Card card : allCards) {
+        LinkedList<Card> allCompletedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
+        for (Card card : allCompletedCards) {
             storyPoints += card.getStoryPoints();
         }
         return storyPoints/numWeeks;
@@ -48,7 +48,13 @@ public class Statistics {
     }
 
     public static double getDailyVelocity(int day) {
-        return 0.0;
+        double storyPoints = 0.0; // number of story points on board total
+        double numWeeks = BoardManager.get().getCurrentBoard().getAge()/7;
+        LinkedList<Card> allCards = BoardManager.get().getBoardVersion("1").getAllCards();
+        for (Card card : allCards) {
+            storyPoints += card.getStoryPoints();
+        }
+        return storyPoints/numWeeks;
     }
 
     public static double getDailyLeadTime(int day) {
