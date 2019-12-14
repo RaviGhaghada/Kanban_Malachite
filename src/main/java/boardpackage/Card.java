@@ -1,6 +1,11 @@
 package boardpackage;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * This class represents a card for a column
@@ -159,13 +164,11 @@ public class Card {
      * @return
      */
     // TODO: Get the missing time periods
-    public int getLeadTime(){
-//        DateTime creationDate = new DateTime(2000, 1, 1, 0, 0, 0, 0);
-//        DateTime completeDate = new DateTime(2010, 1, 1, 0, 0, 0, 0);
-//        int days = Days.daysBetween(dt1, dt2).getDays();
-//        return days;
-        return 1;
-
+    int getAge(){
+        LocalDate creationDate  = BoardManager.get().getBoardReader().getCardCreationDate(id).toLocalDate();
+        LocalDate today = LocalDate.now();
+        int days = (int) DAYS.between(creationDate, today);
+        return days;
     }
 }
 

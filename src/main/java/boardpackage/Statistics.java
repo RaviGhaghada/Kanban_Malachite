@@ -11,7 +11,7 @@ public class Statistics {
      */
     public double calculateVelocity(){
         double storyPoints = 0.0; // number of story points on board total
-        double numWeeks = 0.0; // number of weeks since the board was created
+        double numWeeks = BoardManager.get().getCurrentBoard().getAge()/7;
         LinkedList<Card> allCards = BoardManager.get().getCurrentBoard().getAllCards();
         for (Card card : allCards) {
             storyPoints += card.getStoryPoints();
@@ -28,7 +28,7 @@ public class Statistics {
         Double totalLeadTime = 0.0;
         LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
         for (Card card : completedCards) {
-            totalLeadTime += card.getLeadTime();
+            totalLeadTime += card.getAge();
         }
         return totalLeadTime/completedCards.size();
     }
@@ -38,11 +38,11 @@ public class Statistics {
      * @return WIP expressed in story points
      */
     public double calculateWIP() {
-        int totalDeliveryRate = 0;
-        Double totalLeadTime = 0.0;
+        double totalDeliveryRate = 0;
+        double totalLeadTime = 0.0;
         LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCompletedCards();
         for (Card card : completedCards) {
-            totalLeadTime += card.getLeadTime();
+            totalLeadTime += card.getAge();
         }
         totalDeliveryRate = BoardManager.get().getCurrentBoard().getDeliveryRate();
         return totalDeliveryRate * totalLeadTime;
