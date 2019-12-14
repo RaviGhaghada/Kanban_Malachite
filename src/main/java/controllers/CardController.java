@@ -15,6 +15,14 @@ import wrappers.CardWrapper;
 
 import java.io.IOException;
 
+/**
+ * Controller for cards.
+ * Displays the current state of the current Board.
+ * Hosts columns, cards, and links to Statistics and Log pop up.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 public class CardController {
 
     @FXML
@@ -71,10 +79,6 @@ public class CardController {
         cardDisplayText.setText(smallCardHbox.getCard().getTitle());
     }
 
-//    public VBox getParent(){
-//        VBox parent =(VBox) smallCardHbox.getParent();
-//        return parent;
-//    }
 }
 
 
