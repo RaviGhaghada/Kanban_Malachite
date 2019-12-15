@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +23,23 @@ class BoardWriter{
     private static  String filepath = "./src/main/resources/data/databoard.json";
 
     BoardWriter(){
-        gson = new Gson();
+        gson = new Gson(); setupFile();
+    }
+
+    private static void setupFile(){
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            if (br.readLine() == null) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("boards", new JSONObject());
+
+                PrintWriter pw = new PrintWriter(filepath);
+                pw.write(jsonObject.toJSONString());
+                pw.flush();
+                pw.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 	
 
@@ -81,6 +98,7 @@ class BoardWriter{
 
             jo.put(maxkey, value);
 
+
             PrintWriter pw = new PrintWriter(filepath);
             pw.write(((JSONObject) obj).toJSONString());
 
@@ -116,7 +134,7 @@ class BoardWriter{
 	*	for testing perpuses
 	*/
 	static void setPath(String path){
-		filepath = path;
+		filepath = path; setupFile();
 	}
 	/**
 	*	for testing perpuses

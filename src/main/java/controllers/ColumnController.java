@@ -61,11 +61,20 @@ public class ColumnController {
         }
         BoardManager.get().setCurrentCard(null);
 
+        titleText.setText(column.getTitle());
+
         // Updates the column object to notify about
         titleText.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
-            if (!newPropertyValue)
-                columnVbox.getColumn().setTitle(titleText.getText());
+            if (!newPropertyValue) {
+                if (!titleText.getText().equals("")){
+                    columnVbox.getColumn().setTitle(titleText.getText());
+                }
+                else {
+                    titleText.setText(columnVbox.getColumn().getTitle());
+                }
+            }
         });
+
 
         loadDataChoiceBox();
     }
@@ -93,7 +102,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 CardWrapper cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                //setDragCardProperties(cardBox);
+                setDragCardProperties(cardBox);
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
@@ -138,6 +147,7 @@ public class ColumnController {
 
             // source
             cardhead.setOnDragDetected(event -> {
+                System.out.println("DETECT");
                 Dragboard db = cardWrapper.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
                 content.putString(cardWrapper.toString());
@@ -150,7 +160,7 @@ public class ColumnController {
 
             // target
             cardhead.setOnDragOver(event -> {
-                //if (event.;)
+                System.out.println("OVER");
                 if (event.getGestureSource() instanceof CardWrapper && event.getGestureSource() != cardWrapper && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                     event.consume();
@@ -160,6 +170,7 @@ public class ColumnController {
 
             // target
             cardhead.setOnDragDropped(event -> {
+                System.out.println("DETECT DROP ON " + columnVbox.getColumn().getTitle());
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasString()) {
