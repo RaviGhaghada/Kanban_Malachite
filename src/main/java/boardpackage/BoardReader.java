@@ -80,7 +80,15 @@ class BoardReader{
 
                 LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
 
-                boards.add(new Board(id, title, columns));
+                Board board = new Board(id, title, columns);
+
+                for (Column col : board.getColumns()){
+                    for (Card card : board.getAllCards()){
+                        card.setParentColumn(col);
+                    }
+                    col.setParentBoard(board);
+                }
+                boards.add(board);
             }
 
         } catch (IOException | ParseException e) {
@@ -107,7 +115,16 @@ class BoardReader{
             String columnsjson = (String) jo.get("columns");
             LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
 
-            return new Board(id, title, columns);
+            Board board = new Board(id, title, columns);
+
+            for (Column col : board.getColumns()){
+                for (Card card : board.getAllCards()){
+                    card.setParentColumn(col);
+                }
+                col.setParentBoard(board);
+            }
+
+            return board;
 
         } catch (IOException e) {
             e.printStackTrace();
