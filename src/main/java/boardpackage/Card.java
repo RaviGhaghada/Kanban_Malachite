@@ -2,8 +2,11 @@ package boardpackage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -185,6 +188,25 @@ public class Card {
 
         String info = String.format("Moved card %s (%s) to column %s (%s) at index %s", title, id, col.getTitle(), col.getId(), index);
         BoardManager.get().getBoardWriter().append(info);
+    }
+
+    /**
+     * The date when this card was put into completed
+     */
+    public LocalDate getCompletionDate() {
+        if (parentColumn.getRole().equals(Role.COMPLETED_WORK)) {
+            ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
+
+            for (String[] version : versions) {
+                Pattern p = Pattern.compile("Moved card \\w+ \\(" + id + "\\) to column \\w+ \\(" + parentColumn.getId() + "\\) \\w+");
+                Matcher m = p.matcher(version[2]);
+                if (m.find()) {
+                    LocalDateTime ldt = LocalDateTime.parse(version[1]);
+                    return LocalDate.from(ldt);
+                }
+            }
+        }
+        return null;
     }
 }
 
