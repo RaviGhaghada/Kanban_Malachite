@@ -88,9 +88,9 @@ public class Board{
         if(index < columns.size() && index >= 0 &&column != null){
             String info = "Moved column %s (%s) to index %s";
             info = String.format(info, column.getTitle(), column.getId(), String.valueOf(index));
-            BoardManager.get().getBoardWriter().append(info);
             if(columns.remove(column))
                 columns.add(index,column);
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 

@@ -17,22 +17,27 @@ import java.io.IOException;
 
 /**
  * Controller for cards.
- * Displays the current state of the current Board.
- * Hosts columns, cards, and links to Statistics and Log pop up.
+ * this class represent the small cards in each column .
+ * and by pressing on the a new pop up window will open which
+ * is the card itself with all of it's elements .
  *
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
  */
 public class CardController {
 
+    //the card's HBox with all of the small card functionality
     @FXML
     private CardWrapper smallCardHbox;
-
+    //display the title of the card as it's text
     @FXML
     private TextArea cardDisplayText;
-
+    //the current stage for opening the pop up card.
     private Stage stage;
 
+    /**
+     * initialize the current card and add it to its HBox.
+     */
     @FXML
     public void initialize(){
         Card card = BoardManager.get().getCurrentCard();
@@ -40,6 +45,10 @@ public class CardController {
         refresh();
     }
 
+    /**
+     * open a pop up window which displays the same card but with all of it's
+     *  information . store the inserted data for each card specifically .
+     */
     @FXML
     public void openEditPopupAction(){
         BoardManager.get().setCurrentCard(smallCardHbox.getCard());
@@ -69,12 +78,21 @@ public class CardController {
         }
     }
 
+    /**
+     * as the delete button of the pop up card is pressed
+     * the card in the column will be deleted with all of it's
+     * fucntionality .
+     */
     public void removeCardBtnAction(){
         smallCardHbox.getCard().delete();
 
         ((Pane)(smallCardHbox.getParent())).getChildren().remove(smallCardHbox);
     }
 
+    /**
+     * display the title of the card as the text of the small card
+     * in the colmn in each card.
+     */
     public void refresh(){
         cardDisplayText.setText(smallCardHbox.getCard().getTitle());
     }
