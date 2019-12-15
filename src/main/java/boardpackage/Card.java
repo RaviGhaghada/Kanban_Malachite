@@ -172,5 +172,19 @@ public class Card {
         int days = (int) DAYS.between(creationDate, today);
         return days;
     }
+
+    /**
+     * Move a card
+     * @param col destination column
+     * @param index index within the column
+     */
+    public void move(Column col, int index){
+        parentColumn.removeCard(this);
+        parentColumn = col;
+        parentColumn.getCards().add(index, this);
+
+        String info = String.format("Moved card %s (%s) to column %s (%s) at index %s", title, id, col.getTitle(), col.getId(), index);
+        BoardManager.get().getBoardWriter().append(info);
+    }
 }
 
