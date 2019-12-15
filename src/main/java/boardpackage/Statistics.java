@@ -1,7 +1,10 @@
 package boardpackage;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Statistics {
 
@@ -31,7 +34,7 @@ public class Statistics {
         Double totalLeadTime = 0.0;
         LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : completedCards) {
-            totalLeadTime += card.getAge();
+            totalLeadTime += (int) DAYS.between(card.getCreationDate(), card.getCompletionDate());
         }
         if (totalLeadTime == 0.0){
             return 0.0;
@@ -48,7 +51,7 @@ public class Statistics {
         double totalLeadTime = 0.0;
         LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : completedCards) {
-            totalLeadTime += card.getAge();
+            totalLeadTime +=  (int) DAYS.between(card.getCreationDate(), card.getCompletionDate());
         }
         return totalDeliveryRate * totalLeadTime;
     }
