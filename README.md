@@ -4,7 +4,7 @@ A single user desktop application to manage Kanban boards.
 
 # Tools Used
 
-Java 11.0, JavaSwing, Gradle
+Java 11.0, JavaSwing, Gradle, JavaFX, TestFx (allowed by Dr. Keppens in some forum post)
 
 # Developers:
 
