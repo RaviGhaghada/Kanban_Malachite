@@ -136,6 +136,8 @@ public class Board{
         BoardManager.get().removeBoard(this);
         if (BoardManager.get().getCurrentBoard() == this){
             BoardManager.get().setCurrentBoard(null);
+            BoardManager.get().setCurrentColumn(null);
+            BoardManager.get().setCurrentCard(null);
         }
         BoardManager.get().getBoardWriter().removeBoard(this);
     }
