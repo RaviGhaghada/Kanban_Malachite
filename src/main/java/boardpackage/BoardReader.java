@@ -22,6 +22,23 @@ class BoardReader{
 
     BoardReader(){
         gson = new Gson();
+        setupFile();
+    }
+
+    private static void setupFile(){
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            if (br.readLine() == null) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("boards", new JSONObject());
+
+                PrintWriter pw = new PrintWriter(filepath);
+                pw.write(jsonObject.toJSONString());
+                pw.flush();
+                pw.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     Board getBoardVersion(String version){
@@ -234,6 +251,8 @@ class BoardReader{
 	*/
 	static void setPath(String path){
 		filepath = path;
+		setupFile();
+
 	}
 	/**
 	*	for testing perpuses
