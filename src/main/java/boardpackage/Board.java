@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-
 /**
- * A class to represent a Kanban board.
- * Ideally a board should be capable of holding multiple columns
- * each of which holds multiple cards.
+ * Class for the Mello Board.
+ * Board is capable of holding multiples columns, each of which holds multiple cards.
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
-public class Board{
+public class Board {
 
     private String id;
     private String title;
@@ -21,10 +21,8 @@ public class Board{
 
 
     /**
-     * Special constructor for a board
-     * that is package private.
-     * It must only be used to create a board being loaded
-     * from a json file
+     * Special constructor for a board that is package private.
+     * Only  to be used to create a board being loaded from a json file
      */
     Board(String id, String title, LinkedList<Column> columns){
         this.id = id;
