@@ -18,12 +18,14 @@ import java.util.Set;
 
 class BoardWriter{
 
-    private Gson gson;
+    private final JSONParser jsonParse;
+    private final Gson gson;
 
     private static  String filepath = "./src/main/resources/data/databoard.json";
 
     BoardWriter(){
         gson = new Gson(); setupFile();
+        jsonParse = new JSONParser();
     }
 
     private static void setupFile(){
@@ -52,7 +54,7 @@ class BoardWriter{
             Map value = new LinkedHashMap(3);
             value.put("info", info);
             value.put("date", LocalDateTime.now().toString());
-            value.put("columns", gson.toJson(board.getColumns()));
+            value.put("columns", jsonParse.parse(gson.toJson(board.getColumns())));
 
             Map firstVersion = new LinkedHashMap(1);
             firstVersion.put("0", value);
@@ -94,10 +96,9 @@ class BoardWriter{
             Map value = new LinkedHashMap(3);
             value.put("info", info);
             value.put("date", LocalDateTime.now().toString());
-            value.put("columns", gson.toJson(board.getColumns()));
+            value.put("columns", jsonParse.parse(gson.toJson(board.getColumns())));
 
             jo.put(maxkey, value);
-
 
             PrintWriter pw = new PrintWriter(filepath);
             pw.write(((JSONObject) obj).toJSONString());
