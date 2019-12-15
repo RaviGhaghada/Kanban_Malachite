@@ -162,7 +162,7 @@ public class ColumnController {
         colRole.setValue(columnVbox.getColumn().getRole().toString());
 
         colRole.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            columnVbox.getColumn().setRole(Role.fromString(colRole.getSelectionModel().getSelectedItem()));
+            columnVbox.getColumn().setRole(Role.fromString(colRole.getItems().get((Integer)newValue)));
         });
     }
 
@@ -181,7 +181,6 @@ public class ColumnController {
 
         // source(where we drag it)
         cardhead.setOnDragDetected(event -> {
-            System.out.println("DETECT");
             Dragboard db = cardWrapper.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
             content.putString(cardWrapper.toString());
@@ -194,7 +193,6 @@ public class ColumnController {
 
         // target
         cardhead.setOnDragOver(event -> {
-            System.out.println("OVER");
             if (event.getGestureSource() instanceof CardWrapper && event.getGestureSource() != cardWrapper && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 event.consume();
@@ -204,7 +202,6 @@ public class ColumnController {
 
         // target(where we wanna drop it)
         cardhead.setOnDragDropped(event -> {
-            System.out.println("DETECT DROP ON " + columnVbox.getColumn().getTitle());
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
@@ -216,6 +213,7 @@ public class ColumnController {
                     cardContainer.getChildren().remove(cardW);
                 }
                 cardContainer.getChildren().add(indexForInsertion, cardW);
+                cardW.getCard().move(columnVbox.getColumn(), indexForInsertion);
                 success = true;
             }
             event.setDropCompleted(success);

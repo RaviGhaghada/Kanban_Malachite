@@ -46,18 +46,6 @@ public class Column {
         BoardManager.get().getBoardWriter().append(info);
     }
 
-    /**
-     * Change the position of a card within the column
-     * @param card
-     * @param finalIndex
-     */
-    public void moveCard(Card card, int finalIndex){
-        if (cards.contains(card) && finalIndex > 0 && finalIndex < cards.size()-1) {
-            cards.remove(card);
-            cards.add(finalIndex, card);
-        }
-        // TODO: low priority notification for the logger
-    }
 
     /**
      * Get the ID of a column
@@ -139,10 +127,12 @@ public class Column {
      * @param role
      */
     public void setRole(Role role) {
+        System.out.println("DETECTED ATTEMPT TO SET ROLE TO " + role.toString());
         if (!role.equals(this.role)) {
             String info = String.format("Changed column %s (%s) 's role to %s", this.role, this.id, role);
             this.role = role;
             BoardManager.get().getBoardWriter().append(info);
+            System.out.println("ATTEMPT SUCCEEDED?");
 
         }
     }
