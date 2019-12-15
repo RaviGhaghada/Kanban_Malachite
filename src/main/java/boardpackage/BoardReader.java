@@ -53,8 +53,8 @@ class BoardReader{
             jo = (JSONObject) jo.get("versions");
             jo  = (JSONObject) jo.get(version);
 
-            String columnsjson = (String) jo.get("columns");
-            LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
+            JSONArray columnsjson = (JSONArray) jo.get("columns");
+            LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>(){}.getType());
 
             return new Board(id, title, columns);
 
@@ -93,9 +93,9 @@ class BoardReader{
                 String latestVersion = String.valueOf(s.stream().mapToInt(Integer::parseInt).max().getAsInt());
 
                 jo = (JSONObject) jo.get(latestVersion);
-                String columnsjson = (String) jo.get("columns");
+                JSONArray columnsjson = (JSONArray) jo.get("columns");
 
-                LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
+                LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>(){}.getType());
 
                 Board board = new Board(id, title, columns);
 
@@ -129,8 +129,8 @@ class BoardReader{
 
             jo  = (JSONObject) jo.get(latestVersion);
 
-            String columnsjson = (String) jo.get("columns");
-            LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
+            JSONArray columnsjson = (JSONArray) jo.get("columns");
+            LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>(){}.getType());
 
             Board board = new Board(id, title, columns);
 
