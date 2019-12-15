@@ -165,18 +165,6 @@ public class Card {
     }
 
     /**
-     * The number of days it takes for a card to move from being created
-     * to completed.
-     * @return
-     */
-    int getAge(){
-        LocalDate creationDate  = BoardManager.get().getBoardReader().getCardCreationDate(id).toLocalDate();
-        LocalDate today = LocalDate.now();
-        int days = (int) DAYS.between(creationDate, today);
-        return days;
-    }
-
-    /**
      * Move a card
      * @param col destination column
      * @param index index within the column
@@ -204,6 +192,19 @@ public class Card {
                     LocalDateTime ldt = LocalDateTime.parse(version[1]);
                     return LocalDate.from(ldt);
                 }
+            }
+        }
+        return null;
+    }
+
+    public LocalDate getCreationDate(){
+        ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
+
+        for (String[] version : versions){
+            Pattern p = Pattern.compile("Added new card \\w+ \\("+ id + "\\) to \\w+");
+            Matcher m = p.matcher(version[2]);
+            if (m.find()){
+                return LocalDate.from(LocalDateTime.parse(version[1]));
             }
         }
         return null;
