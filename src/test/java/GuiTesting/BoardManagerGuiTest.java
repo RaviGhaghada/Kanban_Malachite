@@ -63,7 +63,6 @@ public class BoardManagerGuiTest extends ApplicationTest{
 	@Test
 	public void addBoardTest(){
 		int a = BoardManager.get().getBoards().size();
-		System.out.println(a);
 		clickOn("#addBoard");
 		write("board");
 		clickOn("#saveButton");
