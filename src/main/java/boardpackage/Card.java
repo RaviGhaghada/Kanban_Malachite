@@ -180,12 +180,14 @@ public class Card {
      */
     public void move(Column col, int index) {
         if (col != null) {
-            parentColumn.removeCard(this);
-            parentColumn = col;
-            parentColumn.getCards().add(index, this);
+            if (index >= 0 && index < col.getCards().size()) {
+                parentColumn.removeCard(this);
+                parentColumn = col;
+                parentColumn.getCards().add(index, this);
 
-            String info = String.format("Moved card %s (%s) to column %s (%s) at index %s", title, id, col.getTitle(), col.getId(), index);
-            BoardManager.get().getBoardWriter().append(info);
+                String info = String.format("Moved card %s (%s) to column %s (%s) at index %s", title, id, col.getTitle(), col.getId(), index);
+                BoardManager.get().getBoardWriter().append(info);
+            }
         }
     }
 }
