@@ -13,15 +13,15 @@ public class logTest{
 	private static String pathWriter;	 
 	@Before
 	public void setUp(){
+		BoardReader.setPath("./src/test/resources/test.json");
+		BoardWriter.setPath("./src/test/resources/test.json");
 		pathReader = BoardManager.get().getBoardReader().getPath();
 		pathWriter = BoardManager.get().getBoardWriter().getPath();
-		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
-		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
 	}
 	@After
 	public void tearDown(){
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().getBoardReader().setPath(pathReader);
 		BoardManager.get().getBoardWriter().setPath(pathWriter);
