@@ -22,6 +22,23 @@ class BoardReader{
 
     BoardReader(){
         gson = new Gson();
+        setupFile();
+    }
+
+    private static void setupFile(){
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            if (br.readLine() == null) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("boards", new JSONObject());
+
+                PrintWriter pw = new PrintWriter(filepath);
+                pw.write(jsonObject.toJSONString());
+                pw.flush();
+                pw.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     Board getBoardVersion(String version){
@@ -80,7 +97,15 @@ class BoardReader{
 
                 LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
 
-                boards.add(new Board(id, title, columns));
+                Board board = new Board(id, title, columns);
+
+                for (Column col : board.getColumns()){
+                    for (Card card : board.getAllCards()){
+                        card.setParentColumn(col);
+                    }
+                    col.setParentBoard(board);
+                }
+                boards.add(board);
             }
 
         } catch (IOException | ParseException e) {
@@ -107,7 +132,16 @@ class BoardReader{
             String columnsjson = (String) jo.get("columns");
             LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
 
-            return new Board(id, title, columns);
+            Board board = new Board(id, title, columns);
+
+            for (Column col : board.getColumns()){
+                for (Card card : board.getAllCards()){
+                    card.setParentColumn(col);
+                }
+                col.setParentBoard(board);
+            }
+
+            return board;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -217,6 +251,8 @@ class BoardReader{
 	*/
 	static void setPath(String path){
 		filepath = path;
+		setupFile();
+
 	}
 	/**
 	*	for testing perpuses

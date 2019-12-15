@@ -185,6 +185,7 @@ public class BoardController {
 
         // target
         cardhead.setOnDragOver(event -> {
+            System.out.println("CRAP2");
             if (event.getGestureSource() instanceof ColumnWrapper && event.getGestureSource() != columnWrapper && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 event.consume();
@@ -194,6 +195,7 @@ public class BoardController {
 
         // target
         cardhead.setOnDragDropped(event -> {
+            System.out.println("CRAP3");
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {

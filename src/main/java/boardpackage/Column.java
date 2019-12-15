@@ -82,7 +82,6 @@ public class Column {
      */
     void addCard(Card card){
 	if(card != null)
-        // TODO: notify logger
         	cards.add(card);
 
     }
@@ -112,8 +111,8 @@ public class Column {
     public void setTitle(String title){
         if (title != null && !this.title.equals(title)) {
             String info = String.format("Renamed column %s (%s) 's title to %s", this.title, this.id, title);
-            BoardManager.get().getBoardWriter().append(info);
             this.title = title;
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 
@@ -141,9 +140,10 @@ public class Column {
      */
     public void setRole(Role role) {
         if (!role.equals(this.role)) {
-            this.role = role;
             String info = String.format("Changed column %s (%s) 's role to %s", this.role, this.id, role);
+            this.role = role;
             BoardManager.get().getBoardWriter().append(info);
+
         }
     }
 

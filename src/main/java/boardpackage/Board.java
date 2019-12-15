@@ -134,7 +134,12 @@ public class Board{
 
     public void delete(){
         BoardManager.get().removeBoard(this);
-        // TODO: notify the logger
+        if (BoardManager.get().getCurrentBoard() == this){
+            BoardManager.get().setCurrentBoard(null);
+            BoardManager.get().setCurrentColumn(null);
+            BoardManager.get().setCurrentCard(null);
+        }
+        BoardManager.get().getBoardWriter().removeBoard(this);
     }
 
 
