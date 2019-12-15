@@ -16,19 +16,25 @@ public class Statistics {
         for (Card card : allCompletedCards) {
             storyPoints += card.getStoryPoints();
         }
+        if (storyPoints == 0.0){
+            return 0.0;
+        }
         return storyPoints/numWeeks;
     }
 
     /**
      * Calculates the average lead time for cards to be completed
      * on the current board.
-     * @return Double average lead time
+     * @return average lead time expressed in weeks
      */
     public static double calculateAvgLeadTime() {
         Double totalLeadTime = 0.0;
         LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : completedCards) {
             totalLeadTime += card.getAge();
+        }
+        if (totalLeadTime == 0.0){
+            return 0.0;
         }
         return totalLeadTime/completedCards.size();
     }
@@ -49,7 +55,7 @@ public class Statistics {
 
     public static double getDailyVelocity(int day) {
         double storyPoints = 0.0; // number of story points on board total
-        double numWeeks = BoardManager.get().getCurrentBoard().getAge()/7;
+        double numWeeks = (BoardManager.get().getCurrentBoard().getAge() - (BoardManager.get().getCurrentBoard().getAge() - day))/7;
         LinkedList<Card> allCards = BoardManager.get().getBoardVersion("1").getAllCards();
         for (Card card : allCards) {
             storyPoints += card.getStoryPoints();
