@@ -102,7 +102,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 CardWrapper cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                //setDragCardProperties(cardBox);
+                setDragCardProperties(cardBox);
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
