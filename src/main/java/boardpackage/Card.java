@@ -68,8 +68,8 @@ public class Card {
     public void setTitle(String title) {
         if (!("".equals(title) || Objects.equals(this.title, title))){
             String info = String.format("Changed card %s (%s) 's title to %s", this.getTitle(), this.getId(), title);
-            BoardManager.get().getBoardWriter().append(info);
             this.title = title;
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 
@@ -79,8 +79,8 @@ public class Card {
      */
     public void setText(String text){
         if (!Objects.equals(text, this.text)){
-            this.text = text;
             String info = String.format("Changed card %s (%s) 's description to %s", this.getText(), this.getId(), text);
+            this.text = text;
             BoardManager.get().getBoardWriter().append(info);
         }
     }
@@ -108,7 +108,10 @@ public class Card {
      */
     public void setStoryPoints(int storypoints) {
         if (!Objects.equals(this.storypoints,storypoints)){
+            String info = String.format("Changed card %s (%s) 's storypoints from %s to %s",
+                    title, id, this.storypoints, storypoints);
             this.storypoints = storypoints;
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 

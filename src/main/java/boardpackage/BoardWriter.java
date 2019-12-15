@@ -81,6 +81,7 @@ class BoardWriter{
 
             jo.put(maxkey, value);
 
+
             PrintWriter pw = new PrintWriter(filepath);
             pw.write(((JSONObject) obj).toJSONString());
 
