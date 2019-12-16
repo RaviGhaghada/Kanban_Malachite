@@ -53,24 +53,45 @@
 .combo-box-base:hover {
     -fx-background-color:transparent ;
     -fx-background-radius:0;
-    -fx-border-color:grey;
+    -fx-border-color:#7FFFD4;
     -fx-border-width: 2 2 2 2;
 }
 
 .toggle-button {
     -fx-background-color:transparent ;
     -fx-background-radius:0;
-    -fx-border-color:grey;
+    -fx-border-color:#7FFFD4;
     -fx-border-width: 1 1 1 1;
 }
 
 .toggle-button:selected {
     -fx-background-color:transparent ;
     -fx-background-radius:0;
-    -fx-border-color:grey;
+    -fx-border-color:#7FFFD4;
     -fx-border-width: 1 1 1 1;
 }
 
 .toggle-button:selected:focused {
 
+}
+
+#errorPane{
+    -fx-border-color:#87CEFA;
+    -fx-background-color:linear-gradient(to bottom, white, #87CEFA);;
+
+}
+
+#okButton{
+    -fx-background-color: transparent;
+}
+
+#titlePane{
+    -fx-background-image: url('../images/http___pluspng.com_img-png_pink-and-blue-png-gradient-blue-and-pink-by-vodkachanlovesyou-1024.png');
+}
+
+#saveButton{
+   -fx-background-color: transparent ;
+}
+#cancelButton{
+    -fx-background-color: transparent ;
 }
