@@ -58,6 +58,7 @@ public class ColumnController {
     @FXML
     public void initialize(){
 
+
         Column column = BoardManager.get().getCurrentColumn();
         columnVbox.setColumn(column);
 
@@ -89,6 +90,8 @@ public class ColumnController {
                 }
             }
         });
+
+        setDragCardOnColumnProperties();
 
 
         loadDataChoiceBox();
@@ -212,15 +215,49 @@ public class ColumnController {
                 if (cardContainer.getChildren().contains(cardW)){
                     cardContainer.getChildren().remove(cardW);
                 }
-                cardContainer.getChildren().add(indexForInsertion, cardW);
+                cardContainer.getChildren().add(cardW);
                 cardW.getCard().move(columnVbox.getColumn(), indexForInsertion);
                 success = true;
             }
             event.setDropCompleted(success);
             event.consume();
         });
+    }
 
+    private void setDragCardOnColumnProperties() {
+        // target
+        cardContainer.setOnDragOver(event -> {
+            System.out.println(columnVbox.getColumn().getTitle());
+            if (event.getGestureSource() instanceof CardWrapper && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                event.consume();
+                System.out.println("ACCEPTED!");
+            }
+            else {
+                System.out.println("REJECTED :(");
+            }
+        });
 
+        // target(where we wanna drop it)
+        cardContainer.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+
+                CardWrapper cardW = (CardWrapper) event.getGestureSource();
+                // if it's the same column
+                if (cardContainer.getChildren().contains(cardW)){
+                    cardContainer.getChildren().remove(cardW);
+                }
+                int indexForInsertion = cardContainer.getChildren().size();
+                indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
+                cardContainer.getChildren().add(cardW);
+                cardW.getCard().move(columnVbox.getColumn(), indexForInsertion);
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
     }
 }
 
