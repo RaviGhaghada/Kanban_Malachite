@@ -195,7 +195,7 @@ public class Card {
             ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
 
             for (String[] version : versions) {
-                Pattern p = Pattern.compile("Moved card \\w+ \\(" + id + "\\) to column \\w+ \\(" + parentColumn.getId() + "\\) \\w+");
+                Pattern p = Pattern.compile("Moved card [\\w ]+ \\(" + id + "\\) to [\\w ]+ \\(" + parentColumn.getId() + "\\) [\\w ]+");
                 Matcher m = p.matcher(version[2]);
                 if (m.find()) {
                     LocalDateTime ldt = LocalDateTime.parse(version[1]);
@@ -214,7 +214,7 @@ public class Card {
         ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
 
         for (String[] version : versions){
-            Pattern p = Pattern.compile("Added new card \\w+ \\("+ id + "\\) to \\w+");
+            Pattern p = Pattern.compile("Added new card [\\w ]+ \\("+ id + "\\) to [\\w ]+");
             Matcher m = p.matcher(version[2]);
             if (m.find()){
                 return LocalDate.from(LocalDateTime.parse(version[1]));
