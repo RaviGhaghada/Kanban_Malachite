@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-
 /**
- * A class to represent a Kanban board.
- * Ideally a board should be capable of holding multiple columns
- * each of which holds multiple cards.
+ * Class for the Mello Board.
+ * Board is capable of holding multiples columns, each of which holds multiple cards.
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
-public class Board{
+public class Board {
 
     private String id;
     private String title;
@@ -21,10 +21,10 @@ public class Board{
 
 
     /**
-     * Special constructor for a board
-     * that is package private.
-     * It must only be used to create a board being loaded
-     * from a json file
+     * Constructor for a board used only for loading json files.
+     * @param id ID of the board
+     * @param title title of the board
+     * @param columns all columns on the board
      */
     Board(String id, String title, LinkedList<Column> columns){
         this.id = id;
@@ -63,8 +63,9 @@ public class Board{
         	BoardManager.get().getBoardWriter().append(info);
     	}
 	}
+
     /**
-     * Add a new column
+     * Add a new column to the board
      * @param column new column to be added
      */
     void addColumn(Column column){
@@ -80,7 +81,7 @@ public class Board{
     }
 
     /**
-     * Move column within the board internally
+     * Moves column within the board from one position to another
      * @param column Column to be moved
      * @param index New index of the board
      */
@@ -124,6 +125,7 @@ public class Board{
 	public void setTitle(String title){
 		this.title = title;	
 	}
+
     /**
      * Get all the columns of the board
      * @return columns
@@ -132,6 +134,9 @@ public class Board{
         return columns;
     }
 
+    /**
+     * Deletes board (including all of its elements) from BoardManager
+     */
     public void delete(){
         BoardManager.get().removeBoard(this);
         if (BoardManager.get().getCurrentBoard() == this){
@@ -142,7 +147,11 @@ public class Board{
         BoardManager.get().getBoardWriter().removeBoard(this);
     }
 
-
+    /**
+     * Gets all cards of a specified role.
+     * @param role the role assigned to the returned cards
+     * @return all cards of the given role
+     */
     public LinkedList<Card> getCardsOf(Role role) {
         LinkedList <Card> cards = new LinkedList<>();
         for (Column col : columns){
@@ -163,34 +172,9 @@ public class Board{
 
     /**
      * Calculates the number of cards completed each day.
-     * @return
+     * @return the delivery rate for the board
      */
     public double getDeliveryRate(){
-        ArrayList<String[]> allVersionsMeta = BoardManager.get().getBoardReader().getAllVersionsMeta();
-        allVersionsMeta.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
-
-        TreeMap<String, LinkedList<Card>> map = new TreeMap<>();
-        for (String[] versionmeta: allVersionsMeta){
-            Board board = BoardManager.get().getBoardVersion(versionmeta[0]);
-            LocalDate date = LocalDate.from(LocalDateTime.parse(versionmeta[1]));
-            LinkedList<Card> cards = board.getCardsOf(Role.COMPLETED_WORK);
-            map.put(date.toString(), cards);
-        }
-
-        HashSet<Card> allCards = new HashSet<>();
-        for (String key : map.keySet()){
-            LinkedList<Card> cards = map.get(key);
-            map.put(key, cards.stream().filter(card -> allCards.add(card)).collect(Collectors.toCollection(LinkedList::new)));
-        }
-
-        return map.values().stream().mapToInt(list -> list.size()).average().orElse(0);
-    }
-
-    /**
-     * Calculates the number of cards completed each day.
-     * @return
-     */
-    public double getDailyDeliveryRate(){
         ArrayList<String[]> allVersionsMeta = BoardManager.get().getBoardReader().getAllVersionsMeta();
         allVersionsMeta.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
 
