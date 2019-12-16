@@ -14,17 +14,30 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class for the Mello BoardReader.
+ * Reads the stored information in JSON file about the board.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 class BoardReader{
 
     private Gson gson;
 
     private static  String filepath = "./src/main/resources/data/databoard.json";
 
+    /**
+     * Constructor that sets the Gson
+     */
     BoardReader(){
         gson = new Gson();
         setupFile();
     }
 
+    /**
+     * Sets up file to be read
+     */
     private static void setupFile(){
         try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             if (br.readLine() == null) {
@@ -41,6 +54,9 @@ class BoardReader{
         }
     }
 
+    /**
+     * Returns the Board object for the version requested.
+     */
     Board getBoardVersion(String version){
         try (FileReader file = new FileReader(filepath)) {
             JSONObject jo = (JSONObject) new JSONParser().parse(file);
@@ -56,7 +72,16 @@ class BoardReader{
             JSONArray columnsjson = (JSONArray) jo.get("columns");
             LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>(){}.getType());
 
-            return new Board(id, title, columns);
+            Board board = new Board(id, title, columns);
+
+            for (Column col : board.getColumns()) {
+                for (Card card : col.getCards()) {
+                    card.setParentColumn(col);
+                }
+                col.setParentBoard(board);
+            }
+
+            return board;
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -64,6 +89,10 @@ class BoardReader{
         return null;
     }
 
+    /**
+     * Returns the identifying attributes (ID) for all boards
+     * that exist.
+     */
     ArrayList<String> getAllBoardIds(){
         ArrayList<String> ids = new ArrayList<>();
         try (FileReader file = new FileReader(filepath)){
@@ -76,6 +105,11 @@ class BoardReader{
         }
         return ids;
     }
+
+    /**
+     * Returns the Board objects for all boards
+     * that exist.
+     */
     public ArrayList<Board> getAllBoards(){
         ArrayList<Board> boards = new ArrayList<>();
         try (FileReader file = new FileReader(filepath)){
@@ -118,6 +152,11 @@ class BoardReader{
         return boards;
     }
 
+    /**
+     * Returns the requested Board object given an identifying attribute.
+     * @param id represents the unique identifier associated with the board
+     * @return Board object
+     */
     Board getBoard(String id){
         try (FileReader file = new FileReader(filepath)){
             JSONObject jo = (JSONObject) new JSONParser().parse(file);
@@ -154,6 +193,10 @@ class BoardReader{
         return null;
     }
 
+    /**
+     * Gets the new ID of the board after it has been reassigned.
+     * @return string ID
+     */
     String getNewBoardId(){
         String newid = "";
         try (FileReader fileReader = new FileReader(filepath)){
@@ -168,6 +211,10 @@ class BoardReader{
         return newid;
     }
 
+    /**
+     * Gets the new ID of the card after it has been reassigned.
+     * @return string ID
+     */
     String getNewCardId(){
         String newid = "";
         try (FileReader fileReader = new FileReader(filepath)){
@@ -198,6 +245,10 @@ class BoardReader{
         return newid;
     }
 
+    /**
+     * Gets the new ID of the column after it has been reassigned.
+     * @return string ID
+     */
     String getNewColId(){
         String newid = "";
         try (FileReader fileReader = new FileReader(filepath)){
@@ -229,6 +280,10 @@ class BoardReader{
 
     }
 
+    /**
+     * Retrieves all versions of the board
+     * @return ArrayList of board versions
+     */
     ArrayList<String[]> getAllVersionsMeta(){
         ArrayList<String[]> versions = new ArrayList<>();
         try (FileReader fileReader = new FileReader(filepath)){
@@ -245,21 +300,25 @@ class BoardReader{
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
+        if (versions.size() > 1){
+            versions.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
+        }
         return versions;
     }
 
 
 	/**
-	*	for testing perpuses
+	* Test to set the file path.
 	*/
 	static void setPath(String path){
 		filepath = path;
 		setupFile();
 
 	}
-	/**
-	*	for testing perpuses
-	*/
+
+    /**
+     * Test to get the file path as set previously.
+     */
 	static String getPath(){
 		return filepath;
 	}

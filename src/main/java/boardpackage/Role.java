@@ -1,5 +1,11 @@
 package boardpackage;
 
+/**
+ * Enum for the Role element of columns.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 public enum Role {
     WORK_IN_PROGRESS {
         @Override
@@ -32,6 +38,11 @@ public enum Role {
         }
     };
 
+    /**
+     * Converts string to Role enum.
+     * @param selectedItem as a string
+     * @return role as an enum object
+     */
     public static Role fromString(String selectedItem) {
         for (Role role : Role.values()){
             if (role.toString().equals(selectedItem)){

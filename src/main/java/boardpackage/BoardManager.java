@@ -3,13 +3,14 @@ package boardpackage;
 import java.util.ArrayList;
 
 /**
- * A facade, singleton.
- * It represents an entity that appears to
- * magically control all Kanban board entities.
- * There can be only one shared instance of this entity
- * throughout this whole program.
+ * Class for the Mello BoardManager. Controls all board entities.
+ * There can only be one shared instance of this entity.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
-public class BoardManager{ 
+public class BoardManager{
+    //only one instance of this can be made in boardManager
     private static BoardManager bm = null;
 
     private BoardWriter bw;
@@ -21,8 +22,8 @@ public class BoardManager{
     private transient Card currentCard = null;
 
     /**
-     * Constructor for the board manager
-     * that loads the boards.
+     * Constructor for the board manager that loads
+     *  an array list of all the boards
      */
     private BoardManager(){
         this.bw = new BoardWriter();
@@ -35,7 +36,7 @@ public class BoardManager{
     }
 
     /**
-     * Get the only instance of the BoardManager
+     * Returns the only instance of the BoardManager
      * @return BoardManager
      */
     static public BoardManager get(){
@@ -110,17 +111,15 @@ public class BoardManager{
     }
 
     /**
-     * Get all boards held by the boardmanager
-     * @return
+     * Returns an ArrayList list of all the Boards held by the BoardManager
+     * @return boards
      */
     public ArrayList<Board> getBoards(){
         return boards;
     }
 
     /**
-     * Take in an arraylist of boards
-     * Ideally, it's supposed to be used
-     * when reading from a json file.
+     * Sets boards from the BoardManager into the JSON file.
      * @param boards array list of board objects
      */
     void setBoards(ArrayList<Board> boards){
@@ -128,8 +127,7 @@ public class BoardManager{
     }
 
     /**
-     * Do not test this class.
-     * It is merely for populating data.
+     * Do not test this class. It is for populating data.
      */
     public Board populate(){
         Board b1 = new Board("Malachite");
@@ -153,18 +151,35 @@ public class BoardManager{
 	return b1;
     }
 
+    /**
+     * Gets all versions of a single board from the JSON file.
+     * @return ArrayList of changes on board per version
+     */
     public ArrayList<String[]> getAllBoardVersionsMeta(){
         return br.getAllVersionsMeta();
     }
 
+    /**
+     * Returns the version of the board.
+     * @param version the board represented as a string
+     * @return the version number of the board
+     */
     public Board getBoardVersion(String version){
         return br.getBoardVersion(version);
     }
 
+    /**
+     * Gets the BoardWriter for the BoardManager instance.
+     * @return the Board Writer
+     */
     BoardWriter getBoardWriter() {
         return bw;
     }
 
+    /**
+     * Gets the BoardReader for the BoardManager instance.
+     * @return the Board Reader
+     */
     BoardReader getBoardReader() {
         return br;
     }

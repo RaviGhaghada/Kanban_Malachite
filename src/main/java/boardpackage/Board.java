@@ -9,15 +9,18 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Class for the Mello Board.
- * Board is capable of holding multiples columns, each of which holds multiple cards.
+ * A board is capable of holding multiple columns and
+ * each column can hold a multiple cards.
+ * Each board has an ID, title and a linked list of columns
+ *
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
  */
 public class Board {
 
-    private String id;
-    private String title;
-    private LinkedList<Column> columns;
+    private String id; // identifying string for board
+    private String title; // title assigned by user to board
+    private LinkedList<Column> columns; // all of the columns on the board
 
 
     /**
@@ -174,9 +177,7 @@ public class Board {
      * Calculates the number of cards completed each day.
      * @return the delivery rate for the board
      */
-    public double getDeliveryRate(){
-        ArrayList<String[]> allVersionsMeta = BoardManager.get().getBoardReader().getAllVersionsMeta();
-        allVersionsMeta.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
+     double getDeliveryRate(ArrayList<String[]> allVersionsMeta){
 
         TreeMap<String, LinkedList<Card>> map = new TreeMap<>();
         for (String[] versionmeta: allVersionsMeta){
@@ -192,12 +193,17 @@ public class Board {
             map.put(key, cards.stream().filter(card -> allCards.add(card)).collect(Collectors.toCollection(LinkedList::new)));
         }
 
-        return map.values().stream().mapToInt(list -> list.size()).average().orElse(0);
+        return map.values().stream().mapToInt(list -> list.stream().mapToInt(c -> c.getStoryPoints()).sum()).average().orElse(0);
     }
 
+    /**
+     * Gets the age of the board (time between creation and current date)
+     * @return Age of the board in days (rounded)
+     */
     public int getAge(){
         ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
         LocalDateTime creation = LocalDateTime.parse(versions.stream().min(Comparator.comparingInt(e -> Integer.parseInt(e[0]))).get()[1]);
-        return (int) DAYS.between(creation, LocalDateTime.now());
+        int x = (int) DAYS.between(creation, LocalDateTime.now());
+        return (x>0)? x : 1;
     }
 }
