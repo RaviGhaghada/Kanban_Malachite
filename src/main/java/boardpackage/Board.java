@@ -91,6 +91,7 @@ public class Board {
             info = String.format(info, column.getTitle(), column.getId(), String.valueOf(index));
             if(columns.remove(column))
                 columns.add(index,column);
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 
