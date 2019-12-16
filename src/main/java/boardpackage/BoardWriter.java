@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,12 +18,30 @@ import java.util.Set;
 
 class BoardWriter{
 
-    private Gson gson;
+    private final JSONParser jsonParse;
+    private final Gson gson;
 
     private static  String filepath = "./src/main/resources/data/databoard.json";
 
     BoardWriter(){
-        gson = new Gson();
+        gson = new Gson(); setupFile();
+        jsonParse = new JSONParser();
+    }
+
+    private static void setupFile(){
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            if (br.readLine() == null) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("boards", new JSONObject());
+
+                PrintWriter pw = new PrintWriter(filepath);
+                pw.write(jsonObject.toJSONString());
+                pw.flush();
+                pw.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 	
 
@@ -35,7 +54,7 @@ class BoardWriter{
             Map value = new LinkedHashMap(3);
             value.put("info", info);
             value.put("date", LocalDateTime.now().toString());
-            value.put("columns", gson.toJson(board.getColumns()));
+            value.put("columns", jsonParse.parse(gson.toJson(board.getColumns())));
 
             Map firstVersion = new LinkedHashMap(1);
             firstVersion.put("0", value);
@@ -77,7 +96,7 @@ class BoardWriter{
             Map value = new LinkedHashMap(3);
             value.put("info", info);
             value.put("date", LocalDateTime.now().toString());
-            value.put("columns", gson.toJson(board.getColumns()));
+            value.put("columns", jsonParse.parse(gson.toJson(board.getColumns())));
 
             jo.put(maxkey, value);
 
@@ -116,7 +135,7 @@ class BoardWriter{
 	*	for testing perpuses
 	*/
 	static void setPath(String path){
-		filepath = path;
+		filepath = path; setupFile();
 	}
 	/**
 	*	for testing perpuses

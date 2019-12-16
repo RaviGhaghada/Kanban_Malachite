@@ -35,6 +35,9 @@ public class CardPopupController {
 
     Card card;
 
+    /**
+     * create the card and initialize  the title , the description and the story points of each card.
+     */
     @FXML
     public void initialize(){
         card = BoardManager.get().getCurrentCard();
@@ -43,13 +46,18 @@ public class CardPopupController {
         storypoints.setText(String.valueOf(card.getStoryPoints()));
     }
 
+    /**
+     * this button will save all of the data of each card so that after closing and opening
+     * the same card again , it gonna keep the data.
+     * check if the user has inserted a title for the card , if not show a pop up error message .
+     * @param event when the save button is clicked
+     */
     @FXML
     public void saveAndCloseAction(ActionEvent event){
         if (cardTitle.getText().length() > 0 && storypoints.getText().matches("\\d+")) {
             card.setTitle(cardTitle.getText());
             card.setText(cardDescription.getText());
             card.setStoryPoints(Integer.parseInt(storypoints.getText()));
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
         }
@@ -77,6 +85,10 @@ public class CardPopupController {
         }
     }
 
+    /**
+     * delete the current opened card as the delete button is pressed .
+     * @param event when the delete button is pressed .q
+     */
     @FXML
     public void deleteButtonAction(ActionEvent event){
         // signal for deletion
