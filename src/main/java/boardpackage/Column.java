@@ -130,13 +130,10 @@ public class Column {
      * @param role
      */
     public void setRole(Role role) {
-        // System.out.println("DETECTED ATTEMPT TO SET ROLE TO " + role.toString());
         if (!role.equals(this.role)) {
             String info = String.format("Changed column %s (%s) 's role to %s", this.role, this.id, role);
             this.role = role;
             BoardManager.get().getBoardWriter().append(info);
-            // System.out.println("ATTEMPT SUCCEEDED?");
-
         }
     }
 

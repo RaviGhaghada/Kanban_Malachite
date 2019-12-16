@@ -1,14 +1,13 @@
 package controllers;
 
-import boardpackage.*;
+import boardpackage.BoardManager;
+import boardpackage.Statistics;
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
-import javafx.scene.control.Label;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 
 import java.util.HashMap;
 import java.util.LinkedList;

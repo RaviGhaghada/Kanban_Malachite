@@ -14,10 +14,13 @@ import javafx.stage.Stage;
  * @Version December 2019
  */
 public class ErrorPopupController {
-    public Button okButton; // button labeled as "OK" in popup
+    private Button okButton; // button labeled as "OK" in popup
 
-    public Label errorLabel; // the label which holds the error message
-    public String errorMessageText; // the error message specified for the type of error
+    @FXML
+    private Label errorLabel; // the label which holds the error message
+
+    @FXML
+    private String errorMessageText; // the error message specified for the type of error
 
     /**
      * Sets the error message within the label on popup window.
@@ -32,7 +35,6 @@ public class ErrorPopupController {
      */
     public ErrorPopupController(String errorMessage){
         errorMessageText = errorMessage;
-        System.out.println(errorMessage);
     }
 
     /**

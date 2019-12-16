@@ -81,7 +81,7 @@ public class NewTitleController {
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Failed to launch popup.");
+            System.err.println("Failed to launch popup.");
         }
     }
 

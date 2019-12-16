@@ -103,7 +103,6 @@ public class BoardManagerController {
             backButton.getScene().setRoot(popup);
         }
         catch (Exception e){
-            System.out.println("failed to launch popup");
             e.printStackTrace();
         }
     }
@@ -122,7 +121,6 @@ public class BoardManagerController {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
             if (mouseEvent.getClickCount() == 2) {
                 BoardManager.get().setCurrentBoard(selectedBoard);
-                System.out.println("Double clicked");
                 openBoard(selectedBoard);
             }
         }
@@ -143,7 +141,6 @@ public class BoardManagerController {
      */
     public void backClick(ActionEvent actionEvent) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/welcome.fxml"));
-        System.out.println("I was clicked!");
         Parent root = (Parent) loader.load();
         Scene s = backButton.getScene();
         s.setRoot(root);

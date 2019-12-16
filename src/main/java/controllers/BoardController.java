@@ -1,16 +1,13 @@
 package controllers;
 import boardpackage.Board;
 import boardpackage.BoardManager;
-import boardpackage.Card;
 import boardpackage.Column;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.print.PageLayout;
-import javafx.scene.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -26,13 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.transform.Transform;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 /**
@@ -148,9 +141,7 @@ public class BoardController {
      */
     @FXML
     public void deleteBoardAction() {
-        System.out.println("DELETE? " + BoardManager.get().getBoards().size());
         board.delete();
-        System.out.println("DELETED: " + BoardManager.get().getBoards().size());
         this.board = null;
         backAction();
     }
@@ -164,7 +155,6 @@ public class BoardController {
         try {
             BoardManager.get().setCurrentBoard(null);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
-            System.out.println("I was clicked!");
             Parent root = (Parent) loader.load();
             Scene s = backButton.getScene();
             s.setRoot(root);
