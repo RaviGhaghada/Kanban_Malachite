@@ -50,11 +50,10 @@ public class StatisticsController {
      */
     @FXML
     public void initialize() {
-        //messageBox.setText("Statistics for Your Board");
         Statistics.get().reload();
-        populateStatistics();
         populateStatsFields();
-        populateGraphs();
+        //populateStatistics();
+        //populateGraphs();
     }
 
     /**
