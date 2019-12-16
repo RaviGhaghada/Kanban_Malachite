@@ -42,7 +42,7 @@ public class Statistics {
         if (storyPoints == 0.0){
             return 0.0;
         }
-        return storyPoints/numWeeks;
+        return Math.round(storyPoints/numWeeks * 100D) / 100D;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Statistics {
         if (totalLeadTime == 0.0){
             return 0.0;
         }
-        return totalLeadTime/completedCards.size();
+        return Math.round(totalLeadTime/completedCards.size() * 100D) / 100D;
     }
 
     /**
@@ -76,7 +76,8 @@ public class Statistics {
         }
 		totalDeliveryRate = totalDeliveryRate/ (BoardManager.get().getCurrentBoard().getAge()); // avrage of cards delivered per time unit
 		totalLeadTime = totalLeadTime / completedCards.size(); // avarage time it takes to finish a card
-        return totalDeliveryRate * totalLeadTime;    }
+        return Math.round(totalDeliveryRate * totalLeadTime * 100D) / 100D;
+    }
 
     /**
      * Returns how many story points are completed per week per version.
