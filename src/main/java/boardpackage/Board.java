@@ -21,8 +21,10 @@ public class Board {
 
 
     /**
-     * Special constructor for a board that is package private.
-     * Only  to be used to create a board being loaded from a json file
+     * Constructor for a board used only for loading json files.
+     * @param id ID of the board
+     * @param title title of the board
+     * @param columns all columns on the board
      */
     Board(String id, String title, LinkedList<Column> columns){
         this.id = id;
@@ -61,8 +63,9 @@ public class Board {
         	BoardManager.get().getBoardWriter().append(info);
     	}
 	}
+
     /**
-     * Add a new column
+     * Add a new column to the board
      * @param column new column to be added
      */
     void addColumn(Column column){
@@ -78,7 +81,7 @@ public class Board {
     }
 
     /**
-     * Move column within the board internally
+     * Moves column within the board from one position to another
      * @param column Column to be moved
      * @param index New index of the board
      */
@@ -122,6 +125,7 @@ public class Board {
 	public void setTitle(String title){
 		this.title = title;	
 	}
+
     /**
      * Get all the columns of the board
      * @return columns
@@ -130,6 +134,9 @@ public class Board {
         return columns;
     }
 
+    /**
+     * Deletes board (including all of its elements) from BoardManager
+     */
     public void delete(){
         BoardManager.get().removeBoard(this);
         if (BoardManager.get().getCurrentBoard() == this){
@@ -140,7 +147,11 @@ public class Board {
         BoardManager.get().getBoardWriter().removeBoard(this);
     }
 
-
+    /**
+     * Gets all cards of a specified role.
+     * @param role the role assigned to the returned cards
+     * @return all cards of the given role
+     */
     public LinkedList<Card> getCardsOf(Role role) {
         LinkedList <Card> cards = new LinkedList<>();
         for (Column col : columns){
@@ -161,7 +172,7 @@ public class Board {
 
     /**
      * Calculates the number of cards completed each day.
-     * @return
+     * @return the delivery rate for the board
      */
     public double getDeliveryRate(){
         ArrayList<String[]> allVersionsMeta = BoardManager.get().getBoardReader().getAllVersionsMeta();
