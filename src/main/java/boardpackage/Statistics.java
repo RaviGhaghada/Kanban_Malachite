@@ -73,6 +73,7 @@ public class Statistics {
         for (Card card : completedCards) {
             totalLeadTime +=  (int) DAYS.between(card.getCreationDate(versions), card.getCompletionDate(versions));
 			totalDeliveryRate += card.getStoryPoints();	
+
         }
 		totalDeliveryRate = totalDeliveryRate/ (BoardManager.get().getCurrentBoard().getAge()); // avrage of cards delivered per time unit
 		totalLeadTime = totalLeadTime / completedCards.size(); // avarage time it takes to finish a card
@@ -86,6 +87,7 @@ public class Statistics {
     public double getDailyVelocity(int version) {
         double storyPoints = 0.0; // number of story points on board total
         double numWeeks = (BoardManager.get().getCurrentBoard().getAge())/7.0;
+
         LinkedList<Card> allCards = BoardManager.get().getBoardVersion(version+"").getAllCards();
         for (Card card : allCards) {
             storyPoints += card.getStoryPoints();
@@ -126,6 +128,7 @@ public class Statistics {
             stats = new Statistics();
         }
         return stats;
+
     }
 
 }

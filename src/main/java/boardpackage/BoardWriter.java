@@ -16,6 +16,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+
+/**
+ * Class for the Mello BoardWriter.
+ * Writes any changes to the boards to the storage in JSON.
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 class BoardWriter{
 
     private final JSONParser jsonParse;
@@ -23,11 +30,17 @@ class BoardWriter{
 
     private static  String filepath = "./src/main/resources/data/databoard.json";
 
+    /**
+     * Constructor to initialise GSON and JSON.
+     */
     BoardWriter(){
         gson = new Gson(); setupFile();
         jsonParse = new JSONParser();
     }
 
+    /**
+     * Sets up file to be read and written to.
+     */
     private static void setupFile(){
         try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             if (br.readLine() == null) {
@@ -43,8 +56,14 @@ class BoardWriter{
             e.printStackTrace();
         }
     }
-	
 
+
+    /**
+     * Creates a board in the JSON file when a board is created
+     * by the user on the user side.
+     * @param board
+     * @param info
+     */
     void createBoard(Board board, String info){
         try (FileReader file = new FileReader(filepath)) {
             Object obj = new JSONParser().parse(file);
@@ -82,6 +101,10 @@ class BoardWriter{
         }
     }
 
+    /**
+     * Adds information, such as a change to a board, to the JSON file.
+     * @param info
+     */
     void append(String info){
         Board board = BoardManager.get().getCurrentBoard();
         try (FileReader file = new FileReader(filepath)) {
@@ -111,6 +134,10 @@ class BoardWriter{
         }
     }
 
+    /**
+     * Removes board from JSON when the board is deleted by the user on the user side.
+     * @param board
+     */
     void removeBoard(Board board){
         try (FileReader file = new FileReader(filepath)) {
             Object obj = new JSONParser().parse(file);
@@ -132,15 +159,17 @@ class BoardWriter{
 
 
 	/**
-	*	for testing perpuses
+	*	Created to test setting of path.
 	*/
 	static void setPath(String path){
 		filepath = path; setupFile();
 	}
-	/**
-	*	for testing perpuses
-	*/
+
+    /**
+     *	Created to test getting of previously set path.
+     */
 	static String getPath(){
 		return filepath;
 	}
+
 }

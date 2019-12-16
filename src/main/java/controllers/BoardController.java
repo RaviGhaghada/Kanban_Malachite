@@ -37,9 +37,9 @@ import java.util.ArrayList;
 
 /**
  * Controller for the Mello Board.
- * Displays the current state of the current Board.
- * Hosts columns, cards, and links to Statistics and Log pop up.
- *
+ * This class is the main board which contains all of the columns and their cards
+ * it allows the user to insert the columns to a board and remove them.
+ * The user can also view the statistics and the log of the board.
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
  */
@@ -47,31 +47,38 @@ import java.util.ArrayList;
 
 public class BoardController {
 
+    //the root of the board.
     @FXML
     private AnchorPane rootPane;
-
+    // the main HBox which contains all of the columns as they are added .
     @FXML
     private HBox columnContainer;
-
+    //a pane at the top of the board which contains the logo and few buttons.
     @FXML
     private GridPane melloPane;
+    //the horizontal scroll pane which allows the user to scroll through columns.
     @FXML
     private ScrollPane scrollPane;
-
+    //current board.
     private Board board;
-
+    //a button for taking us back to the welcome page.
     @FXML
     public Button backButton;
+    //the button for quitting the app .
     public Button quitButton;
-
+    //the button to see the activity log .
     @FXML
     private Button activityLog;
+    //the column to see che statistics of the current board .
     @FXML
     private Button stats ;
+    //the title for the current board on the top left .
     @FXML
     private Label boardTitle;
 
-
+    /**
+     * initialize the current board with a column and card in it . If it doesnt open throw an error.
+     */
     @FXML
     public void initialize() {
         this.board = BoardManager.get().getCurrentBoard();
@@ -94,7 +101,11 @@ public class BoardController {
         BoardManager.get().setCurrentColumn(null);
     }
 
-
+    /**
+     * a button for adding column to the current board .
+     * Opens a new window for inserting the title of the new column. if couldnt load the column
+     * throw an exception error
+     */
     @FXML
     public void addColumnAction() {
 
@@ -132,6 +143,9 @@ public class BoardController {
         }
     }
 
+    /**
+     * delete the current board .
+     */
     @FXML
     public void deleteBoardAction() {
         System.out.println("DELETE? " + BoardManager.get().getBoards().size());
@@ -141,6 +155,10 @@ public class BoardController {
         backAction();
     }
 
+    /**
+     * a button for taking the user back to the welcome page where
+     * there's a list of all of the boards.
+     */
     @FXML
     public void backAction() {
         try {
@@ -163,8 +181,12 @@ public class BoardController {
         Platform.exit();
     }
 
-
-
+    /**
+     * allows the user to drag a column and drop it on another column .
+     * (replacing the dragged column with the column we drop on it and shift all other columns
+     * one to the left or right .
+     * @param columnWrapper the VBox of the current column .
+     */
     public void setDragColumnProperties(ColumnWrapper columnWrapper) {
         VBox mainVBox = (VBox) columnWrapper.getChildren().get(0);
         //the very first component in the card , which we can drag the card with
@@ -192,7 +214,7 @@ public class BoardController {
 
         });
 
-        // target
+        // target(where we want to drop the column)
         cardhead.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
@@ -213,6 +235,10 @@ public class BoardController {
         });
     }
 
+    /**
+     * a pop up message which will appear after holding the
+     * mouse on the stats button (for user's information)
+     */
     @FXML
     public void showStatsMessage(){
 
@@ -225,6 +251,11 @@ public class BoardController {
         stats.setTooltip(tt);
     }
 
+    /**
+     * a pop up message which will appear after holding the
+     * mouse on the log button .(for giving user information about the
+     * button)
+     */
     @FXML
     public void showLogMessage(){
 
@@ -237,6 +268,9 @@ public class BoardController {
         activityLog.setTooltip(tt);
     }
 
+    /**
+     * set the title of the current board on the label on the top left of the board .
+     */
     @FXML
     public void setBoardTitle(){
         String boardName = BoardManager.get().getCurrentBoard().getTitle();
@@ -245,6 +279,9 @@ public class BoardController {
 
     }
 
+    /**
+     * open the log activity for the user after pressing the button .
+     */
     @FXML
     private void openLogAction(){
         try {
@@ -260,6 +297,9 @@ public class BoardController {
         }
     }
 
+    /**
+     * open the statistics page after pressing it's button .
+     */
     @FXML
     private void openStatisticsAction(){
         try {
@@ -275,7 +315,11 @@ public class BoardController {
         }
     }
 
-
+    /**
+     * disables all events except the one for scrolling
+     * this function will be used when we want to have
+     * a read only version of the app(from activity log)
+     */
     public void setReadOnly(){
         rootPane.getChildren().remove(melloPane);
         rootPane.addEventFilter(MouseEvent.ANY, event -> {

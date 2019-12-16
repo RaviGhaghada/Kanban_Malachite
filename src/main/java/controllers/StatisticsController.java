@@ -13,6 +13,15 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+/**
+ * Controller for the Mello Statistics Popup.
+ * Allows users to view all stored Kanban statistics associated with the current board.
+ * The statistics are: Overall Velocity, Average Lead Time and Work In Progress.
+ * Corresponding time graphs are also generated.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 public class StatisticsController {
 
     // Holders for statistics
@@ -63,7 +72,6 @@ public class StatisticsController {
         velocityStatistics = new HashMap<>(); // initialise HashMap.
         leadTimeStatistics = new HashMap<>(); // initialise HashMap.
         wipStatistics = new HashMap<>(); // initialise HashMap.
-
         LinkedList<Thread> threads = new LinkedList<>();
 
         threads.add(new Thread (() -> {
