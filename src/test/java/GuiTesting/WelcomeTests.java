@@ -51,7 +51,7 @@ public class WelcomeTests extends ApplicationTest{
    		release(new KeyCode[]{});
    		release(new MouseButton[]{});
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().setCurrentBoard(null);
 		BoardManager.get().setCurrentColumn(null);
