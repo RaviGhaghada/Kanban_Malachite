@@ -67,14 +67,16 @@ public class Statistics {
      * @return WIP expressed in story points
      */
     public double calculateWIP() {
-        double totalDeliveryRate = BoardManager.get().getCurrentBoard().getDeliveryRate(versions);
-        double totalLeadTime = 0.0;
+		double totalDeliveryRate = 0.0;
+		double totalLeadTime = 0.0;
         LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : completedCards) {
             totalLeadTime +=  (int) DAYS.between(card.getCreationDate(versions), card.getCompletionDate(versions));
+			totalDeliveryRate += 1;	
         }
-        return totalDeliveryRate * totalLeadTime;
-    }
+		totalDeliveryRate = totalDeliveryRate/ (BoardManager.get().getCurrentBoard().getAge()); // avrage of cards delivered per time unit
+		totalLeadTime = totalLeadTime / completedCards.size(); // avarage time it takes to finish a card
+        return totalDeliveryRate * totalLeadTime;    }
 
     /**
      * Returns how many story points are completed per week per version.
