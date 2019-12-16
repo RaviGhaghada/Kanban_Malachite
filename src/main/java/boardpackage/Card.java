@@ -202,6 +202,7 @@ public class Card {
                 }
             }
         }
+        return LocalDate.now();
     }
 
     /**
