@@ -86,7 +86,7 @@ public class CardPopupController {
             }
             catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Failed to launch popup.");
+                System.err.println("Failed to load popup");
             }
 
         }

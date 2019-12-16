@@ -1,9 +1,7 @@
 package boardpackage;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 

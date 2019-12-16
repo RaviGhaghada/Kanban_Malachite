@@ -2,6 +2,7 @@ package boardpackage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,6 @@ public class Board {
 
         BoardManager.get().addBoard(this);
         this.id = BoardManager.get().getBoardReader().getNewBoardId();
-        System.out.println(this.id);
         BoardManager.get().getBoardWriter().createBoard(this, "Created new board");
     }
 

@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import java.util.ArrayList;
 
 /**
  * Controller for the Mello Welcome Page.
@@ -46,7 +45,6 @@ public class WelcomeController {
      */
     public void forwardClick(ActionEvent actionEvent) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/boardmanager.fxml"));
-        System.out.println("I was clicked!");
         Parent root = (Parent) loader.load();
         Scene s = forwardButton.getScene();
         s.setRoot(root);
