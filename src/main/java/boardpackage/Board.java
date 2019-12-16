@@ -7,17 +7,20 @@ import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-
 /**
- * A class to represent a Kanban board.
- * Ideally a board should be capable of holding multiple columns
- * each of which holds multiple cards.
+ * Class for the Mello Board.
+ * A board is capable of holding multiple columns and
+ * each column can hold a multiple cards.
+ * Each board has an ID, title and a linked list of columns
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
 public class Board{
 
-    private String id;
-    private String title;
-    private LinkedList<Column> columns;
+    private String id; // identifying string for board
+    private String title; // title assigned by user to board
+    private LinkedList<Column> columns; // all of the columns on the board
 
 
     /**
@@ -186,6 +189,10 @@ public class Board{
         return map.values().stream().mapToInt(list -> list.size()).average().orElse(0);
     }
 
+    /**
+     * Gets the age of the board (time between creation and current date)
+     * @return Age of the board in days (rounded)
+     */
     public int getAge(){
         ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
         LocalDateTime creation = LocalDateTime.parse(versions.stream().min(Comparator.comparingInt(e -> Integer.parseInt(e[0]))).get()[1]);

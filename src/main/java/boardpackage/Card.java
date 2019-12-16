@@ -11,22 +11,24 @@ import java.util.regex.Pattern;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
- * This class represents a card for a column
- * on a Kanban Board
+ * Class for the Mello Card.
+ * Each card has a parent Column, id, title, text and Story points
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
 public class Card {
 
-    private transient Column parentColumn;
-    private String id;
-    private String title;
-    private String text = "";
-    private int storypoints = 0;
+    private transient Column parentColumn; // Column that the card belongs to
+    private String id; // Identifying attribute of card
+    private String title; // Title assigned to card by user
+    private String text = ""; // Text within card, set by user
+    private int storypoints = 0; // The story points associated with the card
 
     /**
-     * Special constructor for a card
-     * that is package private
-     * It must only be used to create pre-existing cards being loaded
-     * from a json file
+     * Constructor for Card to be used to
+     * create pre-existing cards being loaded
+     * from a JSON file.
      */
     Card (Column parentColumn, String id, String title, String text, int storypoints){
         this.parentColumn = parentColumn;
@@ -39,9 +41,9 @@ public class Card {
     }
 
     /**
-     * Constructor for a card
-     * It must have a non-null title
-     * @param title title of the card
+     * Card constructor
+     * Title is necessary as input (not null)
+     * @param title
      */
     public Card(String title){
         this.title = title;
@@ -57,8 +59,8 @@ public class Card {
 
 
     /**
-     * Get the title of a column
-     * @return title of a column
+     * Returns the title of a Card
+     * @return card title
      */
     public String getTitle() {
         return title;
@@ -120,7 +122,7 @@ public class Card {
 
     /**
      * Get the id of a card
-     * @return
+     * @return Identifying value for card
      */
     public String getId(){
         return id;
@@ -146,14 +148,16 @@ public class Card {
 
     /**
      * Set the id of a card.
-     * Ideally, it should be used by the logger.
-     * Is package-private.
      * @param id id of card
      */
     void setId(String id){
         this.id = id;
     }
 
+    /**
+     * Method used to delete the card from the board manager.
+     * Automatically deleted from the parent column
+     */
     public void delete(){
         this.parentColumn.removeCard(this);
         this.parentColumn = null;
@@ -165,7 +169,7 @@ public class Card {
     }
 
     /**
-     * Move a card
+     * Move a card from one column to another
      * @param col destination column
      * @param index index within the column
      */
@@ -183,7 +187,8 @@ public class Card {
     }
 
     /**
-     * The date when this card was put into completed
+     * The date when this card was put into completed role column
+     * @return Date of completion
      */
     public LocalDate getCompletionDate() {
         if (parentColumn.getRole().equals(Role.COMPLETED_WORK)) {
@@ -201,6 +206,10 @@ public class Card {
         return null;
     }
 
+    /**
+     * The date when this card was created by the user
+     * @return Date of creation
+     */
     public LocalDate getCreationDate(){
         ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
 

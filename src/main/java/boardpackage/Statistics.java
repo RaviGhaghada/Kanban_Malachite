@@ -10,6 +10,10 @@ public class Statistics {
 
     public static int versions = BoardManager.get().getBoardReader().getAllVersionsMeta().size(); // number of all versions
 
+    /**
+     * Gets the numbers of all versions of the board.
+     * @return value of number of all versions of the board
+     */
     public static int getNumVersions(){
         return versions;
     }

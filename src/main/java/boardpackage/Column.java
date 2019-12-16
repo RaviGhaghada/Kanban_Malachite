@@ -2,7 +2,11 @@ package boardpackage;
 import java.util.*;
 
 /**
- * Represent a column of a Kanban board
+ * Class for the Mello Column.
+ * Each Column has a parent board, id, title, role and a linked list of cards
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
  */
 public class Column {
 
@@ -13,10 +17,9 @@ public class Column {
     private LinkedList<Card> cards;
 
     /**
-     * Special constructor for a column
-     * that is package private
-     * It must only be used to create a column from data loaded
-     * from a json file
+     * Constructor for a column
+     * Only to be used to create a column from data loaded
+     * from a JSON file
      */
     Column (Board parent, String id, String title, Role role){
         this.parentBoard = parent;
@@ -69,9 +72,9 @@ public class Column {
      * @param card card to be added
      */
     void addCard(Card card){
-	if(card != null)
-        	cards.add(card);
-
+        if(card != null) {
+            cards.add(card);
+        }
     }
 
     /**
@@ -127,30 +130,39 @@ public class Column {
      * @param role
      */
     public void setRole(Role role) {
-        System.out.println("DETECTED ATTEMPT TO SET ROLE TO " + role.toString());
+        // System.out.println("DETECTED ATTEMPT TO SET ROLE TO " + role.toString());
         if (!role.equals(this.role)) {
             String info = String.format("Changed column %s (%s) 's role to %s", this.role, this.id, role);
             this.role = role;
             BoardManager.get().getBoardWriter().append(info);
-            System.out.println("ATTEMPT SUCCEEDED?");
+            // System.out.println("ATTEMPT SUCCEEDED?");
 
         }
     }
 
     /**
-     * Set the id of the column
-     * Ideally should only be done while reading a column from a .json file
-     * This method is package-private.
+     * Set the Board object of the column
+     * Method to be used only inside the package
      * @param board parent
      */
     void setParentBoard(Board board){
         this.parentBoard = board;
     }
+
+
+    /**
+     * Get the Board object of the column
+     * Method to be used only inside the package
+     * @return board that hosts column
+     */
     public Board getParentBoard(){
         return this.parentBoard;
     }
 
-    
+    /**
+     * Delete the column from the parent board
+     * Automatically removes cards as well
+     */
     public void delete(){
         this.parentBoard.removeColumn(this);
         this.parentBoard = null;
