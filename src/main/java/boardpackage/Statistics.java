@@ -72,7 +72,7 @@ public class Statistics {
         LinkedList<Card> completedCards = BoardManager.get().getCurrentBoard().getCardsOf(Role.COMPLETED_WORK);
         for (Card card : completedCards) {
             totalLeadTime +=  (int) DAYS.between(card.getCreationDate(versions), card.getCompletionDate(versions));
-			totalDeliveryRate += 1;	
+			totalDeliveryRate += card.getStoryPoints();	
         }
 		totalDeliveryRate = totalDeliveryRate/ (BoardManager.get().getCurrentBoard().getAge()); // avrage of cards delivered per time unit
 		totalLeadTime = totalLeadTime / completedCards.size(); // avarage time it takes to finish a card
