@@ -16,6 +16,9 @@ public class CardTest{
 		pathWriter = BoardManager.get().getBoardWriter().getPath();
 		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
 		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
+		while(BoardManager.get().getBoards().size()>0){
+			BoardManager.get().getBoards().get(0).delete();
+		}
 		Board board = new Board("");
 		BoardManager.get().setCurrentBoard(board);
 		Column col = new Column("");
@@ -24,7 +27,7 @@ public class CardTest{
 	@After
 	public void tearDown(){
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().getBoardReader().setPath(pathReader);
 		BoardManager.get().getBoardWriter().setPath(pathWriter);

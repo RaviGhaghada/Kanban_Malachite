@@ -15,13 +15,16 @@ public class ColumnTest{
 		pathWriter = BoardManager.get().getBoardWriter().getPath();
 		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
 		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
+		while(BoardManager.get().getBoards().size()>0){
+			BoardManager.get().getBoards().get(0).delete();
+		}
 		Board b = new Board("");
 		BoardManager.get().setCurrentBoard(b);	
 	}
 	@After
 	public void tearDown(){
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().getBoardReader().setPath(pathReader);
 		BoardManager.get().getBoardWriter().setPath(pathWriter);
@@ -70,11 +73,11 @@ public class ColumnTest{
 	@Test
 	public void testMoveCardNull(){
 		Column c = new Column("i1");
-		BoardManager.get().setCurrentColumn(c);	
-		c.moveCard(null,0);
 		assertEquals(0,c.getCards().size());
-		Card card1 = new Card("c1");
-		c.moveCard(null,0);
+		BoardManager.get().setCurrentColumn(c);
+		Card card = new Card("c1");
+		assertEquals(1,c.getCards().size());
+		card.move(null, 0);
 		assertEquals(1,c.getCards().size());
 	}
 	@Test
@@ -83,9 +86,7 @@ public class ColumnTest{
 		BoardManager.get().setCurrentColumn(c);	
 		Card card1 = new Card("c1");
 		Card card2 = new Card("c2");
-		c.addCard(card1);
-		c.addCard(card2);
-		c.moveCard(card1,1);
+		card2.move(c,0);
 		assertEquals("c2",c.getCards().get(0).getTitle());
 		assertEquals("c1",c.getCards().get(1).getTitle());
 	}
@@ -95,26 +96,14 @@ public class ColumnTest{
 		BoardManager.get().setCurrentColumn(c);	
 		Card card1 = new Card("c1");
 		Card card2 = new Card("c2");
-		c.addCard(card1);
-		c.addCard(card2);
-		c.moveCard(card1,10);
+		card1.move(c,10);
 		assertEquals("c1",c.getCards().get(0).getTitle());
 		assertEquals("c2",c.getCards().get(1).getTitle());
-		c.moveCard(card1,-1);
+		card1.move(c,-1);
 		assertEquals("c1",c.getCards().get(0).getTitle());
 		assertEquals("c2",c.getCards().get(1).getTitle());
 	}
-	@Test
-	public void testMoveCardNotIn(){
-		Column c = new Column("i1");
-		BoardManager.get().setCurrentColumn(c);	
-		Card card1 = new Card("c1");
-		Card card2 = new Card("c2");
-		c.removeCard(card2);
-		c.moveCard(card2,0);
-		assertEquals(1,c.getCards().size());
 
-	}
 	@Test
 	public void testGetIDInit(){
 		Column c = new Column("i1");
