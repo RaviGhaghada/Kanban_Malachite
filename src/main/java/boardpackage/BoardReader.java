@@ -22,6 +22,23 @@ class BoardReader{
 
     BoardReader(){
         gson = new Gson();
+        setupFile();
+    }
+
+    private static void setupFile(){
+        try(BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+            if (br.readLine() == null) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("boards", new JSONObject());
+
+                PrintWriter pw = new PrintWriter(filepath);
+                pw.write(jsonObject.toJSONString());
+                pw.flush();
+                pw.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     Board getBoardVersion(String version){
@@ -36,8 +53,8 @@ class BoardReader{
             jo = (JSONObject) jo.get("versions");
             jo  = (JSONObject) jo.get(version);
 
-            String columnsjson = (String) jo.get("columns");
-            LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
+            JSONArray columnsjson = (JSONArray) jo.get("columns");
+            LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>(){}.getType());
 
             return new Board(id, title, columns);
 
@@ -64,31 +81,34 @@ class BoardReader{
         try (FileReader file = new FileReader(filepath)){
             JSONObject jo = (JSONObject) new JSONParser().parse(file);
             JSONObject head = (JSONObject) jo.get("boards");
-            Set<String> allIds = (Set<String>) jo.keySet();
-            for (String id : allIds) {
-                jo = head;
-                jo = (JSONObject) jo.get(id);
-                JSONObject temp = (JSONObject) jo.clone();
-                String title = temp.get("title").toString();
+            if (head.size() != 0) {
+                Set<String> allIds = (Set<String>) head.keySet();
+                for (String id : allIds) {
+                    jo = head;
+                    jo = (JSONObject) jo.get(id);
+                    JSONObject temp = jo;
+                    String title = temp.get("title").toString();
 
-                jo = (JSONObject) jo.get("versions");
-                Set<String> s = jo.keySet();
-                String latestVersion = String.valueOf(s.stream().mapToInt(Integer::parseInt).max().getAsInt());
+                    jo = (JSONObject) jo.get("versions");
+                    Set<String> s = jo.keySet();
+                    String latestVersion = String.valueOf(s.stream().mapToInt(Integer::parseInt).max().getAsInt());
 
-                jo = (JSONObject) jo.get(latestVersion);
-                String columnsjson = (String) jo.get("columns");
+                    jo = (JSONObject) jo.get(latestVersion);
+                    JSONArray columnsjson = (JSONArray) jo.get("columns");
 
-                LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
+                    LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>() {
+                    }.getType());
 
-                Board board = new Board(id, title, columns);
+                    Board board = new Board(id, title, columns);
 
-                for (Column col : board.getColumns()){
-                    for (Card card : board.getAllCards()){
-                        card.setParentColumn(col);
+                    for (Column col : board.getColumns()) {
+                        for (Card card : col.getCards()) {
+                            card.setParentColumn(col);
+                        }
+                        col.setParentBoard(board);
                     }
-                    col.setParentBoard(board);
+                    boards.add(board);
                 }
-                boards.add(board);
             }
 
         } catch (IOException | ParseException e) {
@@ -112,13 +132,13 @@ class BoardReader{
 
             jo  = (JSONObject) jo.get(latestVersion);
 
-            String columnsjson = (String) jo.get("columns");
-            LinkedList<Column> columns = gson.fromJson(columnsjson, new TypeToken<LinkedList<Column>>(){}.getType());
+            JSONArray columnsjson = (JSONArray) jo.get("columns");
+            LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>(){}.getType());
 
             Board board = new Board(id, title, columns);
 
             for (Column col : board.getColumns()){
-                for (Card card : board.getAllCards()){
+                for (Card card : col.getCards()){
                     card.setParentColumn(col);
                 }
                 col.setParentBoard(board);
@@ -234,6 +254,8 @@ class BoardReader{
 	*/
 	static void setPath(String path){
 		filepath = path;
+		setupFile();
+
 	}
 	/**
 	*	for testing perpuses
@@ -242,27 +264,5 @@ class BoardReader{
 		return filepath;
 	}
 
-    LocalDateTime getCardCreationDate(String id) {
-        try (FileReader fileReader = new FileReader(filepath)){
-            JSONObject jo = (JSONObject) new JSONParser().parse(fileReader);
-            jo = (JSONObject) jo.get("boards");
-            jo = (JSONObject) jo.get(BoardManager.get().getCurrentBoard().getId());
-            jo = (JSONObject) jo.get("versions");
-            Set<String> vkeys = jo.keySet();
-            for (String vno : vkeys){
-                JSONObject version = (JSONObject) jo.get(vno);
-                String info = (String) version.get("info");
-                Pattern p = Pattern.compile("Added new card \\w+ \\("+ id + "\\) to \\w+");
-                Matcher m = p.matcher(info);
-                if (m.find()){
-                    String datetime = (String) version.get("date");
-                    return LocalDateTime.parse(datetime);
-                }
-            }
-        } catch (ParseException | IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 }

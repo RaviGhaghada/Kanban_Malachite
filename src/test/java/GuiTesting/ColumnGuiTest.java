@@ -30,7 +30,7 @@ public class ColumnGuiTest extends ApplicationTest{
 		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
 		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().populate();
 		BoardManager.get().setCurrentColumn(null);
@@ -50,7 +50,7 @@ public class ColumnGuiTest extends ApplicationTest{
    		release(new KeyCode[]{});
    		release(new MouseButton[]{});
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().setCurrentBoard(null);
 		BoardManager.get().setCurrentColumn(null);
@@ -65,9 +65,9 @@ public class ColumnGuiTest extends ApplicationTest{
 		moveTo("Backlog").clickOn("#titleText");
 		assertEquals("Backlog",BoardManager.get().getCurrentBoard().getColumns().get(0).getTitle());
 		write("123");
-		verifyThat(lookup("#titleText"),hasText("123"));
+		verifyThat(lookup("#titleText"),hasText("Backlog123"));
 		clickOn("#melloPane");
-		assertEquals("123",BoardManager.get().getCurrentBoard().getColumns().get(0).getTitle());
+		assertEquals("Backlog123",BoardManager.get().getCurrentBoard().getColumns().get(0).getTitle());
 		clickOn("#backButton");
 		
 	}

@@ -48,6 +48,7 @@ public class StatisticsController {
     public Label statResult1, statResult2, statResult3;
 
     public int days = BoardManager.get().getCurrentBoard().getAge(); // days since the board was created
+    public static int versions = Statistics.getNumVersions();
 
     /**
      * Initialises the statistics pane,
@@ -69,7 +70,7 @@ public class StatisticsController {
         velocityStatistics = new HashMap<>(); // initialise HashMap.
         leadTimeStatistics = new HashMap<>(); // initialise HashMap.
         wipStatistics = new HashMap<>(); // initialise HashMap.
-        for (int i =0; i <= days; i++) {
+        for (int i =0; i <= versions; i++) {
             velocityStatistics.put(i, Statistics.getDailyVelocity(i));
             leadTimeStatistics.put(i, Statistics.getDailyLeadTime(i));
             wipStatistics.put(i, Statistics.getDailyWIP(i));

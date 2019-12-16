@@ -29,20 +29,29 @@ import java.io.IOException;
  * This class represents each column on the board.
  * Users can manage columns with actions such as creating, renaming, deleting,
  * assigning roles and adding cards.
+
  *
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
  */
+
 public class ColumnController {
 
+    //The VBox for each column with column functionality
     @FXML
     private ColumnWrapper columnVbox;
+    //the textfield for the title of the column
     @FXML
+
     private TextField titleText; // Holds the title of the column
+    
+    //the VBox which we can add the small cards to it.
     @FXML
     private VBox cardContainer;
+    //the scroll pane inside cardContainer to be able to scroll through cards.
     @FXML
     private ScrollPane scrollPane;
+    //the choice box in the header of each column which is for choosing the role of each column.
     @FXML
     private ChoiceBox<String> colRole; // Dropdown for Column Roles
 
@@ -53,6 +62,7 @@ public class ColumnController {
      */
     @FXML
     public void initialize(){
+
 
         Column column = BoardManager.get().getCurrentColumn();
         columnVbox.setColumn(column);
@@ -65,18 +75,29 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                setDragCardProperties(cardBox);
+                setDragCardProperties(cardBox);  //add the drag and drop functionality to the existing card.
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         BoardManager.get().setCurrentCard(null);
 
+        titleText.setText(column.getTitle());
+
         // Updates the column object to notify about
         titleText.focusedProperty().addListener((arg0, oldPropertyValue, newPropertyValue) -> {
-            if (!newPropertyValue)
-                columnVbox.getColumn().setTitle(titleText.getText());
+            if (!newPropertyValue) {
+                if (!titleText.getText().equals("")){
+                    columnVbox.getColumn().setTitle(titleText.getText());
+                }
+                else {
+                    titleText.setText(columnVbox.getColumn().getTitle());
+                }
+            }
         });
+
+        setDragCardOnColumnProperties();
+
 
         loadDataChoiceBox();
     }
@@ -89,8 +110,7 @@ public class ColumnController {
         BoardManager.get().setCurrentColumn(columnVbox.getColumn());
 
         BoardManager.get().setCurrentCard(null);
-
-
+        //open a window and ask for the new card's title .
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/newtitle.fxml"));
 
         try {
@@ -107,7 +127,7 @@ public class ColumnController {
                 loader.setLocation(getClass().getResource("/fxml/card.fxml"));
                 CardWrapper cardBox = loader.load();
                 cardContainer.getChildren().add(cardBox);
-                //setDragCardProperties(cardBox);
+                setDragCardProperties(cardBox);
                 BoardManager.get().setCurrentCard(null);
 
                 Platform.runLater(() -> {
@@ -138,6 +158,9 @@ public class ColumnController {
 
     /**
      * Loads all roles into the dropdown box.
+     * Allows the user to choose a role for each column
+     * and store it.
+
      */
     private void loadDataChoiceBox(){
         ObservableList<String> availableChoices = FXCollections.observableArrayList();
@@ -149,7 +172,7 @@ public class ColumnController {
         colRole.setValue(columnVbox.getColumn().getRole().toString());
 
         colRole.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            columnVbox.getColumn().setRole(Role.fromString(colRole.getSelectionModel().getSelectedItem()));
+            columnVbox.getColumn().setRole(Role.fromString(colRole.getItems().get((Integer)newValue)));
         });
     }
 
@@ -158,53 +181,87 @@ public class ColumnController {
      * @param cardWrapper
      */
     public void setDragCardProperties(CardWrapper cardWrapper) {
-            VBox mainVBox = (VBox) cardWrapper.getChildren().get(0);
+        VBox mainVBox = (VBox) cardWrapper.getChildren().get(0);
 
-            // the blue stripe
-            VBox cardhead = (VBox) mainVBox.getChildren().get(0);
+        // the blue stripe
+        VBox cardhead = (VBox) mainVBox.getChildren().get(0);
 
-            // source
-            cardhead.setOnDragDetected(event -> {
-                Dragboard db = cardWrapper.startDragAndDrop(TransferMode.ANY);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(cardWrapper.toString());
-                db.setContent(content);
-                SnapshotParameters snapShot = new SnapshotParameters();
-                snapShot.setTransform(Transform.scale(0.4,0.3));
-                db.setDragView(cardWrapper.snapshot(snapShot, null));
+        // source(where we drag it)
+        cardhead.setOnDragDetected(event -> {
+            Dragboard db = cardWrapper.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(cardWrapper.toString());
+            db.setContent(content);
+            SnapshotParameters snapShot = new SnapshotParameters();
+            snapShot.setTransform(Transform.scale(0.4,0.3));
+            db.setDragView(cardWrapper.snapshot(snapShot, null));
+            event.consume();
+        });
+
+        // target
+        cardhead.setOnDragOver(event -> {
+            if (event.getGestureSource() instanceof CardWrapper && event.getGestureSource() != cardWrapper && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 event.consume();
-            });
+            }
 
-            // target
-            cardhead.setOnDragOver(event -> {
-                //if (event.;)
-                if (event.getGestureSource() instanceof CardWrapper && event.getGestureSource() != cardWrapper && event.getDragboard().hasString()) {
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                    event.consume();
+        });
+
+        // target(where we wanna drop it)
+        cardhead.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                int indexForInsertion = cardContainer.getChildren().indexOf(cardWrapper);
+                indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
+                CardWrapper cardW = (CardWrapper) event.getGestureSource();
+                // if it's the same column
+                if (cardContainer.getChildren().contains(cardW)){
+                    cardContainer.getChildren().remove(cardW);
                 }
+                cardContainer.getChildren().add(cardW);
+                cardW.getCard().move(columnVbox.getColumn(), indexForInsertion);
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    }
 
-            });
-
-            // target
-            cardhead.setOnDragDropped(event -> {
-                Dragboard db = event.getDragboard();
-                boolean success = false;
-                if (db.hasString()) {
-                    int indexForInsertion = cardContainer.getChildren().indexOf(cardWrapper);
-                    indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
-                    CardWrapper cardW = (CardWrapper) event.getGestureSource();
-                    // if it's the same column
-                    if (cardContainer.getChildren().contains(cardW)){
-                        cardContainer.getChildren().remove(cardW);
-                    }
-                    cardContainer.getChildren().add(indexForInsertion, cardW);
-                    success = true;
-                }
-                event.setDropCompleted(success);
+    private void setDragCardOnColumnProperties() {
+        // target
+        cardContainer.setOnDragOver(event -> {
+            System.out.println(columnVbox.getColumn().getTitle());
+            if (event.getGestureSource() instanceof CardWrapper && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 event.consume();
-            });
+                System.out.println("ACCEPTED!");
+            }
+            else {
+                System.out.println("REJECTED :(");
+            }
+        });
 
+        // target(where we wanna drop it)
+        cardContainer.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
 
+                CardWrapper cardW = (CardWrapper) event.getGestureSource();
+                // if it's the same column
+                if (cardContainer.getChildren().contains(cardW)){
+                    cardContainer.getChildren().remove(cardW);
+                }
+                int indexForInsertion = cardContainer.getChildren().size();
+                indexForInsertion = (indexForInsertion>=0)? indexForInsertion : 0;
+                cardContainer.getChildren().add(cardW);
+                cardW.getCard().move(columnVbox.getColumn(), indexForInsertion);
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
     }
 }
 

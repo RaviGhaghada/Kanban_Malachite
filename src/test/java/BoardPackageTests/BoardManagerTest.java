@@ -15,11 +15,14 @@ public class BoardManagerTest{
 		pathWriter = BoardManager.get().getBoardWriter().getPath();
 		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
 		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
+		while(BoardManager.get().getBoards().size()>0){
+			BoardManager.get().getBoards().get(0).delete();
+		}
 	}
 	@After
 	public void tearDown(){
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().getBoardReader().setPath(pathReader);
 		BoardManager.get().getBoardWriter().setPath(pathWriter);
@@ -27,14 +30,12 @@ public class BoardManagerTest{
 	@Test
 	public void testAddRemoveBoard(){
 		Board b = new Board("");
-		BoardManager.get().addBoard(b);
 		assertEquals(true,BoardManager.get().getBoards().contains(b));
-		BoardManager.get().removeBoard(b);
+		b.delete();
 		assertEquals(false,BoardManager.get().getBoards().contains(b));
 		int size = BoardManager.get().getBoards().size();
-		BoardManager.get().addBoard(null);
 		assertEquals(size,BoardManager.get().getBoards().size());
-		BoardManager.get().removeBoard(b);
+		b.delete();
 		assertEquals(false,BoardManager.get().getBoards().contains(b));
 		assertEquals(size,BoardManager.get().getBoards().size());
 	}

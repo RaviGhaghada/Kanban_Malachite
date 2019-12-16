@@ -2,8 +2,11 @@ package boardpackage;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -68,8 +71,8 @@ public class Card {
     public void setTitle(String title) {
         if (!("".equals(title) || Objects.equals(this.title, title))){
             String info = String.format("Changed card %s (%s) 's title to %s", this.getTitle(), this.getId(), title);
-            BoardManager.get().getBoardWriter().append(info);
             this.title = title;
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 
@@ -79,8 +82,8 @@ public class Card {
      */
     public void setText(String text){
         if (!Objects.equals(text, this.text)){
-            this.text = text;
             String info = String.format("Changed card %s (%s) 's description to %s", this.getText(), this.getId(), text);
+            this.text = text;
             BoardManager.get().getBoardWriter().append(info);
         }
     }
@@ -108,7 +111,10 @@ public class Card {
      */
     public void setStoryPoints(int storypoints) {
         if (!Objects.equals(this.storypoints,storypoints)){
+            String info = String.format("Changed card %s (%s) 's storypoints from %s to %s",
+                    title, id, this.storypoints, storypoints);
             this.storypoints = storypoints;
+            BoardManager.get().getBoardWriter().append(info);
         }
     }
 
@@ -159,15 +165,53 @@ public class Card {
     }
 
     /**
-     * The number of days it takes for a card to move from being created
-     * to completed.
-     * @return
+     * Move a card
+     * @param col destination column
+     * @param index index within the column
      */
-    int getAge(){
-        LocalDate creationDate  = BoardManager.get().getBoardReader().getCardCreationDate(id).toLocalDate();
-        LocalDate today = LocalDate.now();
-        int days = (int) DAYS.between(creationDate, today);
-        return days;
+    public void move(Column col, int index) {
+        if (col != null) {
+            if (index >= 0 && index < col.getCards().size()) {
+                parentColumn.removeCard(this);
+                parentColumn = col;
+                parentColumn.getCards().add(index, this);
+
+                String info = String.format("Moved card %s (%s) to column %s (%s) at index %s", title, id, col.getTitle(), col.getId(), index);
+                BoardManager.get().getBoardWriter().append(info);
+            }
+        }
+    }
+
+    /**
+     * The date when this card was put into completed
+     */
+    public LocalDate getCompletionDate() {
+        if (parentColumn.getRole().equals(Role.COMPLETED_WORK)) {
+            ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
+
+            for (String[] version : versions) {
+                Pattern p = Pattern.compile("Moved card \\w+ \\(" + id + "\\) to column \\w+ \\(" + parentColumn.getId() + "\\) \\w+");
+                Matcher m = p.matcher(version[2]);
+                if (m.find()) {
+                    LocalDateTime ldt = LocalDateTime.parse(version[1]);
+                    return LocalDate.from(ldt);
+                }
+            }
+        }
+        return null;
+    }
+
+    public LocalDate getCreationDate(){
+        ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
+
+        for (String[] version : versions){
+            Pattern p = Pattern.compile("Added new card \\w+ \\("+ id + "\\) to \\w+");
+            Matcher m = p.matcher(version[2]);
+            if (m.find()){
+                return LocalDate.from(LocalDateTime.parse(version[1]));
+            }
+        }
+        return null;
     }
 }
 

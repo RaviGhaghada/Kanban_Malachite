@@ -32,7 +32,7 @@ public class BoardGuiTest extends ApplicationTest{
 		BoardManager.get().getBoardReader().setPath("./src/test/resources/test.json");
 		BoardManager.get().getBoardWriter().setPath("./src/test/resources/test.json");
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().populate();
 		BoardManager.get().setCurrentColumn(null);
@@ -48,7 +48,7 @@ public class BoardGuiTest extends ApplicationTest{
    		release(new KeyCode[]{});
    		release(new MouseButton[]{});
 		while(BoardManager.get().getBoards().size()>0){
-			BoardManager.get().removeBoard(BoardManager.get().getBoards().get(0));
+			BoardManager.get().getBoards().get(0).delete();
 		}
 		BoardManager.get().setCurrentBoard(null);
 		BoardManager.get().setCurrentColumn(null);

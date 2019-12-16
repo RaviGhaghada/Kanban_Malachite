@@ -227,6 +227,7 @@ public class BoardController {
                     columnContainer.getChildren().remove(colW);
                 }
                 columnContainer.getChildren().add(indexForInsertion, colW);
+                board.moveColumn(colW.getColumn(), indexForInsertion);
                 success = true;
             }
             event.setDropCompleted(success);
