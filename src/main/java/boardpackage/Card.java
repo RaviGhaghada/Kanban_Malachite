@@ -190,9 +190,8 @@ public class Card {
      * The date when this card was put into completed role column
      * @return Date of completion
      */
-    public LocalDate getCompletionDate() {
+    LocalDate getCompletionDate(ArrayList<String[]> versions) {
         if (parentColumn.getRole().equals(Role.COMPLETED_WORK)) {
-            ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
 
             for (String[] version : versions) {
                 Pattern p = Pattern.compile("Moved card [\\w ]+ \\(" + id + "\\) to [\\w ]+ \\(" + parentColumn.getId() + "\\) [\\w ]+");
@@ -203,16 +202,14 @@ public class Card {
                 }
             }
         }
-        return null;
+        return LocalDate.now();
     }
 
     /**
      * The date when this card was created by the user
      * @return Date of creation
      */
-    public LocalDate getCreationDate(){
-        ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
-
+    LocalDate getCreationDate(ArrayList<String[]> versions){
         for (String[] version : versions){
             Pattern p = Pattern.compile("Added new card [\\w ]+ \\("+ id + "\\) to [\\w ]+");
             Matcher m = p.matcher(version[2]);
@@ -220,7 +217,7 @@ public class Card {
                 return LocalDate.from(LocalDateTime.parse(version[1]));
             }
         }
-        return null;
+        return LocalDate.now();
     }
 }
 

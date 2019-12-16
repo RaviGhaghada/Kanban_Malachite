@@ -168,9 +168,7 @@ public class Board{
      * Calculates the number of cards completed each day.
      * @return
      */
-    public double getDeliveryRate(){
-        ArrayList<String[]> allVersionsMeta = BoardManager.get().getBoardReader().getAllVersionsMeta();
-        allVersionsMeta.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
+     double getDeliveryRate(ArrayList<String[]> allVersionsMeta){
 
         TreeMap<String, LinkedList<Card>> map = new TreeMap<>();
         for (String[] versionmeta: allVersionsMeta){
@@ -196,6 +194,7 @@ public class Board{
     public int getAge(){
         ArrayList<String[]> versions = BoardManager.get().getAllBoardVersionsMeta();
         LocalDateTime creation = LocalDateTime.parse(versions.stream().min(Comparator.comparingInt(e -> Integer.parseInt(e[0]))).get()[1]);
-        return (int) DAYS.between(creation, LocalDateTime.now());
+        int x = (int) DAYS.between(creation, LocalDateTime.now());
+        return (x>0)? x : 1;
     }
 }

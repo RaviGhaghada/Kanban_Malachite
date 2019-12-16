@@ -72,7 +72,16 @@ class BoardReader{
             JSONArray columnsjson = (JSONArray) jo.get("columns");
             LinkedList<Column> columns = gson.fromJson(columnsjson.toJSONString(), new TypeToken<LinkedList<Column>>(){}.getType());
 
-            return new Board(id, title, columns);
+            Board board = new Board(id, title, columns);
+
+            for (Column col : board.getColumns()) {
+                for (Card card : col.getCards()) {
+                    card.setParentColumn(col);
+                }
+                col.setParentBoard(board);
+            }
+
+            return board;
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
@@ -290,6 +299,9 @@ class BoardReader{
             }
         } catch (ParseException | IOException e) {
             e.printStackTrace();
+        }
+        if (versions.size() > 1){
+            versions.sort(Comparator.comparingInt(o -> Integer.parseInt(o[0])));
         }
         return versions;
     }

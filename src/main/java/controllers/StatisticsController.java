@@ -8,8 +8,10 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.stage.Stage;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class StatisticsController {
 
@@ -39,7 +41,7 @@ public class StatisticsController {
     public Label statResult1, statResult2, statResult3;
 
     public int days = BoardManager.get().getCurrentBoard().getAge(); // days since the board was created
-    public static int versions = Statistics.getNumVersions();
+    public static int versions = Statistics.get().getNumVersions();
 
     /**
      * Initialises the statistics pane,
@@ -49,6 +51,7 @@ public class StatisticsController {
     @FXML
     public void initialize() {
         //messageBox.setText("Statistics for Your Board");
+        Statistics.get().reload();
         populateStatistics();
         populateStatsFields();
         populateGraphs();
@@ -61,11 +64,48 @@ public class StatisticsController {
         velocityStatistics = new HashMap<>(); // initialise HashMap.
         leadTimeStatistics = new HashMap<>(); // initialise HashMap.
         wipStatistics = new HashMap<>(); // initialise HashMap.
-        for (int i =0; i <= versions; i++) {
-            velocityStatistics.put(i, Statistics.getDailyVelocity(i));
-            leadTimeStatistics.put(i, Statistics.getDailyLeadTime(i));
-            wipStatistics.put(i, Statistics.getDailyWIP(i));
+
+        LinkedList<Thread> threads = new LinkedList<>();
+
+        threads.add(new Thread (() -> {
+            try {
+                for (int i = 0; i <= versions; i++) {
+                    velocityStatistics.put(i, Statistics.get().getDailyVelocity(i));
+                }
+            } catch (Exception e){
+
+            }
+        }));
+
+        threads.add(new Thread (() -> {
+            try {
+                for (int i =0; i <= versions; i++) {
+                    leadTimeStatistics.put(i, Statistics.get().getDailyLeadTime(i));
+                }
+            } catch (Exception e){}
+        }));
+
+        threads.add(new Thread (() -> {
+            try {
+                for (int i = 0; i <= versions; i++) {
+                    wipStatistics.put(i, Statistics.get().getDailyWIP(i));
+                }
+            } catch (Exception e){}
+        }));
+
+        for (int i=0; i < threads.size(); i++){
+            threads.get(i).setDaemon(true);
+            threads.get(i).start();
         }
+
+        for (int i=0; i < threads.size(); i++){
+            try {
+                threads.get(i).join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
@@ -73,13 +113,13 @@ public class StatisticsController {
      */
     public void populateStatsFields() {
         statLabel1.setText("Overall Velocity: ");
-        statResult1.setText(Statistics.calculateVelocity()+"");
+        statResult1.setText(Statistics.get().calculateVelocity()+"");
 
         statLabel2.setText("Average Lead Time: ");
-        statResult2.setText(Statistics.calculateAvgLeadTime()+"");
+        statResult2.setText(Statistics.get().calculateAvgLeadTime()+"");
 
         statLabel3.setText("Work in Progress: ");
-        statResult3.setText(Statistics.calculateWIP()+"");
+        statResult3.setText(Statistics.get().calculateWIP()+"");
     }
 
 
