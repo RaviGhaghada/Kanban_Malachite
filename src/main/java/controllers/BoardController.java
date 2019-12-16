@@ -36,9 +36,10 @@ import java.util.ArrayList;
 
 
 /**
- * Controller for Board manager.
- * this class is the main board which contains all of the columns and their cards
- * it allows the user to insert the columns to a board and remove them . and see the statistics of the board .
+ * Controller for the Mello Board.
+ * This class is the main board which contains all of the columns and their cards
+ * it allows the user to insert the columns to a board and remove them.
+ * The user can also view the statistics and the log of the board.
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
  */

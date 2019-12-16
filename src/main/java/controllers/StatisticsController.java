@@ -11,6 +11,15 @@ import javafx.scene.chart.CategoryAxis;
 
 import java.util.HashMap;
 
+/**
+ * Controller for the Mello Statistics Popup.
+ * Allows users to view all stored Kanban statistics associated with the current board.
+ * The statistics are: Overall Velocity, Average Lead Time and Work In Progress.
+ * Corresponding time graphs are also generated.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 public class StatisticsController {
 
     // Holders for statistics

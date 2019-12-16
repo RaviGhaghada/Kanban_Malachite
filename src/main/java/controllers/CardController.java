@@ -16,10 +16,10 @@ import wrappers.CardWrapper;
 import java.io.IOException;
 
 /**
- * Controller for cards.
- * this class represent the small cards in each column .
- * and by pressing on the a new pop up window will open which
- * is the card itself with all of it's elements .
+ * Controller for Mello Cards.
+ * This class represents the small cards in each column.
+ * By pressing on the a new pop up window will open which
+ * is the card itself with all of it's elements.
  *
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
@@ -81,7 +81,7 @@ public class CardController {
     /**
      * as the delete button of the pop up card is pressed
      * the card in the column will be deleted with all of it's
-     * fucntionality .
+     * functionality .
      */
     public void removeCardBtnAction(){
         smallCardHbox.getCard().delete();
@@ -90,8 +90,8 @@ public class CardController {
     }
 
     /**
-     * display the title of the card as the text of the small card
-     * in the colmn in each card.
+     * Display the title of the card as the text of the small card
+     * in the column in each card.
      */
     public void refresh(){
         cardDisplayText.setText(smallCardHbox.getCard().getTitle());

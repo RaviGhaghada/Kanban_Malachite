@@ -24,22 +24,33 @@ import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
 import java.io.IOException;
 
-
+/**
+ * Controller for Mello Columns.
+ * This class represents each column on the board.
+ * Users can manage columns with actions such as creating, renaming, deleting,
+ * assigning roles and adding cards.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 public class ColumnController {
 
     @FXML
     private ColumnWrapper columnVbox;
     @FXML
-    private TextField titleText;
+    private TextField titleText; // Holds the title of the column
     @FXML
     private VBox cardContainer;
     @FXML
     private ScrollPane scrollPane;
     @FXML
-    private ChoiceBox<String> colRole;
+    private ChoiceBox<String> colRole; // Dropdown for Column Roles
 
 
 
+    /**
+     * Initializes the current column and adds it to its Vbox.
+     */
     @FXML
     public void initialize(){
 
@@ -70,6 +81,9 @@ public class ColumnController {
         loadDataChoiceBox();
     }
 
+    /**
+     * Enables user to add a card to the column.
+     */
     @FXML
     public void addCardAction() {
         BoardManager.get().setCurrentColumn(columnVbox.getColumn());
@@ -106,16 +120,25 @@ public class ColumnController {
         }
     }
 
+    /**
+     * Enables user to delete the column from the board.
+     */
     @FXML
     public void removeColumnAction(){
         columnVbox.getColumn().delete();
         ((HBox)columnVbox.getParent()).getChildren().remove(columnVbox);
     }
 
+    /**
+     * Resets the title to the original title stored for the column.
+     */
     public void refresh(){
         titleText.setText(columnVbox.getColumn().getTitle());
     }
 
+    /**
+     * Loads all roles into the dropdown box.
+     */
     private void loadDataChoiceBox(){
         ObservableList<String> availableChoices = FXCollections.observableArrayList();
         availableChoices.removeAll(availableChoices);
@@ -130,6 +153,10 @@ public class ColumnController {
         });
     }
 
+    /**
+     * Enables the drag and drop function of the cards within the column and into other columns.
+     * @param cardWrapper
+     */
     public void setDragCardProperties(CardWrapper cardWrapper) {
             VBox mainVBox = (VBox) cardWrapper.getChildren().get(0);
 
