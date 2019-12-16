@@ -112,14 +112,14 @@ public class StatisticsController {
      * Loads calculated statistics into labels to be displayed.
      */
     public void populateStatsFields() {
-        statLabel1.setText("Overall Velocity: ");
-        statResult1.setText(Statistics.get().calculateVelocity()+"");
+        statLabel1.setText("Overall Velocity : ");
+        statResult1.setText(Statistics.get().calculateVelocity()+ " story points / week");
 
         statLabel2.setText("Average Lead Time: ");
-        statResult2.setText(Statistics.get().calculateAvgLeadTime()+"");
+        statResult2.setText(Statistics.get().calculateAvgLeadTime()+" weeks");
 
-        statLabel3.setText("Work in Progress: ");
-        statResult3.setText(Statistics.get().calculateWIP()+"");
+        statLabel3.setText("Average Work in Progress: ");
+        statResult3.setText(Statistics.get().calculateWIP()+ " story points");
     }
 
 

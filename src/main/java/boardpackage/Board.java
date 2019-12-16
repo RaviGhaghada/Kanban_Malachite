@@ -184,7 +184,7 @@ public class Board{
             map.put(key, cards.stream().filter(card -> allCards.add(card)).collect(Collectors.toCollection(LinkedList::new)));
         }
 
-        return map.values().stream().mapToInt(list -> list.size()).average().orElse(0);
+        return map.values().stream().mapToInt(list -> list.stream().mapToInt(c -> c.getStoryPoints()).sum()).average().orElse(0);
     }
 
     /**
