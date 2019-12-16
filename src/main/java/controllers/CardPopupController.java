@@ -54,7 +54,14 @@ public class CardPopupController {
      */
     @FXML
     public void saveAndCloseAction(ActionEvent event){
-        if (cardTitle.getText().length() > 0 && storypoints.getText().matches("\\d+")) {
+        String message = "";
+        if (cardTitle.getText().length() <= 0){
+            message = message + "Cannot give the board a blank title!";
+        }
+        if (!storypoints.getText().matches("\\d+")){
+            message = message + "\nStory points must be a non-negative integer!";
+        }
+        if (message.equals("")) {
             card.setTitle(cardTitle.getText());
             card.setText(cardDescription.getText());
             card.setStoryPoints(Integer.parseInt(storypoints.getText()));
@@ -66,7 +73,7 @@ public class CardPopupController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/errorpopup.fxml"));
                 // Create a controller instance
-                ErrorPopupController controller = new ErrorPopupController("Cannot give the board a blank title!");
+                ErrorPopupController controller = new ErrorPopupController(message);
                 // Set it in the FXMLLoader
                 loader.setController(controller);
 
