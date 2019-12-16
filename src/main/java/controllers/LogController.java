@@ -27,6 +27,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Controller for the Mello Log Popup.
+ * Allows users to view all stored versions of the current board
+ * and the changes and dates associated with those versions.
+ *
+ * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
+ * @Version December 2019
+ */
 public class LogController {
 
     @FXML

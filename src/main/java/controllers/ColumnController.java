@@ -23,11 +23,13 @@ import javafx.stage.Stage;
 import wrappers.CardWrapper;
 import wrappers.ColumnWrapper;
 import java.io.IOException;
+
 /**
- * Controller for Columns.
- * Display the current created column . with some functionality to be able to add cards and remove them
- * and give a title for each column . also the user is able to drag each column from it's head
- * and drop it on another column in order to move it .
+ * Controller for Mello Columns.
+ * This class represents each column on the board.
+ * Users can manage columns with actions such as creating, renaming, deleting,
+ * assigning roles and adding cards.
+
  *
  * @Author Mariam Ahmed, Ravi Ghaghada, Manvi Jain, Roozhina (Rojina) Nejad, and Marek Grzesiuk
  * @Version December 2019
@@ -40,7 +42,9 @@ public class ColumnController {
     private ColumnWrapper columnVbox;
     //the textfield for the title of the column
     @FXML
-    private TextField titleText;
+
+    private TextField titleText; // Holds the title of the column
+    
     //the VBox which we can add the small cards to it.
     @FXML
     private VBox cardContainer;
@@ -49,11 +53,12 @@ public class ColumnController {
     private ScrollPane scrollPane;
     //the choice box in the header of each column which is for choosing the role of each column.
     @FXML
-    private ChoiceBox<String> colRole;
+    private ChoiceBox<String> colRole; // Dropdown for Column Roles
+
 
 
     /**
-     * initialize the Column and add card to it .
+     * Initializes the current column and adds it to its Vbox.
      */
     @FXML
     public void initialize(){
@@ -98,8 +103,7 @@ public class ColumnController {
     }
 
     /**
-     * allow the user to add card inside the desire column by clicking the add card button
-     * (the plus icon in column)
+     * Enables user to add a card to the column.
      */
     @FXML
     public void addCardAction() {
@@ -137,8 +141,7 @@ public class ColumnController {
     }
 
     /**
-     * remove the column and all of it's data from the board after pressing
-     * the delete column .
+     * Enables user to delete the column from the board.
      */
     @FXML
     public void removeColumnAction(){
@@ -146,14 +149,18 @@ public class ColumnController {
         ((HBox)columnVbox.getParent()).getChildren().remove(columnVbox);
     }
 
+    /**
+     * Resets the title to the original title stored for the column.
+     */
     public void refresh(){
         titleText.setText(columnVbox.getColumn().getTitle());
     }
 
     /**
-     * initialize the options in the choice box of each column
-     * and allow the user to choose a role for each column
+     * Loads all roles into the dropdown box.
+     * Allows the user to choose a role for each column
      * and store it.
+
      */
     private void loadDataChoiceBox(){
         ObservableList<String> availableChoices = FXCollections.observableArrayList();
@@ -170,11 +177,8 @@ public class ColumnController {
     }
 
     /**
-     * allow to user to drag the columns and drop them.
-     * the user should drag the card from the header where it's a drag icon and
-     * drop it on the head of the desired column ,
-     * @param cardWrapper the column the user select to drag
-     *
+     * Enables the drag and drop function of the cards within the column and into other columns.
+     * @param cardWrapper
      */
     public void setDragCardProperties(CardWrapper cardWrapper) {
         VBox mainVBox = (VBox) cardWrapper.getChildren().get(0);

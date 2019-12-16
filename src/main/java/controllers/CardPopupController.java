@@ -13,9 +13,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * This is a class fro creating the cards as we click on the small cards located in each column .
- * User can type the content of the card in it and save them in the cards .
- * Also user can delete the card from the columns using this class .
+ * This is a class fro creating the cards as we click on the small cards located in each column.
+ * User can type the content of the card in it and save them in the cards.
+ * Also user can delete the card from the columns using this class.
  *
  */
 
