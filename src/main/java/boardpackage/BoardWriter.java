@@ -171,5 +171,5 @@ class BoardWriter{
 	static String getPath(){
 		return filepath;
 	}
-	
+
 }
