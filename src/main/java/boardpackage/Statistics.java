@@ -73,7 +73,7 @@ public class Statistics {
         for (Card card : completedCards) {
             totalLeadTime +=  (int) DAYS.between(card.getCreationDate(versions), card.getCompletionDate(versions));
         }
-        return totalDeliveryRate / totalLeadTime; // replaced * with /
+        return totalDeliveryRate * totalLeadTime;
     }
 
     /**
